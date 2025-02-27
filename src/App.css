@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+    --font-outfit: "Outfit", "serif";
+    --font-poppins: "Poppins", "sans-serif";
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+*::selection{
+    background: #a9ffb6;
+    color: green;
+}
