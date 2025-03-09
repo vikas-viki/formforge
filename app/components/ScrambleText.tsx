@@ -6,7 +6,7 @@ import { useMemo } from "react";
 // text: the text to scramble
 // speed: the speed of the scramble
 
-const ScrambleText = ({ text, delay = 0, speed, reverse }: { text: string, delay: number, speed: number, reverse: boolean }) => {
+const ScrambleText = ({ text, delay = 0, speed = 50, reverse = false }: { text: string, delay?: number, speed?: number, reverse?: boolean }) => {
     const chars = "QmZ3T8fP5oY7aLgR1WdCbXvsKJq0n4V9hMDy2kA6HNxUBOEtlcGpFjSwzi";
     const [scrambled, setScrambled] = useState(delay > 0 ? chars.slice(0, text.length) : text);
 
