@@ -13,3 +13,7 @@
 * {
   font-family: var(--font-outfit);
 }
+
+.workings_svg {
+  background: radial-gradient(circle at bottom right, rgba(127, 234, 173, 0.877) 1%, rgba(220, 252, 231, 1) 70%);
+}

@@ -13,7 +13,7 @@ export const Forms = () => {
             {/* polygon(top-left, top-right, bottom-right, bottom-left) */}
             {/* <div className="absolute w-full h-[100px] bg-green-500 top-[-60px]" style={{ clipPath: "polygon(0 60%, 100% 0%, 100% 100%, 0 100%)" }}></div> */}
 
-            <div className="w-full h-full flex flex-col justify-center items-center bg-green-500 md:p-20 p-10">
+            <div className="w-full h-full flex flex-col justify-center items-center  md:p-20 p-10">
                 <span className="font-outfit text-[35px] font-bold text-slate-900 text-center" data-aos="fade-up">Requests you can submit</span>
                 <div className="w-full h-full flex justify-center items-center gap-16 py-16 flex-wrap">
                     {applications.map((application, index) => (
