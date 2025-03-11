@@ -2,6 +2,8 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import ScrambleText from "./ScrambleText";
 
+// a thrown paint spread behiend hero image.
+
 const Hero = () => {
     return (
         <>

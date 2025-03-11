@@ -24,7 +24,7 @@ export const Forms = () => {
                             </div>
                         </div>
                     ))}
-                    
+
                 </div>
             </div>
         </div>
