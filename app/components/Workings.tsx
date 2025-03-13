@@ -5,9 +5,10 @@ import { useRef } from "react";
 
 const Working = () => {
     // use motion path
+    // connect all svg lines (somehow)
     const cardTitle = "font-outfit lg:text-[24px] text-[22px] font-semibold text-slate-900 mb-2 flex justify-start items-center gap-2";
     const cardDescription = "font-outfit lg:text-[22px] text-[20px] flex flex-col w-full";
-    const cardClass = "max-w-[500px] xl:h-[300px] h-full w-full p-8 rounded-[10px] bg-white/80 shadow-lg overflow-hidden relative workings_svg";
+    const cardClass = "max-w-[500px] xl:h-[300px] h-full w-full p-8 rounded-[10px] bg-white/80 shadow-lg overflow-hidden relative workings_svg ";
     const svgStyles = "text-green-800 stroke-[1.5] self-end absolute bottom-[0px] opacity-[0.35] w-[45%] h-[70%]";
 
 
@@ -38,7 +39,7 @@ const Working = () => {
                         </p>
                     </div>
                     <div data-aos="fade-up" className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block relative">
-                        <svg width="500" height="400" viewBox="0 0 500 300">
+                        <svg width="500" height="400" viewBox="0 0 500 300" className="absolute">
                             <path
                                 d="M0 70 Q 450 -40, 350 400"
                                 fill="none"
@@ -61,8 +62,8 @@ const Working = () => {
                         </svg>
                     </div>
                 </div>
-                <div  className="self-start w-full flex items-start justify-center lg:justify-end ">
-                    <div  className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block">
+                <div className="self-start w-full flex items-start justify-center lg:justify-end ">
+                    <div className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block">
                         <svg width="500" height="400" viewBox="0 0 500 300" className="absolute">
                             <motion.path
                                 d="M500 70 Q 50 0, 150 400"
@@ -73,7 +74,7 @@ const Working = () => {
                                 strokeDasharray="1 1"
                                 pathLength={pathForB}
                             />
-                         </svg>
+                        </svg>
                         <svg width="500" height="400" viewBox="0 0 500 300">
                             <path
                                 d="M500 70 Q 50 0, 150 400"
@@ -97,7 +98,7 @@ const Working = () => {
                         </p>
                     </div>
                 </div>
-                <div  className="self-start w-full flex items-center justify-center lg:justify-start ">
+                <div className="self-start w-full flex items-center justify-center lg:justify-start ">
                     <div data-aos="flip-left" className={`${cardClass} self-start`}>
                         <h1 className={cardTitle}>
 
@@ -110,7 +111,7 @@ const Working = () => {
                             <ScrollText className={`${svgStyles} right-[0px]`} />
                         </p>
                     </div>
-                    <div  className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block relative">
+                    <div className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block relative">
                         <svg width="500" height="400" viewBox="0 0 500 300">
                             <path
                                 d="M0 70 Q 450 -40, 350 400"
@@ -135,7 +136,7 @@ const Working = () => {
                     </div>
                 </div>
                 <div data-aos="flip-left" className="self-start w-full flex items-center justify-center lg:justify-end ">
-                    <div  className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block relative">
+                    <div className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block relative">
                         <svg width="500" height="400" viewBox="0 0 500 300">
                             <path
                                 d=""
@@ -168,7 +169,7 @@ const Working = () => {
                     </div>
                 </div>
             </div>
-
+           
         </div>
     )
 }

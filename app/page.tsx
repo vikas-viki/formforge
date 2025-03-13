@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={`main w-full h-full bg-green-400 brightness-80 ${outfit.className}`}>
+    <div className={`main w-full h-full bg-green-400  ${outfit.className}`}>
       <div className="w-full h-full ">
         <Hero />
         <Forms />
