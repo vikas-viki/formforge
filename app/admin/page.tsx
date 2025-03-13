@@ -146,6 +146,10 @@ const Admin = () => {
         toggleModal();
     }
 
+    const handleRollNoSearch = (e: any) => {
+        setFilteredApplications(applications.filter(ele => ele.rollNo.includes(e.target.value)));
+    }
+
     const getCurrentPageApplications = () => {
         return filteredApplications.slice((currentPage - 1) * 10, currentPage * 10);
     }
@@ -157,6 +161,7 @@ const Admin = () => {
             <div className="h-full w-[90%] p-10 pb-2 px-5 pt-20 flex justify-between items-center border-b-2 sticky top-[0px] bg-green-400 z-2 flex-wrap">
                 <h1 className="text-[20px] font-semibold">Applications</h1>
                 <div className="flex w-max gap-5 flex-wrap">
+                    <input type="text" placeholder="Search by rollno" onChange={handleRollNoSearch} className="outline-none border rounded-[10px] p-4 py-2" />
                     <button
                         className="outline-none border rounded-[10px] p-4 py-2 cursor-pointer hover:bg-green-200 hover:scale-[1.01] hover:-rotate-1 transition-all duration-300"
                         onClick={toggleModal}
