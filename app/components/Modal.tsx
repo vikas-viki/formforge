@@ -3,7 +3,7 @@ import { ModalInputTypes } from "../library/types";
 type ModalFeilds = {
     type: ModalInputTypes,
     name: string,
-    placeholder?: string,
+    placeholder?: string
     handler?: (e: any) => void
 }[];
 
@@ -16,7 +16,7 @@ const Modal = ({ feilds, title }: { feilds: ModalFeilds, title?: string }) => {
                     feilds.map((ele, i) => (
                         <div key={i} className="w-full h-full flex flex-col gap-1">
                             {
-                                ele.type != ModalInputTypes.button &&
+                                (ele.type != ModalInputTypes.button && ele.type != ModalInputTypes.cancel) &&
                                 <span className="block">{ele.name}</span>
                             }
                             {
@@ -28,6 +28,12 @@ const Modal = ({ feilds, title }: { feilds: ModalFeilds, title?: string }) => {
                             {
                                 ele.type == ModalInputTypes.button && (
                                     <button onClick={ele.handler} className="bg-emerald-600 cursor-pointer hover:bg-emerald-700 text-white mt-3 font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                                    >{ele.name}</button>
+                                )
+                            }
+                            {
+                                ele.type == ModalInputTypes.cancel && (
+                                    <button onClick={ele.handler} className="bg-red-400 cursor-pointer hover:bg-red-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
                                     >{ele.name}</button>
                                 )
                             }

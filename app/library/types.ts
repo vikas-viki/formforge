@@ -1,5 +1,6 @@
 export enum ModalInputTypes {
     input,
     button,
-    confirmation
+    confirmation,
+    cancel
 }
