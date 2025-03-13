@@ -27,7 +27,7 @@ const Working = () => {
             <span className="font-outfit text-[40px] font-bold self-center text-slate-900 mb-[70px]">How it works</span>
             <div className='w-full h-full flex flex-col justify-center items-center mx-[10px] mt-10 flex-wrap lg:w-[80%] px-6  self-center gap-[60px] lg:gap-0'>
                 <div className="self-start w-full flex items-center justify-center lg:justify-start">
-                    <div data-aos="flip-left" className={`${cardClass} self-start`}>
+                    <div data-aos-once={true} data-aos="flip-left" className={`${cardClass} self-start`}>
                         <h1 className={cardTitle}>
                             Application Submission
                         </h1>
@@ -38,7 +38,7 @@ const Working = () => {
                             <ClipboardCheck className={`${svgStyles} right-[-20px]`} />
                         </p>
                     </div>
-                    <div data-aos="fade-up" className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block relative">
+                    <div data-aos-once={true} data-aos="fade-up" className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block relative">
                         <svg width="500" height="400" viewBox="0 0 500 300" className="absolute">
                             <path
                                 d="M0 70 Q 450 -40, 350 400"
@@ -86,7 +86,7 @@ const Working = () => {
                             />
                         </svg>
                     </div>
-                    <div data-aos="flip-right" className={`${cardClass} self-start`} >
+                    <div data-aos-once={true} data-aos="flip-right" className={`${cardClass} self-start`} >
                         <h1 className={cardTitle}>
                             Admin Notification
                         </h1>
@@ -99,7 +99,7 @@ const Working = () => {
                     </div>
                 </div>
                 <div className="self-start w-full flex items-center justify-center lg:justify-start ">
-                    <div data-aos="flip-left" className={`${cardClass} self-start`}>
+                    <div data-aos-once={true} data-aos="flip-left" className={`${cardClass} self-start`}>
                         <h1 className={cardTitle}>
 
                             Admin Review
@@ -135,7 +135,7 @@ const Working = () => {
                         </svg>
                     </div>
                 </div>
-                <div data-aos="flip-left" className="self-start w-full flex items-center justify-center lg:justify-end ">
+                <div data-aos-once={true} data-aos="flip-left" className="self-start w-full flex items-center justify-center lg:justify-end ">
                     <div className="w-[500px] h-[400px] flex items-center justify-center hidden lg:block relative">
                         <svg width="500" height="400" viewBox="0 0 500 300">
                             <path
@@ -169,7 +169,7 @@ const Working = () => {
                     </div>
                 </div>
             </div>
-           
+
         </div>
     )
 }
