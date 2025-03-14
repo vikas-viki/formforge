@@ -1,0 +1,80 @@
+"use client";
+import { useRef, useState } from "react";
+import { outfit } from "../library/font";
+
+const Login = () => {
+    const [activeTab, setActiveTab] = useState("login");
+    const loginBtnRef = useRef<HTMLSpanElement>(null);
+    const signupBtnRef = useRef<HTMLSpanElement>(null);
+
+    const switchToSignup = () => setActiveTab("signup");
+    const switchToLogin = () => setActiveTab("login");
+
+    return (
+        <div className={`w-[100vw] h-[100vh] bg-green-400 font-outfit p-10 flex justify-center items-center select-none ${outfit.className}`}>
+            <data className="flex gap-10 p-10 bg-green-600 h-max w-max rounded-[10px]">
+                <div className="flex flex-col gap-2 justify-start items-start max-w-[300px]">
+                    <span className="text-[30px] font-bold">
+                        Get your certificates approved at one place.
+                    </span>
+                </div>
+                <div className="bg-green-100  h-max flex flex-col gap-6 p-10 w-[420px] rounded-[10px]">
+                    <div className="flex border-b border-gray-300 relative">
+                        <span
+                            ref={loginBtnRef}
+                            className={`relative w-[50%] text-center cursor-pointer block pb-1
+                                        before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-black
+                                        before:origin-right before:scale-x-0 before:transition-transform before:duration-300
+                                        ${activeTab === "login" ? "before:scale-x-100 font-bold" : "text-gray-500 "}`}
+                            onClick={switchToLogin}
+                        >
+                            Login
+                        </span>
+                        <span
+                            ref={signupBtnRef}
+                            className={`relative w-[50%] text-center cursor-pointer block pb-1
+                                        before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-black
+                                        before:origin-left before:scale-x-0 before:transition-transform before:duration-300
+                                        ${activeTab === "signup" ? "before:scale-x-100 font-bold" : "text-gray-500"}`}
+                            onClick={switchToSignup}
+                        >
+                            Signup
+                        </span>
+                    </div>
+                    <div className="flex flex-col gap-6 center">
+                        <div className="flex flex-col gap-1 ">
+                            <label htmlFor="email" className="text-[18px]">Email</label>
+                            <input
+                                type="email"
+                                required
+                                id="email"
+                                placeholder="JohnDoe@gmail.com"
+                                className="outline-none border-[1px] rounded-[10px] px-4 py-2 text-[17.4px]"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="password" className="text-[18px]">Password</label>
+                            <input
+                                type="password"
+                                required
+                                id="password"
+                                placeholder="********"
+                                minLength={8}
+                                className="outline-none border-[1px] rounded-[10px] px-4 py-2 text-[17.4px]"
+                            />
+                        </div>
+                        <div className="flex justify-start items-center gap-2 pl-1">
+                            <input type="checkbox" id="remember" className="w-[15px] h-[15px] accent-green-700" />
+                            <label className="text-[17px] text-slate-800 cursor-pointer" htmlFor="remember">remember me</label>
+                        </div>
+                        <div>
+                            <button className="border w-full px-4 py-3 text-[17px] bg-green-700 transition-all duration-300 cursor-pointer hover:bg-green-800 text-white rounded-[10px]">Login</button>
+                        </div>
+                    </div>
+                </div>
+            </data>
+        </div>
+    )
+}
+
+export default Login;
