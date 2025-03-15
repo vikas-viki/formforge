@@ -3,14 +3,7 @@ import { BookOpenCheck, ChevronLeft, ChevronRight, Filter, GraduationCap, Utensi
 import { outfit } from "../library/font";
 import {  SyntheticEvent, useRef, useState } from "react";
 import Modal from "../components/Modal";
-import { ModalInputTypes } from "../library/types";
-
-enum ApplicationType {
-    TransferCertificate,
-    StudyCertificate,
-    MidDayMeal,
-    All
-};
+import { ApplicationType, ModalInputTypes } from "../library/types";
 
 const _applications = [
     {
