@@ -70,3 +70,9 @@ const Footer = () => {
 }
 
 export default Footer;
+
+// This structure creates a sticky footer that appears at the right scroll position.
+
+// 1️⃣ Outer div (390px height) - Wrapper for the footer area.
+// 2️⃣ Tall div (100vh + 390px, moved up by 100vh) - Creates extra scroll space.
+// 3️⃣ Sticky div (390px height, sticks at `100vh - 390px`) - Becomes visible at the right time.

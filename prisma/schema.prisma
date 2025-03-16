@@ -1,0 +1,117 @@
+// use https://prismaliser.app/ for visualizing the schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  ADMIN
+  USER
+}
+
+enum Status {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum Department {
+  COMPUTER_SCIENCE
+  PHYSICS
+  CHEMISTRY
+  MATHEMATICS
+  BIOLOGY
+  KANNADA
+  COMMERCE
+  ENGLISH
+  HINDI
+  SOCIAL_SCIENCE
+  PHYSICAL_EDUCATION
+  LIBRARY
+  OFFICE
+}
+
+enum ApplicationType {
+  STUDY_CERTIFICATE
+  TRANSFER_CERTIFICATE
+  MID_DAY_MEAL
+  CONVEYANCE
+}
+
+model User {
+  userId       String        @id @default(uuid()) @db.Uuid
+  email        String        @unique @db.VarChar(100)
+  password     String        @db.VarChar(150)
+  type         UserType      @default(USER)
+  createdAt    DateTime      @default(now())
+  profile      Profile?
+  applications Application[]
+}
+
+model Profile {
+  userId   String @id
+  user     User   @relation(fields: [userId], references: [userId])
+  name     String
+  rollNo   String
+  course   String
+  semister String
+}
+
+model Application {
+  user                User                 @relation(fields: [userId], references: [userId])
+  userId              String
+  applicationId       String               @id @default(uuid())
+  type                ApplicationType
+  status              Status               @default(PENDING)
+  studyCertificate    StudyCertificate?
+  transferCertificate TransferCertificate?
+  midDayMeal          MidDayMeal?
+  conveyance          Conveyance?
+}
+
+model StudyCertificate {
+  application   Application @relation(fields: [applicationId], references: [applicationId])
+  applicationId String      @unique
+  createdAt      DateTime    @default(now())
+  name          String
+  course        String
+  rollNo        String
+  semister      String
+  reason        String
+}
+
+model TransferCertificate {
+  application      Application @relation(fields: [applicationId], references: [applicationId])
+  applicationId    String      @unique
+  createdAt         DateTime    @default(now())
+  name             String
+  dateOfCompletion DateTime
+  course           String
+  rollNo           String
+}
+
+model MidDayMeal {
+  application   Application @relation(fields: [applicationId], references: [applicationId])
+  applicationId String      @unique
+  createdAt      DateTime    @default(now())
+  name          String
+  course        String
+  semister      String
+  rollNo        String
+}
+
+model Conveyance {
+  application   Application @relation(fields: [applicationId], references: [applicationId])
+  applicationId String      @unique
+  createdAt      DateTime    @default(now())
+  name          String
+  department    Department
+  staffId       String
+  leaveDate     DateTime
+  returnDate    DateTime
+  reason        String
+}
