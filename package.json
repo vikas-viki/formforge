@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^6.5.0",
     "@types/aos": "^3.0.7",
     "@types/d3": "^7.4.3",
     "aos": "^2.3.4",

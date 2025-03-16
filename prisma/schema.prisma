@@ -53,7 +53,7 @@ model User {
 }
 
 model Profile {
-  userId   String @id
+  userId   String @id @db.Uuid
   user     User   @relation(fields: [userId], references: [userId])
   name     String
   rollNo   String
@@ -62,56 +62,26 @@ model Profile {
 }
 
 model Application {
-  user                User                 @relation(fields: [userId], references: [userId])
-  userId              String
-  applicationId       String               @id @default(uuid())
-  type                ApplicationType
-  status              Status               @default(PENDING)
-  studyCertificate    StudyCertificate?
-  transferCertificate TransferCertificate?
-  midDayMeal          MidDayMeal?
-  conveyance          Conveyance?
+  applicationId String          @id @default(uuid())
+  user          User            @relation(fields: [userId], references: [userId])
+  userId        String          @db.Uuid
+  type          ApplicationType
+  status        Status          @default(PENDING)
+  createdAt     DateTime        @default(now())
+
+  details ApplicationDetails?
 }
 
-model StudyCertificate {
+model ApplicationDetails {
+  applicationId String      @id
   application   Application @relation(fields: [applicationId], references: [applicationId])
-  applicationId String      @unique
-  createdAt      DateTime    @default(now())
   name          String
-  course        String
-  rollNo        String
-  semister      String
-  reason        String
-}
-
-model TransferCertificate {
-  application      Application @relation(fields: [applicationId], references: [applicationId])
-  applicationId    String      @unique
-  createdAt         DateTime    @default(now())
-  name             String
-  dateOfCompletion DateTime
-  course           String
-  rollNo           String
-}
-
-model MidDayMeal {
-  application   Application @relation(fields: [applicationId], references: [applicationId])
-  applicationId String      @unique
-  createdAt      DateTime    @default(now())
-  name          String
-  course        String
-  semister      String
-  rollNo        String
-}
-
-model Conveyance {
-  application   Application @relation(fields: [applicationId], references: [applicationId])
-  applicationId String      @unique
-  createdAt      DateTime    @default(now())
-  name          String
-  department    Department
-  staffId       String
-  leaveDate     DateTime
-  returnDate    DateTime
-  reason        String
+  course        String?
+  rollNo        String?
+  semester      String?
+  department    Department?
+  staffId       String?
+  leaveDate     DateTime?
+  returnDate    DateTime?
+  reason        String?
 }
