@@ -1,5 +1,0 @@
-// #121212 → Dark Black (Background)
-// #1F1F1F → Deep Gray (Containers & Cards)
-// #00FFAA → Neon Green (Highlights & Accents)
-// #B3B3B3 → Light Gray (Subtext & Borders)
-// #0D0D0D → Soft Black (Shadows & Depth)

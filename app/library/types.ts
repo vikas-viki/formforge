@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { authBody } from "./zod";
+
 export enum ModalInputTypes {
     input,
     button,
@@ -24,3 +27,5 @@ export type SubmittedApplication = {
     type: ApplicationType,
     status: Status
 }
+
+export type AuthBody = z.infer<typeof authBody>;

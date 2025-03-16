@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import { outfit } from "./library/font";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,9 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body      >
+    <html lang="en" className={outfit.className}>
+      <body>
         {children}
+        <Toaster position="top-right" />
       </body>
     </html>
   );

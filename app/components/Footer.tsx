@@ -1,6 +1,6 @@
 import { Earth, Facebook, Instagram, Linkedin, LocateIcon, Mail, MapPin, Phone, Youtube } from "lucide-react";
 import Link from "next/link";
-import { quickSand, roboto } from "../library/font";
+import { quickSand } from "../library/font";
 
 const Footer = () => {
 
@@ -11,8 +11,8 @@ const Footer = () => {
         >
             <div className='relative h-[calc(100vh+390px)] -top-[100vh]'>
                 <div className='h-[390px] sticky top-[calc(100vh-390px)]'>
-                    <div className="w-full h-max bg-green-700">
-                        <div className="w-full h-max bg-green-700 relative flex gap-10 p-10 justify-between items-center">
+                    <div className="w-full h-max bg-green-300">
+                        <div className="w-full h-max bg-green-300 relative flex gap-10 p-10 justify-between items-center">
                             <div className="flex flex-col justify-center items-start gap-7 p-5 w-[50%]">
                                 <span className="font-bold text-[20px] block">FormForge</span>
                                 <p className="w-[70%] text-[17px]">Streamline form submissions, simplify approvals, and ensure seamless communication between students, teachers, and admins with real-time updates.</p>
@@ -59,7 +59,7 @@ const Footer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={`w-full py-6  bg-green-800 text-center ${quickSand.className}`}>
+                        <div className={`w-full py-6  bg-green-400 text-center ${quickSand.className}`}>
                             <span className="block text-[17px] font-medium">© 2025 FormForge. All rights reserved | An initiative by Dept of CS, BASCK</span>
                         </div>
                     </div>
