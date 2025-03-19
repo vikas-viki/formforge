@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Profile" ALTER COLUMN "name" SET DEFAULT '',
+ALTER COLUMN "rollNo" SET DEFAULT '',
+ALTER COLUMN "course" SET DEFAULT '',
+ALTER COLUMN "semister" SET DEFAULT '',
+ALTER COLUMN "passingYear" SET DEFAULT 0;

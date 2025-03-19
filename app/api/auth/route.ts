@@ -86,6 +86,12 @@ async function signupHandler(body: AuthBody) {
                 password: await hash(body.password)
             }
         });
+        await prisma.profile.create({
+            data: {
+                userId: user.userId,
+                email: user.email
+            }
+        });
 
         if (body.rememberMe) {
             (await cookies()).set({

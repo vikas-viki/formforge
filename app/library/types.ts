@@ -28,4 +28,13 @@ export type SubmittedApplication = {
     status: Status
 }
 
+export type Profile = {
+    name: string,
+    roll_no: string,
+    email: string,
+    course: string,
+    semister: string,
+    passing_year: string
+}
+
 export type AuthBody = z.infer<typeof authBody>;

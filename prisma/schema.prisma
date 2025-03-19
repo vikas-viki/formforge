@@ -53,12 +53,14 @@ model User {
 }
 
 model Profile {
-  userId   String @id @db.Uuid
-  user     User   @relation(fields: [userId], references: [userId])
-  name     String
-  rollNo   String
-  course   String
-  semister String
+  userId      String @id @db.Uuid
+  user        User   @relation(fields: [userId], references: [userId])
+  name        String @default("")
+  rollNo      String @default("")
+  course      String @default("")
+  semister    String @default("")
+  passingYear Int    @default(0)
+  email       String 
 }
 
 model Application {

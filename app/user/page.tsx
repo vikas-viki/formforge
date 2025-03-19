@@ -2,9 +2,10 @@
 
 import React, { useRef, useState } from "react";
 import { outfit } from "../library/font";
-import { ApplicationType, Status, SubmittedApplication } from "../library/types";
+import { ApplicationType, Profile, Status, SubmittedApplication } from "../library/types";
 import { GraduationCap, Utensils, BookOpenCheck, Download } from "lucide-react";
 import clsx from "clsx";
+import axios from "axios";
 
 enum Tabs {
     Applications,
@@ -14,14 +15,13 @@ enum Tabs {
 
 const User = () => {
     const [newApplicationsTab, setNewApplicaitonsTab] = useState(true);
-    const [profileInfo, setProfileInfo] = useState({
-        title: "Update Profile",
+    const [profileInfo, setProfileInfo] = useState<Profile>({
         name: "Vikas",
         roll_no: "123456",
         email: "abcd@gmail.com",
         course: "BCA",
-        semester: "3rd",
-        passsing_year: "2023"
+        semister: "3rd",
+        passing_year: "2023"
     });
     const currentPage = useRef(Tabs.Applications);
 
@@ -82,6 +82,12 @@ const User = () => {
         );
     }
 
+    const submitHandler = async () => {
+        const res = await axios.post("/api/profile", profileInfo)
+
+        console.log({ res });
+    }
+
     return (
         <div className={`w-[100vw] min-h-[100vh] h-full relative bg-green-400 ${outfit.className}`}>
             <div className="w-full h-full flex flex-col justify-center items-center">
@@ -89,17 +95,17 @@ const User = () => {
                     <h1 className="text-[20px] font-semibold">Applications</h1>
                     <div className="flex w-max gap-5 flex-wrap">
                         <button
-                            className={`outline-none border rounded-[10px] p-4 py-2 cursor-pointer hover:bg-green-200 hover:scale-[1.01] hover:-rotate-1 transition-all duration-300 ${newApplicationsTab ? "bg-green-200" : ""}`}
+                            className={`outline-none border rounded-[10px] p-4 py-2 cursor-pointer hover:bg-green-200 hover:scale-[1.01] hover:-rotate-1 transition-all duration-300 ${currentPage.current == Tabs.Applications ? "bg-green-200" : ""}`}
                             onClick={() => toggleTab(Tabs.Applications)}
                         >New Application
                         </button>
                         <button
-                            className={`outline-none border rounded-[10px] p-4 py-2 cursor-pointer hover:bg-green-200 hover:scale-[1.01] hover:-rotate-1 transition-all duration-300 ${!newApplicationsTab ? "bg-green-200" : ""}`}
+                            className={`outline-none border rounded-[10px] p-4 py-2 cursor-pointer hover:bg-green-200 hover:scale-[1.01] hover:-rotate-1 transition-all duration-300 ${currentPage.current == Tabs.SubmittedApplications ? "bg-green-200" : ""}`}
                             onClick={() => toggleTab(Tabs.SubmittedApplications)}
                         >Submitted applications
                         </button>
                         <button
-                            className={`outline-none border rounded-[10px] p-4 py-2 cursor-pointer hover:bg-green-200 hover:scale-[1.01] hover:-rotate-1 transition-all duration-300`}
+                            className={`outline-none border rounded-[10px] p-4 py-2 cursor-pointer hover:bg-green-200 hover:scale-[1.01] hover:-rotate-1 transition-all duration-300 ${currentPage.current == Tabs.Profile ? "bg-green-200" : ""}`}
                             onClick={() => toggleTab(Tabs.Profile)}
                         >Profile
                         </button>
@@ -122,10 +128,10 @@ const User = () => {
                     </div>
                     <div className={`w-full h-full bg-green-100 p-5 px-8 rounded-[10px] flex flex-wrap gap-5 items-start justify-start relative ${currentPage.current != Tabs.Profile && "hidden"}`} >
                         <span className="text-[20px] md:text-[25px] font-semibold brightness-60 text-center block w-full  border-b pb-2">
-                            {profileInfo.title}
+                            Update Profile
                         </span>
                         {
-                            Object.entries(profileInfo).slice(1).map(([key, value], index) => {
+                            Object.entries(profileInfo).map(([key, value], index) => {
                                 return (
                                     <div key={index} className="flex flex-col gap-1 justify-start items-start w-max md:min-w-[45%] p-2">
                                         <span className="text-[20px] md:text-[23px] font-semibold brightness-60 capitalize">
@@ -138,7 +144,7 @@ const User = () => {
                         }
                         <div className="w-full h-max p-2 flex justify-end gap-4 mr-3 border-t pt-4 pb-0 border-slate-400">
                             <button className="border px-4 py-2 rounded-[10px] min-w-[10%] bg-red-400 hover:scale-x-103 hover:-rotate-2 transition-all duration-300 cursor-pointer" onClick={() => window.location.reload()}>Discard</button>
-                            <button className="border px-4 py-2 rounded-[10px] min-w-[10%] bg-green-400 hover:scale-x-103 hover:-rotate-2 transition-all duration-300 cursor-pointer" >Save</button>
+                            <button className="border px-4 py-2 rounded-[10px] min-w-[10%] bg-green-400 hover:scale-x-103 hover:-rotate-2 transition-all duration-300 cursor-pointer" onClick={submitHandler} >Save</button>
                         </div>
                     </div>
                 </div>
