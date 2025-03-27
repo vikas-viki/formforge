@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import argon2 from 'argon2';
 import { createToken, hash } from "@/app/library/helpers";
 import { AuthBody } from "@/app/library/types";
 import { authBody } from "@/app/library/zod";
@@ -41,7 +41,7 @@ async function loginHandler(body: AuthBody) {
             throw Error("USER_NOT_FOUND");
         }
 
-        const isPasswordValid = await bcrypt.compare(body.password, user.password);
+        const isPasswordValid = await argon2.verify(user.password, body.password);
 
         if (!isPasswordValid) {
             throw Error("INVALID_CREDENTIALS");
