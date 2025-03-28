@@ -7,11 +7,9 @@ import { UserType } from "@prisma/client";
 
 export async function middleware(request: NextRequest) {
     const cookieStore = await cookies();
-
     const sessionToken = cookieStore.get(CONSTANTS.server.cookies.SESSION_TOKEN);
-
-    var pathName = request.nextUrl.pathname;
-    var url = new URL("/", request.url);
+    const pathName = request.nextUrl.pathname;
+    const url = new URL("/", request.url);
 
     // if it starts with '/' or '/login' let it be. 
     // For all endpoints other than this, check if 'session_token' exists and if not, redirect to login page.

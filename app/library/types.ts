@@ -9,10 +9,9 @@ export enum ModalInputTypes {
 }
 
 export enum ApplicationType {
-    TransferCertificate,
-    StudyCertificate,
-    MidDayMeal,
-    All
+    TransferCertificate = "TransferCertificate",
+    StudyCertificate = "StudyCertificate",
+    MidDayMeal = "MidDayMeal"
 };
 
 export enum UserType {
@@ -45,3 +44,28 @@ export type Profile = {
 export type AuthBody = z.infer<typeof authBody>;
 
 export type ProfileBody = z.infer<typeof profileBody>;
+
+export type ApplicationDataMap = {
+    [ApplicationType.MidDayMeal]: {
+        rollNo: string,
+        course: string,
+        semester: string,
+    };
+    [ApplicationType.StudyCertificate]: {
+        name: string,
+        rollNo: string,
+        email: string,
+        course: string,
+        semister: string,
+        passingYear: string,
+        description: string
+    };
+    [ApplicationType.TransferCertificate]: {
+        name: string,
+        rollNo: string,
+        email: string,
+        course: string,
+        passingYead: string,
+        description: string
+    }
+}

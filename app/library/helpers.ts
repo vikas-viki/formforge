@@ -5,8 +5,8 @@ export const hash = async (data: string) => {
     return await argon2.hash(data);
 }
 
-export const createToken = (userId: string) => {
-    return jwt.sign(userId, process.env.PAYLOAD!);
+export const createToken = (userId: string, expiry: number) => {
+    return jwt.sign(userId, process.env.PAYLOAD!, { expiresIn: expiry });
 }
 
 export const getUserId = (sessionToken: string) => {

@@ -14,3 +14,7 @@ export const profileBody = z.object({
     semister: z.string(),
     passingYear: z.number()
 });
+
+export const applicationBody = z.object({
+
+});

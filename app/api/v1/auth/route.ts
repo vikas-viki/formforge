@@ -47,13 +47,15 @@ async function loginHandler(body: AuthBody) {
             throw Error("INVALID_CREDENTIALS");
         }
 
+        const expiry = (body.rememberMe ? 7 : 1) * 24 * 60 * 60;
+
         (await cookies()).set({
             name: CONSTANTS.server.cookies.SESSION_TOKEN,
-            value: createToken(user.userId),
+            value: createToken(user.userId, expiry),
             httpOnly: true,
             secure: process.env.NODE_ENV == "production",
             path: "/",
-            maxAge: (body.rememberMe ? 7 : 1) * 24 * 60 * 60,
+            maxAge: expiry,
             priority: "high"
         });
 
@@ -88,13 +90,15 @@ async function signupHandler(body: AuthBody) {
             }
         });
 
+        const expiry = (body.rememberMe ? 7 : 1) * 24 * 60 * 60;
+
         (await cookies()).set({
             name: CONSTANTS.server.cookies.SESSION_TOKEN,
-            value: createToken(user.userId),
+            value: createToken(user.userId, expiry),
             httpOnly: true,
             secure: process.env.NODE_ENV == "production",
             path: "/",
-            maxAge: (body.rememberMe ? 7 : 1) * 24 * 60 * 60,
+            maxAge: expiry,
             priority: "high"
         });
 

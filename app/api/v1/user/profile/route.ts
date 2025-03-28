@@ -51,6 +51,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 }
 
-// export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, res: NextResponse) {
+    const userId = res.headers.get(CONSTANTS.server.headers.userId)!;
 
-// }
+    const profile = await prisma.profile.findFirst({
+        where: {
+            userId
+        }
+    });
+
+    if (!profile) {
+        return new NextResponse(null, { status: 400 });
+    }
+
+    return NextResponse.json({ profile }, { status: 200 });
+}
