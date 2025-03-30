@@ -2,6 +2,7 @@
 
 * {
   user-select: none;
+  scroll-behavior: smooth;
 }
 
 *::-webkit-scrollbar {
@@ -19,25 +20,10 @@
 
 .features-head {
   border-bottom-right-radius: 15px;
-  margin-top: 45px;
-  margin-left: 45px;
-  margin-right: 40px;
-  padding-bottom: 95px;
-  border: 0.5px solid #fff;
-  /* background-color: green; */
-  border-top: none;
-  border-left: none;
-  height: max-content;
 }
 
 .features-bg {
-  width: calc(100% - 45px);
-  height: calc(100% - 45px);
-  margin-top: 45px;
-  margin-left: 45px;
-  position: absolute;
+  margin-top: 40px;
+  margin-left: 40px;
   background-color: #30304E;
-  border: 0.5px solid #fff;
-  border-right: none;
-  border-bottom: none;
 }

@@ -9,7 +9,7 @@ export default function Home() {
     <div className={`w-[100vw] h-max bg-[#06060A] text-white ${poppins.className}`}>
       <Landing />
       <Features />
-      {/* <Workflow /> */}
+      <Workflow />
     </div>
   );
 }
