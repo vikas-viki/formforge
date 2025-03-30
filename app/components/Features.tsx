@@ -16,7 +16,7 @@ export default function Features() {
                         <div className="flex flex-col gap-3 p-10 rounded-[20px] bg-[#12121C] border-[0.6px] mt-10">
                             <span className="text-[16px] opacity-60">ALL IN ONE</span>
                             <span className="text-[24px] text-[#D4D6F5]">Multi-Form Support</span>
-                            <span className="text-[20px] text-[#B6B7C5]">Access a wide range of college applications, including Study Certificates, Transfer Certificates and Midday Meals.. all in one place.</span>
+                            <span className="text-[20px] text-[#B6B7C5]">Access a wide range of college applications, including Study Certificates, Transfer Certificates and Mid-day Meals.. all in one place.</span>
                         </div>
                     </div>
                     <div className="flex pt-5 gap-10 ml-10 pr-10">

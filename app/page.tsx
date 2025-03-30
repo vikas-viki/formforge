@@ -3,6 +3,7 @@ import Landing from "./components/Landing";
 import Features from "./components/Features";
 import { poppins } from "./library/font";
 import Workflow from "./components/Workflow";
+import Services from "./components/Services";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Landing />
       <Features />
       <Workflow />
+      <Services />
     </div>
   );
 }
