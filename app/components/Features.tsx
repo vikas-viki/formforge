@@ -11,7 +11,7 @@ export default function Features() {
                         <div className="flex flex-col gap-4 z-2 bg-[#161624] features-head p-4">
                             <span className="font-medium text-[30px] text-[#D1D5DB]">Why Choose Applify?</span>
                             <span className="text-[22px] text-[#D2D4F5] leading-[26px]">Streamline the application process and verification in a single, centralized platform.</span>
-                            <button className="flex gap-2 bg-[#6D99F1] py-2 w-max text-[15px] px-3 mt-3 justify-center items-center">Get Started<ArrowUpRight size={15} /></button>
+                            <button className="cursor-pointer flex gap-2 bg-[#6D99F1] py-2 w-max text-[15px] px-3 mt-3 justify-center items-center">Get Started<ArrowUpRight size={15} /></button>
                         </div>
                         <div className="flex flex-col gap-3 p-10 rounded-[20px] bg-[#12121C] border-[0.6px] mt-10">
                             <span className="text-[16px] opacity-60">ALL IN ONE</span>

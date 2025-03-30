@@ -2,10 +2,10 @@ import { inkNut, poppins } from "../library/font";
 
 export default function Navbar() {
     return (
-        <div className={`w-full h-max text-white flex justify-center items-center select-none px-10 py-6 z-10 relative `}>
+        <div className={`w-full h-max text-white flex justify-center items-center select-none px-10 py-6 z-10 relative sticky top-0 md:flex-nowrap flex-wrap gap-5`}>
             <span className={`block justify-start text-[16px] ${inkNut.className} font-bold`}>Applify</span>
             <div className="flex w-full h-full justify-center items-center gap-2">
-                <div className="decoration-none flex gap-10">
+                <div className="decoration-none flex gap-4 md:gap-10 flex-wrap justify-center items-center">
                     <a className="text-[12px]" href="#home">Home</a >
                     <a className="text-[12px]" href="#features">Features</a >
                     <a className="text-[12px]" href="#workflow">Workflow</a >
@@ -13,7 +13,7 @@ export default function Navbar() {
                     <a className="text-[12px]" href="#aboutus">AboutUs</a >
                 </div>
             </div>
-            <button className="self-right w-max text-nowrap px-4 py-2 rounded-[5px] bg-[#1C2D5C] text-[12px] cursor-pointer">Get Started</button>
+            <button className="self-right w-max text-nowrap px-4 py-2 rounded-[5px] bg-[#1C2D5C] text-[12px] cursor-pointer hidden md:block">Get Started</button>
         </div>
     )
 }

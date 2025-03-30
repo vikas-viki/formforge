@@ -2,7 +2,7 @@ import { outfit } from "../library/font";
 
 export default function Workflow() {
     return (
-        <div className={`flex flex-col justify-center items-center ${outfit.className} mt-25`}>
+        <div id="workflow" className={`flex flex-col justify-center items-center ${outfit.className} mt-25`}>
             <div className="flex flex-col gap-2 items-center mb-20">
                 <span className="text-[#9CA0DE] text-[22px]">Step by Step</span>
                 <span className="text-[#D4D6F5] text-[35px]">How Does Applify Work</span>
