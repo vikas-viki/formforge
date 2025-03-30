@@ -23,7 +23,11 @@
 }
 
 .features-bg {
-  margin-top: 40px;
-  margin-left: 40px;
   background-color: #30304E;
+}
+
+@media screen and (max-width: 1024) {
+  .features-head {
+    border-bottom-left-radius: 15px;
+  }
 }
