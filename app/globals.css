@@ -1,26 +1,43 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  user-select: none;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*::-webkit-scrollbar {
+  display: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.hero-bg {
+  position: absolute;
+  width: 2154px;
+  height: 1363px;
+  left: -264px;
+  top: -130px;
+  background: radial-gradient(54.67% 54.67% at 53.57% 65.77%, #FFFFFF 2.78%, #9C84F9 23.15%, #1B103A 77.84%, #06060A 100%)
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.features-head {
+  border-bottom-right-radius: 15px;
+  margin-top: 45px;
+  margin-left: 45px;
+  margin-right: 40px;
+  padding-bottom: 95px;
+  border: 0.5px solid #fff;
+  /* background-color: green; */
+  border-top: none;
+  border-left: none;
+  height: max-content;
+}
+
+.features-bg {
+  width: calc(100% - 45px);
+  height: calc(100% - 45px);
+  margin-top: 45px;
+  margin-left: 45px;
+  position: absolute;
+  background-color: #30304E;
+  border: 0.5px solid #fff;
+  border-right: none;
+  border-bottom: none;
 }
