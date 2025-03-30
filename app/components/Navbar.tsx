@@ -1,8 +1,8 @@
-import { inkNut, poppins } from "../library/font";
+import { inkNut } from "../library/font";
 
 export default function Navbar() {
     return (
-        <div className={`w-full h-max text-white flex justify-center items-center select-none px-10 py-6 z-10 relative sticky top-0 md:flex-nowrap flex-wrap gap-5`}>
+        <div className={`w-full backdrop-blur-[10px] h-max text-white flex justify-center items-center select-none px-10 py-6 z-10 sticky top-0 md:flex-nowrap flex-wrap gap-5`}>
             <span className={`block justify-start text-[16px] ${inkNut.className} font-bold`}>Applify</span>
             <div className="flex w-full h-full justify-center items-center gap-2">
                 <div className="decoration-none flex gap-4 md:gap-10 flex-wrap justify-center items-center">

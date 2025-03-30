@@ -3,6 +3,7 @@
 * {
   user-select: none;
   scroll-behavior: smooth;
+  scroll-margin-top: 80px;
 }
 
 *::-webkit-scrollbar {

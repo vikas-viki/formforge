@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { outfit } from "../library/font";
 
 export default function Services() {
@@ -10,7 +11,7 @@ export default function Services() {
                     <span className="opacity-90 text-[#D2D4F5] text-[19px] md:text-[22px] leading-[28px] md:w-[45%] pt-2">From seat reservation for admission to obtain transfer certificate after graduation.</span>
                 </div>
                 <div className="p-2 md:p-10 flex- items-center justify-center">
-                    <img src="services.svg" alt="" />
+                    <Image src="services.svg" alt="" />
                 </div>
             </div>
         </div>

@@ -1,26 +1,27 @@
-import { Inknut_Antiqua, Outfit, Poppins, Quicksand, Roboto } from "next/font/google";
+import { Inknut_Antiqua, Outfit, Poppins, Quicksand } from "next/font/google";
 
 export const outfit = Outfit({
     weight: ["400", "500", "600", "700", "800", "900"],
     variable: "--font-outfit",
-})
-
-export const roboto = Roboto({
-    weight: ["400", "500", "600", "700", "800", "900"],
-    variable: "--font-roboto",
+    subsets: ["latin"]
 })
 
 export const quickSand = Quicksand({
     weight: ["400", "500", "600", "700"],
     variable: "--font-quicksand",
+    subsets: ["latin"]
+
 })
 
 export const poppins = Poppins({
     weight: ["400", "500", "600", "700", "800", "900"],
-    variable: "--font-poppins"
+    variable: "--font-poppins",
+    subsets: ["latin"]
+
 })
 
 export const inkNut = Inknut_Antiqua({
     weight: ["400", "500", "600", "700", "800", "900"],
-    variable: "--font-inknut"
+    variable: "--font-inknut",
+    subsets: ["latin"]
 })
