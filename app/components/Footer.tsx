@@ -5,11 +5,11 @@ import Link from "next/link";
 export default function Footer() {
     return (
         <div id="aboutus" className={`w-full h-max  bg-[#6262a9] ${outfit.className}`}>
-            <div className="w-full h-max  relative flex gap-10 p-10 justify-between items-center">
-                <div className="flex flex-col justify-center items-start gap-7 p-5 w-[50%]">
+            <div className="w-full h-max relative flex gap-5 md:gap-10 p-5 md:p-10 justify-center md:justify-between items-center flex-wrap md:flex-nowrap">
+                <div className="flex flex-col justify-center items-start gap-7 p-5 w-full md:w-[50%]">
                     <span className="font-bold text-[20px] block">Applify</span>
-                    <p className="w-[70%] text-[17px]">An initiative by the Department of Computer Science, BASCK to optimize student application workflows and enhance time efficiency.</p>
-                    <div className="flex gap-5 justify-start items-start">
+                    <p className="w-full md:w-[70%] text-[17px]">An initiative by the Department of Computer Science, BASCK to optimize student application workflows and enhance time efficiency.</p>
+                    <div className="flex gap-5 justify-start items-start flex-wrap">
                         <Link href="https://www.facebook.com/groups/12016654077" target="_blank">
                             <span className="block rounded-[50%] bg-[#473B76] cursor-pointer p-2">
                                 <Facebook size={23} />
@@ -37,7 +37,7 @@ export default function Footer() {
                         </Link>
                     </div>
                 </div>
-                <div className="flex flex-col gap-5 p-5 w-[50%] justify-start self-start">
+                <div className="flex flex-col gap-5 p-5 w-full md:w-[50%] justify-start self-start">
                     <span className="block font-bold text-[20px]">Contact</span>
                     <div className="flex flex-col gap-4">
                         <span className="flex gap-2">
@@ -52,7 +52,7 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <div className={`w-full py-6  bg-[#473B76] text-center ${quickSand.className}`}>
+            <div className={`w-full p-6  bg-[#473B76] text-center ${quickSand.className}`}>
                 <span className="block text-[17px] font-medium">© 2025 BASCK Computer Science Department. All rights reserved.</span>
             </div>
         </div>
