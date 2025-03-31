@@ -1,7 +1,6 @@
 "use client";
 import { inkNut, outfit, poppins } from "@/app/library/font";
 import { BadgeCheck } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 
 export default function Signup() {
