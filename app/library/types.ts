@@ -69,3 +69,16 @@ export type ApplicationDataMap = {
         description: string
     }
 }
+
+
+export enum sidebarTabs {
+    APPLICATIONS,
+    ANALYTICS,
+    CATEGORIES,
+    TRANSFER_CERTIFICATE,
+    STUDY_CERTIFICATE,
+    MID_DAY_MEALS,
+    CONDUCT_CERTIFICATE,
+    APPROVED,
+    REJECTED
+}
