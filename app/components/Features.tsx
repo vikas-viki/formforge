@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { outfit } from "../library/font";
+import Link from "next/link";
 
 export default function Features() {
     const infoClasses = "text-[12px] md:text-[16px] opacity-60";
@@ -15,7 +16,9 @@ export default function Features() {
                         <div className="flex flex-col gap-4 z-2 bg-[#161624] features-head p-8 sm:p-10 lg:p-4 ">
                             <span className="font-medium text-[25px] md:text-[30px] text-[#D1D5DB]">Why Choose Applify?</span>
                             <span className="text-[18px] md:text-[22px] text-[#D2D4F5] leading-[26px]">Streamline the application process and verification in a single, centralized platform.</span>
-                            <button className="cursor-pointer flex gap-2 bg-[#6D99F1] py-2 w-max text-[12px] md:text-[15px] px-3 mt-3 justify-center items-center">Get Started<ArrowUpRight size={15} /></button>
+                            <Link href="/signup">
+                                <button className="cursor-pointer flex gap-2 bg-[#6D99F1] py-2 w-max text-[12px] md:text-[15px] px-3 mt-3 justify-center items-center">Get Started<ArrowUpRight size={15} /></button>
+                            </Link>
                         </div>
                         <div className="flex flex-col gap-3 mx-5 md:mx-10 lg:mx-0 p-5 sm:p-10 rounded-[20px] bg-[#12121C] border-[0.6px] mt-0 md:mt-10 lg:mr-10 lg:ml-0 ">
                             <span className={infoClasses}>ALL IN ONE</span>

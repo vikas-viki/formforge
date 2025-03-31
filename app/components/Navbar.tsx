@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { inkNut } from "../library/font";
 
 export default function Navbar() {
@@ -13,7 +14,9 @@ export default function Navbar() {
                     <a className="text-[12px]" href="#aboutus">AboutUs</a >
                 </div>
             </div>
-            <button className="self-right w-max text-nowrap px-4 py-2 rounded-[5px] bg-[#1C2D5C] text-[12px] cursor-pointer hidden md:block">Get Started</button>
+            <Link href="/signup">
+                <button className="self-right w-max text-nowrap px-4 py-2 rounded-[5px] bg-[#1C2D5C] text-[12px] cursor-pointer hidden md:block">Get Started</button>
+            </Link>
         </div>
     )
 }
