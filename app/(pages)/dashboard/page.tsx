@@ -1,8 +1,9 @@
 "use client";
 import Applications from "@/app/components/Applications";
+import NewAdmin from "@/app/components/NewAdmin";
 import Sidebar from "@/app/components/Sidebar";
 import { poppins } from "@/app/library/font";
-import { sidebarTabs } from "@/app/library/types";
+import { ApplicationType, sidebarTabs } from "@/app/library/types";
 import { Bell, CircleHelp, Command, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -36,7 +37,8 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div className="w-full h-full overflow-y-auto">
-                    {activeTab == sidebarTabs.APPLICATIONS && <Applications />}
+                    {activeTab == sidebarTabs.APPLICATIONS && <Applications filter="" category={ApplicationType.All} />}
+                    {activeTab == sidebarTabs.NEW_ADMIN && <NewAdmin />}
                 </div>
             </div>
         </div>

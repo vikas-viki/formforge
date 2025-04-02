@@ -103,9 +103,15 @@ const _applications = [
     },
 ];
 
-const Applications = () => {
+const Applications = ({ filter, category }: { filter: string, category: ApplicationType }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filteredApplications, setFilteredApplications] = useState(_applications);
+
+    if (filter != "") {
+        setFilteredApplications(
+            _applications.filter(ele => ele.rollNo.includes(filter) && (ele.type == category || category == ApplicationType.All))
+        );
+    }
 
     const getCurrentPageApplications = () => {
         return filteredApplications.slice((currentPage - 1) * 10, currentPage * 10);
