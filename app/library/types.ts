@@ -11,7 +11,8 @@ export enum ModalInputTypes {
 export enum ApplicationType {
     TransferCertificate = "TransferCertificate",
     StudyCertificate = "StudyCertificate",
-    MidDayMeal = "MidDayMeal"
+    MidDayMeal = "MidDayMeal",
+    All = "All"
 };
 
 export enum UserType {
@@ -80,5 +81,6 @@ export enum sidebarTabs {
     MID_DAY_MEALS,
     CONDUCT_CERTIFICATE,
     APPROVED,
-    REJECTED
+    REJECTED,
+    NEW_ADMIN
 }
