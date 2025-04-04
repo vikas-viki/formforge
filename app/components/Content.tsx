@@ -5,6 +5,7 @@ import { activeTabAtom } from "../store/atoms";
 import { sidebarTabs } from "../library/types";
 import Applications from "./Applications";
 import NewAdmin from "./NewAdmin";
+import Analytics from "./Analytics";
 
 export default function DashboardContent() {
     const activeTab = useRecoilValue(activeTabAtom);
@@ -21,6 +22,7 @@ export default function DashboardContent() {
                 ].includes(activeTab) && <Applications />
             }
             {activeTab == sidebarTabs.NEW_ADMIN && <NewAdmin />}
+            {activeTab == sidebarTabs.ANALYTICS && <Analytics />}
         </div>
     )
 }
