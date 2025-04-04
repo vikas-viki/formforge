@@ -13,7 +13,7 @@ const mainCategoryClasses = "flex  gap-2 w-full font-medium items-center px-4 py
 export default function Sidebar() {
 
     return (
-        <div className="flex flex-col bg-slate-100 border-r border-slate-400 opacity-70 min-w-[250px] h-full min-h-[100vh] items-start p-5">
+        <div className="flex flex-col bg-slate-100 border-r border-slate-400 opacity-70 min-w-[250px] h-full min-h-[100vh]  p-5">
             <span className={`${inkNut.className} text-[22px] font-bold`}>Applify</span>
             <div className="flex flex-col gap-4 border-b border-slate-400 w-full my-6 pb-6 mt-10">
                 <MainCategory
@@ -51,9 +51,11 @@ export default function Sidebar() {
                     />
                 </div>
             </div>
-            <div className="flex  flex-col  w-full h-max py-2 px-4 rounded-[5px] my-4 bg-white shadow-xl">
-                <span>John carter</span>
-                <span className="opacity-80 text-[13px]">john@gmail.com</span>
+            <div className=" w-full h-full flex flex-col justify-end">
+                <div className="flex flex-col py-2 px-4 rounded-[5px] my-4 bg-white shadow-xl">
+                    <span>John carter</span>
+                    <span className="opacity-80 text-[13px]">john@gmail.com</span>
+                </div>
             </div>
         </div>
     )
