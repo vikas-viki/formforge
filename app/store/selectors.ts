@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { applicationsAtom, applicationsFilterAtom } from "./atoms";
+import { applicationsAtom, applicationsFilterAtom, searchFilterAtom } from "./atoms";
 import { ApplicationType } from "../library/types";
 
 export const filteredApplicationsSelector = selector({
@@ -7,6 +7,7 @@ export const filteredApplicationsSelector = selector({
     get: ({ get }) => {
         const applications = get(applicationsAtom);
         const filter = get(applicationsFilterAtom);
-        return applications.filter(a => a.type == filter || filter == ApplicationType.All)
+        const searchFilter = get(searchFilterAtom);
+        return applications.filter(a => (a.type == filter || filter == ApplicationType.All) && a.rollNo.toLowerCase().includes(searchFilter.toLowerCase()));
     },
 })

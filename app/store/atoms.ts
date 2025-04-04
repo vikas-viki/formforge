@@ -108,6 +108,11 @@ export const applicationsFilterAtom = atom({
     key: "applicationsFilter"
 })
 
+export const searchFilterAtom = atom({
+    default: "",
+    key: "searchFilter"
+})
+
 export const activeTabAtom = atom({
     default: sidebarTabs.APPLICATIONS,
     key: "sidebarTab"
