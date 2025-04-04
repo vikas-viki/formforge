@@ -12,6 +12,7 @@ export enum ApplicationType {
     TransferCertificate = "TransferCertificate",
     StudyCertificate = "StudyCertificate",
     MidDayMeal = "MidDayMeal",
+    ConductCertificate = "ConductCertificate",
     All = "All"
 };
 

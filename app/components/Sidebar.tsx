@@ -2,21 +2,27 @@
 
 import { BarChart, BookOpen, CheckCircle, ChevronDown, FileText, Layers, ShieldUser, Utensils, XCircle } from "lucide-react";
 import { inkNut } from "../library/font";
-import { sidebarTabs } from "../library/types";
-import { ReactNode, useState } from "react";
+import { ApplicationType, sidebarTabs } from "../library/types";
+import { ReactNode, useMemo, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { applicationsFilterAtom } from "../store/atoms";
 
 const categoriesClasses = "text-nowrap flex font-medium justify-start items-center gap-2 px-4 py-2 rounded-[10px] text-[14px] cursor-pointer hover:shadow-lg transition-all duration-200";
 const mainCategoryClasses = "flex  gap-2 w-full font-medium items-center px-4 py-2 rounded-[10px] cursor-pointer hover:shadow-lg transition-all duration-200";
 
 export default function Sidebar({ activeTab, setActiveTab }: { activeTab: number, setActiveTab: CallableFunction }) {
     const [categoriesExpanded, setCategoriesExpanded] = useState(false);
+    const setFilter = useSetRecoilState(applicationsFilterAtom);
 
     return (
         <div className="flex flex-col bg-slate-100 border-r border-slate-400 opacity-70 min-w-[250px] h-full min-h-[100vh] items-start p-5">
             <span className={`${inkNut.className} text-[22px] font-bold`}>Applify</span>
             <div className="flex flex-col gap-4 border-b border-slate-400 w-full my-6 pb-6 mt-10">
                 <span className={`block ${mainCategoryClasses} justify-between ${activeTab == sidebarTabs.APPLICATIONS && "bg-white text-blue-600 border"} `}
-                    onClick={() => setActiveTab(sidebarTabs.APPLICATIONS)}
+                    onClick={() => {
+                        setActiveTab(sidebarTabs.APPLICATIONS)
+                        setFilter(ApplicationType.All)
+                    }}
                 >
                     <span className="flex gap-2"><Layers size={20} /> Applications </span>
                     <span className="px-[4px] rounded-[3px] text-[12px] font-bold bg-slate-300 ">19</span>
@@ -51,6 +57,7 @@ export default function Sidebar({ activeTab, setActiveTab }: { activeTab: number
                                 tab={sidebarTabs.TRANSFER_CERTIFICATE}
                                 text="Transfer Certificate"
                                 icon={<FileText size={16} />}
+                                type={ApplicationType.TransferCertificate}
                             />
                             <SubCategory
                                 activeTab={activeTab}
@@ -58,6 +65,7 @@ export default function Sidebar({ activeTab, setActiveTab }: { activeTab: number
                                 tab={sidebarTabs.STUDY_CERTIFICATE}
                                 text="Study Certificate"
                                 icon={<BookOpen size={16} />}
+                                type={ApplicationType.StudyCertificate}
                             />
                             <SubCategory
                                 activeTab={activeTab}
@@ -65,6 +73,7 @@ export default function Sidebar({ activeTab, setActiveTab }: { activeTab: number
                                 tab={sidebarTabs.MID_DAY_MEALS}
                                 text="Mid day meals"
                                 icon={<Utensils size={16} />}
+                                type={ApplicationType.MidDayMeal}
                             />
                             <SubCategory
                                 tab={sidebarTabs.CONDUCT_CERTIFICATE}
@@ -72,6 +81,7 @@ export default function Sidebar({ activeTab, setActiveTab }: { activeTab: number
                                 setActiveTab={setActiveTab}
                                 text="Conduct Certificate"
                                 icon={<FileText size={16} />}
+                                type={ApplicationType.ConductCertificate}
                             />
                         </div>
                     </div>
@@ -106,11 +116,17 @@ export default function Sidebar({ activeTab, setActiveTab }: { activeTab: number
     )
 }
 
-const SubCategory = ({ tab, activeTab, setActiveTab, text, icon }: { tab: number, activeTab: number, setActiveTab: CallableFunction, text: string, icon: ReactNode }) => {
+const SubCategory = ({ tab, activeTab, setActiveTab, text, icon, type }: { tab: number, activeTab: number, setActiveTab: CallableFunction, text: string, icon: ReactNode, type: ApplicationType }) => {
+    const setFilter = useSetRecoilState(applicationsFilterAtom);
+    const handler = () => {
+        setActiveTab(tab);
+        setFilter(type);
+    };
+
     return (
         <span
             className={`${activeTab == tab ? "bg-white text-blue-600 border" : "border-slate-400"} ${categoriesClasses}`}
-            onClick={() => setActiveTab(tab)}
+            onClick={handler}
         >
             {icon} {text}
         </span>
