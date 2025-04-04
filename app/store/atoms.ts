@@ -1,5 +1,5 @@
 import { atom, useRecoilValue } from "recoil";
-import { ApplicationType } from "../library/types";
+import { ApplicationType, sidebarTabs } from "../library/types";
 
 export const applicationsAtom = atom({
     default: [
@@ -106,4 +106,9 @@ export const applicationsAtom = atom({
 export const applicationsFilterAtom = atom({
     default: ApplicationType.All,
     key: "applicationsFilter"
+})
+
+export const activeTabAtom = atom({
+    default: sidebarTabs.APPLICATIONS,
+    key: "sidebarTab"
 })
