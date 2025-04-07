@@ -18,7 +18,11 @@ const Applications = () => {
         <div className={`main relative w-full flex-col flex justify-start items-center  bg-slate-50  select-none ${outfit.className}`}>
             <div className="flex flex-col w-[90%] my-10 mt-5 h-full gap-8 p-5">
                 {getCurrentPageApplications().map((ele, i) => (
-                    <ApplicationCard key={i} ele={ele} />
+
+                    <>
+                        <ApplicationCard key={i} ele={ele} />
+                        <div className="w-full h-max border-[0.5px] border-slate-200 -my-4"></div>
+                    </>
                 ))}
             </div>
             <div className="w-[90%] flex justify-between h-max px-5 pb-10">
@@ -51,7 +55,7 @@ const Applications = () => {
 
 const ApplicationCard: React.FC<{ ele: any }> = ({ ele }) => {
     return (
-        <div className="border-[0.1px] border-slate-500 outline-none flex w-full h-max py-6 px-8 gap-5 bg-blue-50 rounded-[25px] justify-center items-center cursor-pointer hover:scale-[1.015] transition-all duration-300 shadow-sm hover:shadow-lg">
+        <div className="outline-none flex w-full h-max py-6 px-8 gap-5 rounded-[7px] justify-center items-center cursor-pointer hover:scale-[1.015] hover:-mt-[0.5px] transition-all duration-200  hover:shadow-sm hover:bg-blue-100/80">
             <span className="text-[19px] flex gap-2 items-center w-[40%]">
                 {ele.type == ApplicationType.TransferCertificate && <GraduationCap size={20} />}
                 {ele.type == ApplicationType.MidDayMeal && <Utensils size={20} />}

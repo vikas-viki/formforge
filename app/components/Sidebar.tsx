@@ -1,36 +1,36 @@
 "use client";
 
-import { BarChart, BookOpen, CheckCircle, ChevronDown, FileText, Layers, ShieldUser, Utensils, XCircle } from "lucide-react";
-import { inkNut } from "../library/font";
+import { BookOpen, CheckCircle, ChevronDown, FileText, Layers, ShieldUser, TvMinimal, Utensils, XCircle } from "lucide-react";
+import { alegereya } from "../library/font";
 import { ApplicationType, sidebarTabs } from "../library/types";
-import { ReactNode, useMemo, useRef, useState } from "react";
+import { ReactNode, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { activeTabAtom, applicationsFilterAtom } from "../store/atoms";
 
-const categoriesClasses = "text-nowrap flex font-medium justify-start items-center gap-2 px-4 py-2 rounded-[10px] text-[14px] cursor-pointer hover:shadow-lg transition-all duration-200";
-const mainCategoryClasses = "flex  gap-2 w-full font-medium items-center px-4 py-2 rounded-[10px] cursor-pointer hover:shadow-lg transition-all duration-200";
+const categoriesClasses = "text-nowrap flex font-medium justify-start items-center gap-2 px-4 py-2 rounded-[10px] text-[14px] cursor-pointer hover:shadow-lg transition-all duration-300";
+const mainCategoryClasses = "flex  gap-[20px] w-full font-medium items-center px-4 py-2 rounded-[10px] cursor-pointer hover:shadow-lg transition-all duration-200";
 
 export default function Sidebar() {
 
     return (
-        <div className="flex flex-col bg-slate-100 border-r border-slate-400 opacity-70 min-w-[250px] h-full min-h-[100vh]  p-5">
-            <span className={`${inkNut.className} text-[22px] font-bold`}>Applify</span>
-            <div className="flex flex-col gap-4 border-b border-slate-400 w-full my-6 pb-6 mt-10">
+        <div className="flex flex-col border-r border-[#BCB7B7] bg-white/50 min-w-[324px] max-h-[100vh] overflow-none">
+            <span className={`${alegereya.className} text-[28px] font-bold p-10 pb-0`}>Applify</span>
+            <div className="flex flex-col gap-4 border-b border-[#BCB7B7] w-full my-6 pb-6 p-10 pt-0 mt-10">
                 <MainCategory
                     tab={sidebarTabs.APPLICATIONS}
                     text="Applications"
-                    icon={<Layers size={20} />}
+                    icon={<Layers size={18.35} />}
                     type={ApplicationType.All}
                     extraClasses={"justify-between"}
-                    extraContent={<span className="px-[4px] rounded-[3px] text-[12px] font-bold bg-slate-300 ">19</span>}
+                    extraContent={<span className="px-[4px] rounded-[3px] text-[10px] font-semibold bg-slate-300 ">23</span>}
                 />
                 <MainCategory
                     tab={sidebarTabs.ANALYTICS}
                     text="Analytics"
-                    icon={<BarChart size={20} />}
+                    icon={<TvMinimal size={18.35} />}
                 />
             </div>
-            <div className="flex flex-col w-full h-max gap-2">
+            <div className="flex flex-col w-full h-max gap-2 p-10 pt-2">
                 <span className="text-[12px]">MAIN</span>
                 <div className="flex flex-col w-full h-full gap-4">
                     <Categories />
@@ -42,21 +42,22 @@ export default function Sidebar() {
                     <MainCategory
                         tab={sidebarTabs.REJECTED}
                         text="Rejected"
-                        icon={<XCircle size={20} />}
+                        icon={<XCircle size={22} />}
                     />
                     <MainCategory
                         tab={sidebarTabs.NEW_ADMIN}
                         text="New Admin"
-                        icon={<ShieldUser size={20} />}
+                        icon={<ShieldUser size={22} />}
                     />
                 </div>
             </div>
-            <div className=" w-full h-full flex flex-col justify-end">
-                <div className="flex flex-col py-2 px-4 rounded-[5px] my-4 bg-white shadow-xl">
+            <div className=" w-full h-full flex flex-col items-center justify-end">
+                <div className="flex flex-col py-2 px-6 rounded-[5px] my-4 bg-white shadow-xl w-max">
                     <span>John carter</span>
                     <span className="opacity-80 text-[13px]">john@gmail.com</span>
                 </div>
             </div>
+            <div className="sidebar-bg"></div>
         </div>
     )
 }
@@ -114,7 +115,7 @@ const SubCategory = ({ tab, text, icon, type }: { tab: number, text: string, ico
 
     return (
         <span
-            className={`${activeTab == tab ? "bg-white text-blue-600 border" : "border-slate-400"} ${categoriesClasses}`}
+            className={`${activeTab == tab ? "bg-white text-blue-600 outline-blue-400 " : ""} ${categoriesClasses}`}
             onClick={handler}
         >
             {icon} {text}
@@ -133,10 +134,20 @@ const MainCategory = ({ tab, text, icon, extraClasses, type, extraContent }: { t
 
     return (
         <span
-            className={`${activeTab == tab ? "bg-white text-blue-600 border" : "border-slate-400"} ${extraClasses} ${mainCategoryClasses} `}
+            className={`${activeTab == tab ? "bg-white text-blue-600 tab-shadow outline outline-blue-600" : ""} ${extraClasses} ${mainCategoryClasses} `}
             onClick={handler}
         >
-            {icon} {text} {extraContent}
+            <span className={`${activeTab == tab ? "text-blue-600" : ""}`}>
+                {icon}
+            </span>
+            <span className="flex w-full justify-between text-[16px]">
+                <span>
+                    {text}
+                </span>
+                <span>
+                    {extraContent}
+                </span>
+            </span>
         </span>
     )
 }

@@ -1,12 +1,14 @@
+"use client"
 import { Bell, CircleHelp, Command, Search } from "lucide-react";
 import { useRecoilState } from "recoil";
 import { searchFilterAtom } from "../store/atoms";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Topbar() {
 
     return (
-        <div className="w-full h-max flex justify-between items-center px-8 py-4 border-b border-slate-400 bg-slate-100">
+        <div className="w-full h-max relative flex justify-between items-center px-8 py-4 border-b border-[#BCB7B7] bg-white/20">
+            <div className="topbar-bg"></div>
             <div className="flex flex-col h-full w-max">
                 <span className="text-[14px] text-slate-600">
                     Welcome,
@@ -28,13 +30,15 @@ const SearchFilter = () => {
     const [searchFilter, setSearchFilter] = useRecoilState(searchFilterAtom);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
-    document.addEventListener("keydown", (e: KeyboardEvent) => {
-        console.log(e)
-        if ((e.ctrlKey || e.metaKey) && e.code === "KeyK") {
-            e.preventDefault();
-            inputRef.current?.focus();
-        }
-    });
+    useEffect(() => {
+        document.addEventListener("keydown", (e: KeyboardEvent) => {
+            console.log(e)
+            if ((e.ctrlKey || e.metaKey) && e.code === "KeyK") {
+                e.preventDefault();
+                inputRef.current?.focus();
+            }
+        });
+    }, [])
     return (
         <div className="flex justify-between items-center w-full max-w-[700px] bg-white/90 shadow-sm p-2 rounded-[10px]">
             <div className="flex justify-center gap-2 items-center w-full">

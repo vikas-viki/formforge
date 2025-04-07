@@ -13,12 +13,15 @@ export default function Landing() {
                     <button className="self-right w-max text-nowrap px-8 py-3 rounded-[5px] bg-slate-100 text-slate-800 font-medium text-[12px] md:text-[16px] cursor-pointer mt-4">Take Me In</button>
                 </Link>
             </div>
-            <div className="w-full h-max relative pt-20 flex justify-center items-center">
+            <div className="w-full h-max relative pt-20 flex justify-center items-center rounded-[30px] overflow-hidden">
                 <Image src="/dashboard.png"
                     width="75"
                     height="100"
-                    style={{ width: "75%", height: "auto" }}
+                    style={{ width: "75%", height: "auto", borderTopRightRadius: "30px", borderTopLeftRadius: "30px" }}
                     alt="dashboard"
+                    priority={true}
+                    quality={100}
+                    unoptimized
                 />
             </div>
         </section>
