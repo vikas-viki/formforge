@@ -1,16 +1,17 @@
 "use client";
 
-import { BookOpen, CheckCircle, ChevronDown, FileText, Layers, ShieldUser, TvMinimal, Utensils, XCircle } from "lucide-react";
+import { BookOpen, CheckCircle, ChevronDown, CircleDot, FileText, Layers, ShieldUser, TvMinimal, Utensils, XCircle } from "lucide-react";
 import { alegereya } from "../library/font";
 import { ApplicationType, sidebarTabs } from "../library/types";
 import { ReactNode, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { activeTabAtom, applicationsFilterAtom } from "../store/atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { activeTabAtom, applicationsFilterAtom, userDetailsAtom } from "../store/atoms";
 
 const categoriesClasses = "text-nowrap flex font-medium justify-start items-center gap-2 px-4 py-2 rounded-[10px] text-[14px] cursor-pointer hover:shadow-lg transition-all duration-300";
 const mainCategoryClasses = "flex  gap-[20px] w-full font-medium items-center px-4 py-2 rounded-[10px] cursor-pointer hover:shadow-lg transition-all duration-200";
 
 export default function Sidebar() {
+    const { type: userType, name, email } = useRecoilValue(userDetailsAtom);
 
     return (
         <div className="flex flex-col border-r border-[#BCB7B7] bg-white/50 min-w-[324px] max-h-[100vh] overflow-none">
@@ -22,18 +23,33 @@ export default function Sidebar() {
                     icon={<Layers size={18.35} />}
                     type={ApplicationType.All}
                     extraClasses={"justify-between"}
-                    extraContent={<span className="px-[4px] rounded-[3px] text-[10px] font-semibold bg-slate-300 ">23</span>}
+                    extraContent={userType != "USER" && <span className="px-[4px] rounded-[3px] text-[10px] font-semibold bg-slate-300 ">23</span>}
                 />
-                <MainCategory
-                    tab={sidebarTabs.ANALYTICS}
-                    text="Analytics"
-                    icon={<TvMinimal size={18.35} />}
-                />
+                {
+                    userType != "USER" && (
+                        <MainCategory
+                            tab={sidebarTabs.ANALYTICS}
+                            text="Analytics"
+                            icon={<TvMinimal size={18.35} />}
+                        />
+                    )
+                }
             </div>
             <div className="flex flex-col w-full h-max gap-2 p-10 pt-2">
                 <span className="text-[12px]">MAIN</span>
                 <div className="flex flex-col w-full h-full gap-4">
-                    <Categories />
+                    {
+                        userType != "USER" && (
+                            <Categories />
+                        )
+                    }
+                    {userType == "USER" && (
+                        <MainCategory
+                            tab={sidebarTabs.PENDING}
+                            text="Pending"
+                            icon={<CircleDot size={22} />}
+                        />
+                    )}
                     <MainCategory
                         tab={sidebarTabs.APPROVED}
                         text="Approved"
@@ -44,17 +60,21 @@ export default function Sidebar() {
                         text="Rejected"
                         icon={<XCircle size={22} />}
                     />
-                    <MainCategory
-                        tab={sidebarTabs.NEW_ADMIN}
-                        text="New Admin"
-                        icon={<ShieldUser size={22} />}
-                    />
+                    {
+                        userType != "USER" && (
+                            <MainCategory
+                                tab={sidebarTabs.NEW_ADMIN}
+                                text="New Admin"
+                                icon={<ShieldUser size={22} />}
+                            />
+                        )
+                    }
                 </div>
             </div>
             <div className=" w-full h-full flex flex-col items-center justify-end">
                 <div className="flex flex-col py-2 px-6 rounded-[5px] my-4 bg-white shadow-xl w-max">
-                    <span>John carter</span>
-                    <span className="opacity-80 text-[13px]">john@gmail.com</span>
+                    <span>{name}</span>
+                    <span className="opacity-80 text-[13px]">{email}</span>
                 </div>
             </div>
             <div className="sidebar-bg"></div>

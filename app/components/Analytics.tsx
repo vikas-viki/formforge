@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Cell, Pie, PieChart, Sector } from "recharts";
 import { inter, poppins, roboto } from "../library/font";
@@ -88,9 +89,7 @@ const DonutChart = () => {
                 labelLine={false}
             >
                 {data.map((d, i) => (
-                    <>
-                        <Cell key={`cell-${i}`} fill={COLORS[i]} />
-                    </>
+                    <Cell key={`cell-${i}`} fill={COLORS[i]} />
                 ))}
             </Pie>
         </PieChart>

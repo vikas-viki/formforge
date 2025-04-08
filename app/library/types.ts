@@ -83,5 +83,16 @@ export enum sidebarTabs {
     CONDUCT_CERTIFICATE,
     APPROVED,
     REJECTED,
+    PENDING,
     NEW_ADMIN
+}
+
+export type Credentials = {
+    redirect: boolean,
+    username: string,
+    email: string,
+    password: string,
+    cPassword: string,
+    rememberMe: string,
+    type: "login" | "signup",
 }

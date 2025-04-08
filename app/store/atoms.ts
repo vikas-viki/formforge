@@ -1,5 +1,6 @@
-import { atom, useRecoilValue } from "recoil";
+import { atom } from "recoil";
 import { ApplicationType, sidebarTabs } from "../library/types";
+import { USER_TYPES } from "../library/constants";
 
 export const applicationsAtom = atom({
     default: [
@@ -114,6 +115,16 @@ export const searchFilterAtom = atom({
 })
 
 export const activeTabAtom = atom({
-    default: sidebarTabs.ANALYTICS,
+    default: sidebarTabs.APPLICATIONS,
     key: "sidebarTab"
+})
+
+export const userDetailsAtom = atom({
+    default: {
+        name: "John carter",
+        email: "john@gmail.com",
+        type: USER_TYPES.user,
+        id: ""
+    },
+    key: "User"
 })

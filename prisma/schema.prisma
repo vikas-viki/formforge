@@ -48,6 +48,7 @@ model User {
   password     String        @db.VarChar(150)
   type         UserType      @default(USER)
   createdAt    DateTime      @default(now())
+  name         String        @default("John")
   profile      Profile?
   applications Application[]
 }
@@ -72,6 +73,7 @@ model Application {
   status        Status              @default(PENDING)
   createdAt     DateTime            @default(now())
   details       ApplicationDetails?
+  reason        String?
 }
 
 model ApplicationDetails {
@@ -86,4 +88,5 @@ model ApplicationDetails {
   leaveDate     DateTime?
   returnDate    DateTime?
   reason        String?
+  passingYear   Int?
 }

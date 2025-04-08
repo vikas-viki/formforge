@@ -14,7 +14,7 @@ export default function Navbar() {
                     <a className="text-[12px]" href="#aboutus">AboutUs</a >
                 </div>
             </div>
-            <Link href="/signup">
+            <Link href="/auth">
                 <button className="self-right w-max text-nowrap px-4 py-2 rounded-[5px] bg-[#1C2D5C] text-[12px] cursor-pointer hidden md:block">Get Started</button>
             </Link>
         </div>

@@ -1,4 +1,4 @@
-// Dashboard content
+"use client"
 
 import { useRecoilValue } from "recoil";
 import { activeTabAtom } from "../store/atoms";

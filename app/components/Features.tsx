@@ -10,7 +10,7 @@ export default function Features() {
     return (
         <section id="features" className={`w-[100vw] h-max overflow-hidden p-10 lg:p-20 ${outfit.className} relative flex flex-col justfiy-center items-center`}>
             <span className="text-[#AEB3F8] w-full self-start block pl-[5%] text-[20px] md:text-[24px]">Features</span>
-            <div className="  h-full bg-[#161624] relative rounded-[15px] w-full lg:w-[90%] border-[0.6px] outline-none mt-10 relative overflow-hidden">
+            <div className="  h-full bg-[#161624] rounded-[15px] w-full lg:w-[90%] border-[0.6px] outline-none mt-10 relative overflow-hidden">
                 <div className="features-bg  pl-0 pt-0 w-full h-full lg:mt-[40px] lg:ml-[40px]">
                     <div className="flex flex-col lg:flex-row py-5 pt-0 gap-10 lg:pr-10">
                         <div className="flex flex-col gap-4 z-2 bg-[#161624] features-head p-8 sm:p-10 lg:p-4 ">

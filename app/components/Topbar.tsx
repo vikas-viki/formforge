@@ -32,7 +32,6 @@ const SearchFilter = () => {
 
     useEffect(() => {
         document.addEventListener("keydown", (e: KeyboardEvent) => {
-            console.log(e)
             if ((e.ctrlKey || e.metaKey) && e.code === "KeyK") {
                 e.preventDefault();
                 inputRef.current?.focus();
