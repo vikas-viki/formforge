@@ -18,7 +18,10 @@ export default function DashboardContent() {
                     sidebarTabs.CONDUCT_CERTIFICATE,
                     sidebarTabs.MID_DAY_MEALS,
                     sidebarTabs.STUDY_CERTIFICATE,
-                    sidebarTabs.TRANSFER_CERTIFICATE
+                    sidebarTabs.TRANSFER_CERTIFICATE,
+                    sidebarTabs.PENDING,
+                    sidebarTabs.APPROVED,
+                    sidebarTabs.REJECTED
                 ].includes(activeTab) && <Applications />
             }
             {activeTab == sidebarTabs.NEW_ADMIN && <NewAdmin />}

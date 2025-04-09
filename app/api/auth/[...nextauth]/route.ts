@@ -1,37 +1,10 @@
 import { comparePassword, hashPassword } from "@/app/library/helpers";
 import { Credentials } from "@/app/library/types";
 import { prisma } from "@/db";
-import NextAuth from "next-auth"
+import NextAuth, { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
-declare module "next-auth" {
-    interface Session {
-        user: {
-            id: string;
-            name: string;
-            email: string,
-            type: "ADMIN" | "USER",
-            rememberMe: boolean
-        }
-    }
-    interface User {
-        id: string,
-        name: string,
-        email: string,
-        type: "ADMIN" | "USER",
-        rememberMe: boolean
-    }
-}
-
-declare module "next-auth/jwt" {
-    interface JWT {
-        id: string;
-        type: "ADMIN" | "USER",
-        rememberMe?: boolean;
-    }
-}
-
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
     providers: [
         CredentialsProvider({
             credentials: {
@@ -93,7 +66,6 @@ const handler = NextAuth({
     ],
     callbacks: {
         async session({ session, token }) {
-            console.log("in session ", token);
             if (session.user && token.id) {
                 session.user.id = token.id
                 session.user.type = token.type;
@@ -119,6 +91,8 @@ const handler = NextAuth({
 
     },
     secret: process.env.NEXTAUTH_SECRET
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }

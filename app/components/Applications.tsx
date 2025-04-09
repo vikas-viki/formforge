@@ -2,27 +2,72 @@
 import { BookOpenCheck, ChevronLeft, ChevronRight, Filter, GraduationCap, Utensils } from "lucide-react";
 import { outfit } from "../library/font";
 import { useState } from "react";
-import { ApplicationType } from "../library/types";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { filteredApplicationsSelector } from "../store/selectors";
+import { ApplicationType, Status, UserType } from "@prisma/client";
+import { ApplicationName, ApplicationsResponse, GetApplicationsReturn, NewApplications, sidebarTabs } from "../library/types";
+import { formatDistanceToNow } from "date-fns";
+import { activeTabAtom, currentApplicationIdAtom, userDetailsAtom } from "../store/atoms";
+import ApplicationCard from "./ApplicationCard";
 
 const Applications = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const filteredApplications = useRecoilValue(filteredApplicationsSelector);
 
-    const getCurrentPageApplications = () => {
-        return filteredApplications.slice((currentPage - 1) * 10, currentPage * 10);
+    const { type } = useRecoilValue(userDetailsAtom) as { type: UserType };
+    const activeTab = useRecoilValue(activeTabAtom);
+
+    const getCurrentPageApplications = <T extends string>(_type: T): GetApplicationsReturn<T> => {
+        if (activeTab == sidebarTabs.APPLICATIONS && _type == "USER") {
+            var applications: NewApplications = [
+                {
+                    type: ApplicationType.TRANSFER_CERTIFICATE,
+                    kind: "NEW",
+                    feilds: {
+                        name: "text",
+                        rollNo: "text",
+                        email: "text",
+                        course: "text",
+                        passingYear: "text"
+                    }
+                },
+                {
+                    type: ApplicationType.STUDY_CERTIFICATE,
+                    kind: "NEW",
+                    feilds: {
+                        name: "text",
+                        rollNo: "text",
+                        email: "text",
+                        course: "text",
+                        semester: "number",
+                        passingYear: "text",
+                        description: "text"
+                    }
+                },
+                {
+                    type: ApplicationType.MID_DAY_MEAL,
+                    kind: "NEW",
+                    feilds: {
+                        name: "text",
+                        rollNo: "text",
+                        semester: "number"
+                    }
+                }
+            ];
+            return applications as GetApplicationsReturn<T>
+        } else {
+            return filteredApplications.slice((currentPage - 1) * 10, currentPage * 10) as GetApplicationsReturn<T>;
+        }
     }
 
     return (
         <div className={`main relative w-full flex-col flex justify-start items-center  bg-slate-50  select-none ${outfit.className}`}>
-            <div className="flex flex-col w-[90%] my-10 mt-5 h-full gap-8 p-5">
-                {getCurrentPageApplications().map((ele, i) => (
-
-                    <>
-                        <ApplicationCard key={i} ele={ele} />
-                        <div className="w-full h-max border-[0.5px] border-slate-200 -my-4"></div>
-                    </>
+            <div className="flex flex-col w-[90%] my-10 mt-5 h-full gap-0 p-5">
+                {(getCurrentPageApplications(type) as ApplicationsResponse).map((ele, i) => (
+                    <div key={i}>
+                        <ApplicationCard ele={ele} />
+                        <div className="w-full h-max border-[0.5px] border-slate-200 my-4"></div>
+                    </div>
                 ))}
             </div>
             <div className="w-[90%] flex justify-between h-max px-5 pb-10">
@@ -53,18 +98,5 @@ const Applications = () => {
     )
 };
 
-const ApplicationCard: React.FC<{ ele: any }> = ({ ele }) => {
-    return (
-        <div className="outline-none flex w-full h-max py-6 px-8 gap-5 rounded-[7px] justify-center items-center cursor-pointer hover:scale-[1.015] hover:-mt-[0.5px] transition-all duration-200  hover:shadow-sm hover:bg-blue-100/80">
-            <span className="text-[19px] flex gap-2 items-center w-[40%]">
-                {ele.type == ApplicationType.TransferCertificate && <GraduationCap size={20} />}
-                {ele.type == ApplicationType.MidDayMeal && <Utensils size={20} />}
-                {ele.type == ApplicationType.StudyCertificate && <BookOpenCheck size={20} />}
-                {ele.name}</span>
-            <span className={`self-center w-[20%] text-center font-medium text-slate-500 ${outfit.className}`}>{ele.rollNo}</span>
-            <span className="w-[40%] text-right">{ele.date}</span>
-        </div>
-    )
-}
 
 export default Applications;

@@ -1,5 +1,33 @@
 import { z } from "zod";
 import { authBody, profileBody } from "./zod";
+import { ApplicationDetails, ApplicationType, ApplicationType as PrismaApplicationType } from "@prisma/client"
+
+declare module "next-auth" {
+    interface Session {
+        user: {
+            id: string;
+            name: string;
+            email: string,
+            type: "ADMIN" | "USER",
+            rememberMe: boolean
+        }
+    }
+    interface User {
+        id: string,
+        name: string,
+        email: string,
+        type: "ADMIN" | "USER",
+        rememberMe: boolean
+    }
+}
+
+declare module "next-auth/jwt" {
+    interface JWT {
+        id: string;
+        type: "ADMIN" | "USER",
+        rememberMe?: boolean;
+    }
+}
 
 export enum ModalInputTypes {
     input,
@@ -8,13 +36,12 @@ export enum ModalInputTypes {
     cancel
 }
 
-export enum ApplicationType {
-    TransferCertificate = "TransferCertificate",
-    StudyCertificate = "StudyCertificate",
-    MidDayMeal = "MidDayMeal",
-    ConductCertificate = "ConductCertificate",
-    All = "All"
-};
+export enum ApplicationName {
+    TRANSFER_CERTIFICATE = "Transfer Certificate",
+    STUDY_CERTIFICATE = "Study Certificate",
+    CONVEYANCE = "Conveyance Application",
+    MID_DAY_MEAL = "Mid-Day Meals"
+}
 
 export enum UserType {
     ADMIN,
@@ -22,9 +49,9 @@ export enum UserType {
 }
 
 export enum Status {
-    pending,
-    approved,
-    rejected
+    pending = "PENDING",
+    approved = "APPROVED",
+    rejected = "REJECTED"
 }
 
 export type SubmittedApplication = {
@@ -48,12 +75,12 @@ export type AuthBody = z.infer<typeof authBody>;
 export type ProfileBody = z.infer<typeof profileBody>;
 
 export type ApplicationDataMap = {
-    [ApplicationType.MidDayMeal]: {
+    [ApplicationType.MID_DAY_MEAL]: {
         rollNo: string,
         course: string,
         semester: string,
     };
-    [ApplicationType.StudyCertificate]: {
+    [ApplicationType.STUDY_CERTIFICATE]: {
         name: string,
         rollNo: string,
         email: string,
@@ -62,7 +89,7 @@ export type ApplicationDataMap = {
         passingYear: string,
         description: string
     };
-    [ApplicationType.TransferCertificate]: {
+    [ApplicationType.TRANSFER_CERTIFICATE]: {
         name: string,
         rollNo: string,
         email: string,
@@ -71,7 +98,6 @@ export type ApplicationDataMap = {
         description: string
     }
 }
-
 
 export enum sidebarTabs {
     APPLICATIONS,
@@ -84,8 +110,35 @@ export enum sidebarTabs {
     APPROVED,
     REJECTED,
     PENDING,
-    NEW_ADMIN
+    NEW_ADMIN,
+    NEW_APPLICATION,
+    APPLICATION_DETAILS
 }
+
+export type ApplicationsResponse = {
+    applicationId: string,
+    createdAt: string,
+    reason: string | null,
+    status: Status,
+    type: PrismaApplicationType,
+    details: ApplicationDetails
+}[];
+
+export type NewApplications = {
+    type: PrismaApplicationType,
+    kind: "NEW",
+    feilds: {
+        name?: string,
+        rollNo?: string,
+        email?: string,
+        course?: string,
+        semester?: string,
+        passingYear?: string,
+        description?: string
+    }
+}[]
+
+export type GetApplicationsReturn<T> = T extends "USER" ? NewApplications : ApplicationsResponse;
 
 export type Credentials = {
     redirect: boolean,

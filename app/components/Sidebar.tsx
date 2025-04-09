@@ -2,10 +2,11 @@
 
 import { BookOpen, CheckCircle, ChevronDown, CircleDot, FileText, Layers, ShieldUser, TvMinimal, Utensils, XCircle } from "lucide-react";
 import { alegereya } from "../library/font";
-import { ApplicationType, sidebarTabs } from "../library/types";
+import { sidebarTabs } from "../library/types";
 import { ReactNode, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { activeTabAtom, applicationsFilterAtom, userDetailsAtom } from "../store/atoms";
+import { activeTabAtom, applicationsFilterAtom, statusFilterAtom, userDetailsAtom } from "../store/atoms";
+import { ApplicationType, Status } from "@prisma/client";
 
 const categoriesClasses = "text-nowrap flex font-medium justify-start items-center gap-2 px-4 py-2 rounded-[10px] text-[14px] cursor-pointer hover:shadow-lg transition-all duration-300";
 const mainCategoryClasses = "flex  gap-[20px] w-full font-medium items-center px-4 py-2 rounded-[10px] cursor-pointer hover:shadow-lg transition-all duration-200";
@@ -21,7 +22,7 @@ export default function Sidebar() {
                     tab={sidebarTabs.APPLICATIONS}
                     text="Applications"
                     icon={<Layers size={18.35} />}
-                    type={ApplicationType.All}
+                    type={"ALL"}
                     extraClasses={"justify-between"}
                     extraContent={userType != "USER" && <span className="px-[4px] rounded-[3px] text-[10px] font-semibold bg-slate-300 ">23</span>}
                 />
@@ -48,17 +49,20 @@ export default function Sidebar() {
                             tab={sidebarTabs.PENDING}
                             text="Pending"
                             icon={<CircleDot size={22} />}
+                            status={Status.PENDING}
                         />
                     )}
                     <MainCategory
                         tab={sidebarTabs.APPROVED}
                         text="Approved"
                         icon={<CheckCircle size={20} />}
+                        status={Status.APPROVED}
                     />
                     <MainCategory
                         tab={sidebarTabs.REJECTED}
                         text="Rejected"
                         icon={<XCircle size={22} />}
+                        status={Status.REJECTED}
                     />
                     {
                         userType != "USER" && (
@@ -100,32 +104,32 @@ const Categories = () => {
                     tab={sidebarTabs.TRANSFER_CERTIFICATE}
                     text="Transfer Certificate"
                     icon={<FileText size={16} />}
-                    type={ApplicationType.TransferCertificate}
+                    type={ApplicationType.TRANSFER_CERTIFICATE}
                 />
                 <SubCategory
                     tab={sidebarTabs.STUDY_CERTIFICATE}
                     text="Study Certificate"
                     icon={<BookOpen size={16} />}
-                    type={ApplicationType.StudyCertificate}
+                    type={ApplicationType.STUDY_CERTIFICATE}
                 />
                 <SubCategory
                     tab={sidebarTabs.MID_DAY_MEALS}
                     text="Mid day meals"
                     icon={<Utensils size={16} />}
-                    type={ApplicationType.MidDayMeal}
+                    type={ApplicationType.MID_DAY_MEAL}
                 />
                 <SubCategory
                     tab={sidebarTabs.CONDUCT_CERTIFICATE}
                     text="Conduct Certificate"
                     icon={<FileText size={16} />}
-                    type={ApplicationType.ConductCertificate}
+                    type={ApplicationType.CONVEYANCE}
                 />
             </div>
         </div>
     )
 }
 
-const SubCategory = ({ tab, text, icon, type }: { tab: number, text: string, icon: ReactNode, type: ApplicationType }) => {
+const SubCategory = ({ tab, text, icon, type }: { tab: number, text: string, icon: ReactNode, type: ApplicationType | "ALL" }) => {
     const [activeTab, setActiveTab] = useRecoilState(activeTabAtom);
     const setFilter = useSetRecoilState(applicationsFilterAtom);
     const handler = () => {
@@ -143,13 +147,21 @@ const SubCategory = ({ tab, text, icon, type }: { tab: number, text: string, ico
     )
 }
 
-const MainCategory = ({ tab, text, icon, extraClasses, type, extraContent }: { tab: number, text: string, icon: ReactNode, extraClasses?: String, type?: ApplicationType, extraContent?: ReactNode }) => {
+const MainCategory = ({ tab, text, icon, extraClasses, type, extraContent, status }: { tab: number, text: string, icon: ReactNode, extraClasses?: String, type?: ApplicationType | "ALL", extraContent?: ReactNode, status?: Status }) => {
     const [activeTab, setActiveTab] = useRecoilState(activeTabAtom);
     const setFilter = useSetRecoilState(applicationsFilterAtom);
+    const setStatusFilter = useSetRecoilState(statusFilterAtom)
     const handler = () => {
         setActiveTab(tab);
+        console.log(status);
         if (type)
             setFilter(type);
+        if (status) {
+            console.log("updating status");
+            setStatusFilter(status);
+        } else {
+            setStatusFilter(Status.PENDING);
+        }
     };
 
     return (
