@@ -7,7 +7,7 @@ import { filteredApplicationsSelector } from "../store/selectors";
 import { ApplicationType, Status, UserType } from "@prisma/client";
 import { ApplicationName, ApplicationsResponse, GetApplicationsReturn, NewApplications, sidebarTabs } from "../library/types";
 import { formatDistanceToNow } from "date-fns";
-import { activeTabAtom, currentApplicationIdAtom, userDetailsAtom } from "../store/atoms";
+import { activeTabAtom, userDetailsAtom } from "../store/atoms";
 import ApplicationCard from "./ApplicationCard";
 
 const Applications = () => {

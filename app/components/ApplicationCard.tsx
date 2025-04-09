@@ -4,7 +4,7 @@ import { GraduationCap, Utensils, BookOpenCheck } from "lucide-react";
 import { useSetRecoilState } from "recoil";
 import { outfit } from "../library/font";
 import { ApplicationsResponse, sidebarTabs, ApplicationName } from "../library/types";
-import { currentApplicationIdAtom, activeTabAtom } from "../store/atoms";
+import { activeTabAtom, currentApplicationAtom } from "../store/atoms";
 
 const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) => {
 
@@ -14,16 +14,16 @@ const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) =>
         [Status.REJECTED]: "bg-red-500"
     }
 
-    const setCurrentApplicationId = useSetRecoilState(currentApplicationIdAtom);
+    const setCurrentApplication = useSetRecoilState(currentApplicationAtom);
     const setActiveTab = useSetRecoilState(activeTabAtom);
 
     const handler = () => {
         if (ele.applicationId) {
             setActiveTab(sidebarTabs.APPLICATION_DETAILS);
-            setCurrentApplicationId(ele.applicationId)
+            setCurrentApplication(ele)
         } else {
             setActiveTab(sidebarTabs.NEW_APPLICATION);
-            setCurrentApplicationId(ApplicationName[ele.type]);
+            setCurrentApplication(ele);
         }
     }
 

@@ -6,6 +6,8 @@ import { sidebarTabs } from "../library/types";
 import Applications from "./Applications";
 import NewAdmin from "./NewAdmin";
 import Analytics from "./Analytics";
+import NewApplication from "./NewApplication";
+import ApplicationDetails from "./ApplicationDetails";
 
 export default function DashboardContent() {
     const activeTab = useRecoilValue(activeTabAtom);
@@ -26,6 +28,8 @@ export default function DashboardContent() {
             }
             {activeTab == sidebarTabs.NEW_ADMIN && <NewAdmin />}
             {activeTab == sidebarTabs.ANALYTICS && <Analytics />}
+            {activeTab == sidebarTabs.NEW_APPLICATION && <NewApplication />}
+            {activeTab == sidebarTabs.APPLICATION_DETAILS && <ApplicationDetails />}
         </div>
     )
 }

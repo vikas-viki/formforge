@@ -38,7 +38,7 @@ export const userDetailsAtom = atom({
     key: "User"
 })
 
-export const currentApplicationIdAtom = atom({
-    default: "",
+export const currentApplicationAtom = atom({
+    default: {},
     key: "CurrentApplicationId"
 })

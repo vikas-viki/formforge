@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { statusFilterAtom, applicationsAtom, applicationsFilterAtom, searchFilterAtom, currentApplicationIdAtom } from "./atoms";
+import { statusFilterAtom, applicationsAtom, applicationsFilterAtom, searchFilterAtom } from "./atoms";
 
 export const filteredApplicationsSelector = selector({
     key: "filteredApplications",
@@ -13,13 +13,4 @@ export const filteredApplicationsSelector = selector({
             .filter(a => (a?.type == filter || filter == "ALL") && (a.details?.rollNo?.toLowerCase().includes(searchFilter.toLowerCase())))
             .filter(a => a.status == activeStatus || activeStatus == "");
     },
-})
-
-export const currentApplication = selector({
-    key: "CurrentApplication",
-    get: ({ get }) => {
-        const applicationId = get(currentApplicationIdAtom);
-        const applications = get(applicationsAtom);
-        return applications.filter(a => a.applicationId == applicationId);
-    }
 })
