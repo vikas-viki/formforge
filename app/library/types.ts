@@ -137,7 +137,33 @@ export type NewApplications = {
         passingYear?: string,
         description?: string
     }
-}[]
+}[];
+
+export type AnalyticsData = {
+    donut: Record<ApplicationType, number>;
+
+} & { [status in Status]: {
+    val: number,
+    percent: number
+} }
+    & {
+        growthChart: { [month in Months]: number }
+    };
+
+export enum Months {
+    Jan,
+    Feb,
+    Mar,
+    Apr,
+    May,
+    Jun,
+    Jul,
+    Aug,
+    Sep,
+    Oct,
+    Nov,
+    Dec
+}
 
 export type GetApplicationsReturn<T> = T extends "USER" ? NewApplications : ApplicationsResponse;
 

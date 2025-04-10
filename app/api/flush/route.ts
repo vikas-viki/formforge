@@ -1,21 +1,33 @@
 import { hashPassword } from "@/app/library/helpers";
 import { prisma } from "@/db";
-import { UserType } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { Status, UserType } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-    // await prisma.user.delete({
-    //     where: {
-    //         email: "admin@gmail.com"
-    //     }
-    // })
-    // await prisma.user.create({   
-    //     data: {
-    //         email: "admin@gmail.com",
-    //         password: hashPassword("admin"),
-    //         type: UserType.ADMIN
-    //     }
-    // })
+export async function GET(req: NextRequest) {
+    const searchParams = new URL(req.url);
+    const type = searchParams.searchParams.get("type");
+
+    if (type == "pending") {
+        const pendingApplications = await prisma.application.findMany({
+            where: {
+                status: Status.PENDING
+            }
+        });
+
+        await prisma.applicationDetails.deleteMany({
+            where: {
+                applicationId: {
+                    in: pendingApplications.map(p => p.applicationId)
+                }
+            }
+        });
+
+        await prisma.application.deleteMany({
+            where: {
+                status: Status.PENDING
+            }
+        })
+    }
     const users = await prisma.user.findMany();
     return NextResponse.json(users);
 }

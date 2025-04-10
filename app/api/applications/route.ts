@@ -1,5 +1,5 @@
 import { prisma } from "@/db";
-import { ApplicationType, Status } from "@prisma/client";
+import { ApplicationDetails, ApplicationType, Department, Status } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
@@ -47,25 +47,20 @@ export async function GET() {
 }
 
 type NewApplicationBody = {
-    userId: string;
     type: ApplicationType,
-    details: {
-        name: string,
-        rollNo: string,
-        course: string,
-        semister: string,
-        reason: string
-    }
+    details: ApplicationDetails
 }
 export async function POST(req: NextRequest) {
-    if (!req.body) return;
-
+    const session = await getServerSession(authOptions);
+    if (!req.body || !session || !session.user.id) return;
     const body: NewApplicationBody = await req.json();
 
-    const userId = body.userId;
+    const userId = session.user.id;
     const type = body.type;
     const details = body.details;
 
+    if (details.passingYear)
+        details.passingYear = Number(details.passingYear);
 
     const application = await prisma.application.create({
         data: {
@@ -101,7 +96,6 @@ type StatusUpdateBody = {
 }
 
 export async function PATCH(req: NextRequest) {
-    console.log("update req");
     const body = (await req.json()) as StatusUpdateBody;
 
 

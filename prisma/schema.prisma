@@ -90,4 +90,5 @@ model ApplicationDetails {
   returnDate    DateTime?
   reason        String?
   passingYear   Int?
+  description   String?
 }

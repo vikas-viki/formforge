@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { activeTabAtom, applicationsAtom, applicationsFilterAtom, statusFilterAtom, userDetailsAtom } from "../store/atoms";
 import { ApplicationType, Status } from "@prisma/client";
 import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const categoriesClasses = "text-nowrap flex font-medium justify-start items-center gap-2 px-4 py-2 rounded-[10px] text-[14px] cursor-pointer hover:shadow-lg transition-all duration-300";
 const mainCategoryClasses = "flex  gap-[20px] w-full font-medium items-center px-4 py-2 rounded-[10px] cursor-pointer hover:shadow-lg transition-all duration-200";
@@ -84,7 +85,10 @@ export default function Sidebar() {
                         <span className="opacity-80 text-[13px]">{email}</span>
                     </div>
                     <button className="bg-red-300 h-max w-max rounded-[5px] p-2 cursor-pointer"
-                        onClick={() => signOut()}
+                        onClick={() => {
+                            redirect("/");
+                            signOut();
+                        }}
                     >
                         <LogOut size={20} />
                     </button>

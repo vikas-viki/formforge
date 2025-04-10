@@ -25,7 +25,6 @@ const Applications = () => {
                     feilds: {
                         name: "text",
                         rollNo: "text",
-                        email: "text",
                         course: "text",
                         passingYear: "text"
                     }
@@ -36,7 +35,6 @@ const Applications = () => {
                     feilds: {
                         name: "text",
                         rollNo: "text",
-                        email: "text",
                         course: "text",
                         semester: "number",
                         passingYear: "text",

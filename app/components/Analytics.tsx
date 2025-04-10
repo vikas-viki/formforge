@@ -5,13 +5,28 @@ import { inter, poppins, roboto } from "../library/font";
 import {
     AreaChart, Area, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
+import numeral from "numeral";
+import { useRecoilValue } from "recoil";
+import { applicationsAtom } from "../store/atoms";
+import { analyticsDataSelector } from "../store/selectors";
+import { AnalyticsData, Months } from "../library/types";
+import { ApplicationType } from "@prisma/client";
+import { LOCAL_STORAGE } from "../library/constants";
+
 
 export default function Analytics() {
+
+    const formatNumber = (num: number, max: number) => {
+        return num > max ? numeral(num).format("0.0a") : (num < 10 ? `0${num}` : num.toLocaleString());
+    }
+
+    const data = useRecoilValue(analyticsDataSelector);
+
     return (
         <div className={`w-full h-full flex flex-col p-10 gap-13 ${poppins.className}`}>
             <div className="w-full h-max flex gap-10 justify-center items-center select-none">
                 <div className="h-max rounded-[30px] border-[#BCB7B7] border">
-                    <DonutChart />
+                    <DonutChart analyticsData={data} />
                 </div>
                 <div className="flex flex-col gap-6 ml-10 w-max h-full rounded-[10px]">
                     <div className="flex  w-full overflow-hidden flex-wrap flex-col gap-4">
@@ -22,25 +37,25 @@ export default function Analytics() {
                             <div className="flex gap-12 justify-between p-5 px-6 rounded-[30px] w-full shadow-sm bg-[#10D5B0]/3 border-[#10D5B0] border-[5px] bg-opacity-3 z-2 items-end">
                                 <div className="flex justify-between gap-[42px] flex-col">
                                     <span className={`text-[#03613C] font-semibold ${inter.className}`}>Approved</span>
-                                    <span className="font-medium text-[13px] leading-[8px] text-[#03613C] ">99.4%</span>
+                                    <span className="font-medium text-[13px] leading-[8px] text-[#03613C] ">{data.APPROVED.percent}%</span>
                                 </div>
-                                <span className="font-bold text-[60px] leading-[50px] text-[#10D5B0]">1253</span>
+                                <span className="font-bold text-[60px] leading-[50px] text-[#10D5B0]">{formatNumber(data.APPROVED.val, 10000)}</span>
                             </div>
                         </div>
                         <div className="flex gap-4">
                             <div className="flex gap-4 p-5 px-6 rounded-[30px] shadow-sm bg-[#FFBB28]/5 border-[#FFBB28] border-[5px] bg-opacity-3 z-2 items-end">
                                 <div className="flex justify-between gap-[42px] flex-col">
                                     <span className={`text-[#835E0F] font-semibold ${inter.className}`}>Pending</span>
-                                    <span className="font-medium text-[13px] leading-[8px] text-[#835E0F] ">1.79%</span>
+                                    <span className="font-medium text-[13px] leading-[8px] text-[#835E0F] ">{data.PENDING.percent}%</span>
                                 </div>
-                                <span className="font-bold text-[60px] leading-[50px] text-[#FFBB28]">23</span>
+                                <span className="font-bold text-[60px] leading-[50px] text-[#FFBB28]">{formatNumber(data.PENDING.val, 1000)}</span>
                             </div>
                             <div className="flex gap-4 p-5 px-6 rounded-[30px] shadow-sm bg-[#FF8042]/5 border-[#FF8042] border-[5px] bg-opacity-3 z-2 items-end">
                                 <div className="flex justify-between gap-[42px] flex-col">
                                     <span className={`text-[#612A0F]/90 font-semibold ${inter.className}`}>Rejected</span>
-                                    <span className="font-medium text-[13px] leading-[8px] text-[#612A0F] ">0.54%</span>
+                                    <span className="font-medium text-[13px] leading-[8px] text-[#612A0F] ">{data.REJECTED.percent}%</span>
                                 </div>
-                                <span className="font-bold text-[60px] leading-[50px] text-[#FF8042]">07</span>
+                                <span className="font-bold text-[60px] leading-[50px] text-[#FF8042]">{formatNumber(data.REJECTED.val, 1000)}</span>
                             </div>
                         </div>
                     </div>
@@ -55,13 +70,13 @@ export default function Analytics() {
     )
 }
 
-const DonutChart = () => {
+const DonutChart = ({ analyticsData }: { analyticsData: AnalyticsData }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const data = [
-        { name: "TC", value: 400 },
-        { name: "SC", value: 670 },
-        { name: "MDM", value: 1200 },
-        { name: "CC", value: 340 },
+        { name: "TC", value: analyticsData.donut.TRANSFER_CERTIFICATE },
+        { name: "SC", value: analyticsData.donut.STUDY_CERTIFICATE },
+        { name: "MDM", value: analyticsData.donut.MID_DAY_MEAL },
+        { name: "CC", value: analyticsData.donut.CONVEYANCE },
     ];
     const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -121,7 +136,7 @@ const DonutInnerLabel = (props: any) => {
 }
 
 const DonutOuterLabel = (props: any) => {
-    const max = 2610;
+    const max = localStorage.getItem(LOCAL_STORAGE.maxApplications) || 0;
     const { cx, cy, payload, index, fill, value } = props;
 
     const y = ((cy - 55) + (index * 40));
@@ -156,23 +171,30 @@ const DonutOuterLabel = (props: any) => {
 
                 textAnchor="middle"
                 dominantBaseline="middle"
-            >{Math.ceil((value / max) * 100)}%</text>
+            >{Math.ceil((value / Number(max)) * 100)}%</text>
         </g>
     )
 }
 
-const data = [
-    { month: 'Jan', applications: 5 },
-    { month: 'Feb', applications: 40 },
-    { month: 'Mar', applications: 80 },
-    { month: 'Apr', applications: 130 },
-    { month: 'May', applications: 100 },
-    { month: 'Jun', applications: 119 },
-    { month: 'Jul', applications: 180 },
-    { month: 'Aug', applications: 100 },
-];
 
 const GrowthChart = () => {
+    var data = [
+        ...Object.values(Months).map((val) => {
+            return { month: val.toString(), applications: 0 }
+        }),
+    ];
+
+    const growthChartData = JSON.parse(localStorage.getItem(LOCAL_STORAGE.analyticsData)!) as unknown as AnalyticsData;
+
+    var lastMonth = 0;
+
+    data.forEach((m, i) => {
+        data[i].applications = growthChartData.growthChart[i as Months];
+        if (data[i].applications > 0) lastMonth = i;
+    });
+
+    data = data.slice(0, lastMonth + 1);
+
     return (
         <ResponsiveContainer width="100%" height={395}>
             <AreaChart data={data} margin={{ top: 30, right: 30, left: 0, bottom: 0 }}>

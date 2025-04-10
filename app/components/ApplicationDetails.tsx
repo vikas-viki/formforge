@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 
 export default function NewApplication() {
     const currentApplication = useRecoilValue(currentApplicationAtom) as ApplicationsResponse[0];
-    const setActiveTab = useSetRecoilState(activeTabAtom);
     const { data: session } = useSession();
 
     const valueClasses = "outline-none rounded-[5px] text-[19px] w-full min-w-[300px] max-w-full";
@@ -54,7 +53,6 @@ export default function NewApplication() {
         }
     }
 
-
     return (
         <div className="p-10 flex flex-col bg-white h-full w-full">
             <div className="flex gap-8 flex-wrap w-full h-max">
@@ -75,16 +73,21 @@ export default function NewApplication() {
                     })
                 }
             </div>
-            <div className="flex w-full h-full mt-5 p-5 items-end justify-end gap-4 self-end">
-                <button
-                    onClick={() => updateStatus(Status.REJECTED)}
-                    className="text-[18px] font-medium border rounded-[30px] px-6 py-2 bg-red-400/90 cursor-pointer hover:bg-red-500/90 transition-all duration-300"
-                >Reject</button>
-                <button
-                    onClick={() => updateStatus(Status.APPROVED)}
-                    className="text-[18px] font-medium border rounded-[30px] px-6 py-2 bg-green-400/90 cursor-pointer hover:bg-green-500/90 transition-all duration-300"
-                >Approve</button>
-            </div>
+            {
+                session?.user.type == UserType.ADMIN && (
+
+                    <div className="flex w-full h-full mt-5 p-5 items-end justify-end gap-4 self-end">
+                        <button
+                            onClick={() => updateStatus(Status.REJECTED)}
+                            className="text-[18px] font-medium border rounded-[30px] px-6 py-2 bg-red-400/90 cursor-pointer hover:bg-red-500/90 transition-all duration-300"
+                        >Reject</button>
+                        <button
+                            onClick={() => updateStatus(Status.APPROVED)}
+                            className="text-[18px] font-medium border rounded-[30px] px-6 py-2 bg-green-400/90 cursor-pointer hover:bg-green-500/90 transition-all duration-300"
+                        >Approve</button>
+                    </div>
+                )
+            }
         </div>
     )
 }

@@ -4,17 +4,18 @@ import DashboardContent from "@/app/components/Content";
 import Sidebar from "@/app/components/Sidebar";
 import Topbar from "@/app/components/Topbar";
 import { poppins } from "@/app/library/font";
-import { applicationsAtom, userDetailsAtom } from "@/app/store/atoms";
+import { activeTabAtom, applicationsAtom, userDetailsAtom } from "@/app/store/atoms";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export default function Dashboard() {
     const { data: session, status } = useSession();
     const setApplications = useSetRecoilState(applicationsAtom);
     const setUserDetails = useSetRecoilState(userDetailsAtom);
+    const activeTab = useRecoilValue(activeTabAtom);
 
     if ((status == "authenticated" && session && !session.user.id) || status == "unauthenticated") {
         return redirect("/");
@@ -31,7 +32,7 @@ export default function Dashboard() {
             setUserDetails(session!.user);
             getApplications();
         }
-    }, [session]);
+    }, [session, activeTab]);
 
     return (
         <div className={`flex w-full h-screen overflow-hidden ${poppins.className}`}>

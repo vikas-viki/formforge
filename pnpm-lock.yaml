@@ -44,6 +44,9 @@ importers:
       next-auth:
         specifier: ^4.24.11
         version: 4.24.11(next@14.2.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      numeral:
+        specifier: ^2.0.6
+        version: 2.0.6
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -72,6 +75,9 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.17.28
+      '@types/numeral':
+        specifier: ^2.0.5
+        version: 2.0.5
       '@types/react':
         specifier: ^19
         version: 19.0.12
@@ -423,6 +429,9 @@ packages:
 
   '@types/node@20.17.28':
     resolution: {integrity: sha512-DHlH/fNL6Mho38jTy7/JT7sn2wnXI+wULR6PV4gy4VHLVvnrV/d3pHAMQHhc4gjdLmK2ZiPoMxzp6B3yRajLSQ==}
+
+  '@types/numeral@2.0.5':
+    resolution: {integrity: sha512-kH8I7OSSwQu9DS9JYdFWbuvhVzvFRoCPCkGxNwoGgaPeDfEPJlcxNvEOypZhQ3XXHsGbfIuYcxcJxKUfJHnRfw==}
 
   '@types/react-dom@19.0.4':
     resolution: {integrity: sha512-4fSQ8vWFkg+TGhePfUzVmat3eC14TXYSsiiDSLI0dVLsrm9gZFABjPy/Qu6TKgl1tq1Bu1yDsuQgY3A3DOjCcg==}
@@ -1644,6 +1653,9 @@ packages:
     resolution: {integrity: sha512-AqZtDUWOMKs1G/8lwylVjrdYgqA4d9nu8hc+0gzRxlDb1I10+FHBGMXs6aiQHFdCUUlqH99MUMuLfzWDNDtfxw==}
     deprecated: This package is no longer supported.
 
+  numeral@2.0.6:
+    resolution: {integrity: sha512-qaKRmtYPZ5qdw4jWJD6bxEf1FJEqllJrwxCLIm0sQU/A7v2/czigzOb+C2uSiFsa9lBUzeH7M1oK+Q+OLxL3kA==}
+
   oauth@0.9.15:
     resolution: {integrity: sha512-a5ERWK1kh38ExDEfoO6qUHJb32rd7aYmPHuyCu3Fta/cnICvYmgd2uhuKXvPD+PXB+gCEYYEaQdIRAjCOwAKNA==}
 
@@ -2459,6 +2471,8 @@ snapshots:
   '@types/node@20.17.28':
     dependencies:
       undici-types: 6.19.8
+
+  '@types/numeral@2.0.5': {}
 
   '@types/react-dom@19.0.4(@types/react@19.0.12)':
     dependencies:
@@ -3826,6 +3840,8 @@ snapshots:
       console-control-strings: 1.1.0
       gauge: 3.0.2
       set-blocking: 2.0.0
+
+  numeral@2.0.6: {}
 
   oauth@0.9.15: {}
 

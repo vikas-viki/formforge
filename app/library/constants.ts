@@ -15,3 +15,8 @@ export const USER_TYPES = {
     user: "USER",
     admin: "ADMIN"
 }
+
+export const LOCAL_STORAGE = {
+    maxApplications: "MAX_APPLICATIONS",
+    analyticsData: "ANALYTICS_DATA"
+}
