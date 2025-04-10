@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("PRODUCTION_DATABASE_URL")
 }
 
 enum UserType {
@@ -17,22 +17,6 @@ enum Status {
   PENDING
   APPROVED
   REJECTED
-}
-
-enum Department {
-  COMPUTER_SCIENCE
-  PHYSICS
-  CHEMISTRY
-  MATHEMATICS
-  BIOLOGY
-  KANNADA
-  COMMERCE
-  ENGLISH
-  HINDI
-  SOCIAL_SCIENCE
-  PHYSICAL_EDUCATION
-  LIBRARY
-  OFFICE
 }
 
 enum ApplicationType {
@@ -84,7 +68,6 @@ model ApplicationDetails {
   course        String?
   rollNo        String?
   semester      String?
-  department    Department?
   staffId       String?
   leaveDate     DateTime?
   returnDate    DateTime?
