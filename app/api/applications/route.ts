@@ -6,7 +6,7 @@ import { authOptions } from "../auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { ApplicationName } from "@/app/library/types";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     const session = await getServerSession(authOptions);
 
     if (!session?.user.id) {
@@ -101,7 +101,9 @@ type StatusUpdateBody = {
 }
 
 export async function PATCH(req: NextRequest) {
+    console.log("update req");
     const body = (await req.json()) as StatusUpdateBody;
+
 
     await prisma.application.update({
         where: {

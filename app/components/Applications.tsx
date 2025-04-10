@@ -1,12 +1,11 @@
 "use client";
-import { BookOpenCheck, ChevronLeft, ChevronRight, Filter, GraduationCap, Utensils } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { outfit } from "../library/font";
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { filteredApplicationsSelector } from "../store/selectors";
-import { ApplicationType, Status, UserType } from "@prisma/client";
-import { ApplicationName, ApplicationsResponse, GetApplicationsReturn, NewApplications, sidebarTabs } from "../library/types";
-import { formatDistanceToNow } from "date-fns";
+import { ApplicationType, UserType } from "@prisma/client";
+import { ApplicationsResponse, GetApplicationsReturn, NewApplications, sidebarTabs } from "../library/types";
 import { activeTabAtom, userDetailsAtom } from "../store/atoms";
 import ApplicationCard from "./ApplicationCard";
 
@@ -69,6 +68,9 @@ const Applications = () => {
                         <div className="w-full h-max border-[0.5px] border-slate-200 my-4"></div>
                     </div>
                 ))}
+                {getCurrentPageApplications(type).length == 0 && (
+                    <span className="text-slate-500 w-full text-center">No applications</span>
+                )}
             </div>
             <div className="w-[90%] flex justify-between h-max px-5 pb-10">
                 <button

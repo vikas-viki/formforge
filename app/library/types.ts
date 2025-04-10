@@ -117,6 +117,7 @@ export enum sidebarTabs {
 
 export type ApplicationsResponse = {
     applicationId: string,
+    updatedAt: string,
     createdAt: string,
     reason: string | null,
     status: Status,

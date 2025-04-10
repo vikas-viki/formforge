@@ -1,10 +1,16 @@
-import { useRecoilValue } from "recoil"
-import { currentApplicationAtom } from "../store/atoms"
-import { ApplicationsResponse } from "../library/types";
-import { Status } from "@prisma/client";
+import { useRecoilValue, useSetRecoilState } from "recoil"
+import { activeTabAtom, currentApplicationAtom } from "../store/atoms"
+import { ApplicationsResponse, sidebarTabs } from "../library/types";
+import { Status, UserType } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import { ReactNode } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function NewApplication() {
     const currentApplication = useRecoilValue(currentApplicationAtom) as ApplicationsResponse[0];
+    const setActiveTab = useSetRecoilState(activeTabAtom);
+    const { data: session } = useSession();
 
     const valueClasses = "outline-none rounded-[5px] text-[19px] w-full min-w-[300px] max-w-full";
     const labelClasses = "text-[20px] font-medium capitalize";
@@ -15,18 +21,45 @@ export default function NewApplication() {
         [Status.REJECTED]: "bg-red-200"
     }
 
+    const getInfo = (): string => {
+        var info = "";
+        if (session?.user.type != UserType.ADMIN) {
+            switch (currentApplication.status) {
+                case Status.APPROVED:
+                    info = "Your application has been approved. You may visit the college to collect your certificate(s), if applicable.";
+                    break;
+                case Status.PENDING:
+                    info = "Your application is currently under review by the college admin. You will be notified shortly once it is approved.";
+                    break;
+                default:
+                    info = "Unfortunately, your application has been rejected due to incorrect or inappropriate details. You may visit the college to clarify the status or submit a new application."
+            }
+            return info;
+        }
+        return `${currentApplication.type.split("_").join(" ")}.`
+    }
+
+    const updateStatus = async (status: string) => {
+        try {
+
+            await axios.patch("/api/applications", {
+                applicationId: currentApplication.applicationId,
+                status
+            });
+
+            toast.success("Status updated!", { duration: 2000 });
+        } catch (e) {
+            console.log(e)
+            toast.error("Error occured: " + e, { duration: 2000 });
+        }
+    }
+
+
     return (
         <div className="p-10 flex flex-col bg-white h-full w-full">
             <div className="flex gap-8 flex-wrap w-full h-max">
                 <span className={`w-full ${colors[currentApplication.status]} px-4 py-2 rounded-[10px] font-normal tex-[18px]`}>
-                    {currentApplication.status === Status.APPROVED &&
-                        "Your application has been approved. You may visit the college to collect your certificate(s), if applicable."}
-
-                    {currentApplication.status === Status.PENDING &&
-                        "Your application is currently under review by the college admin. You will be notified shortly once it is approved."}
-
-                    {currentApplication.status === Status.REJECTED &&
-                        "Unfortunately, your application has been rejected due to incorrect or inappropriate details. You may visit the college to clarify the status or submit a new application."}
+                    {getInfo()}
                 </span>
                 {
                     Object.entries(currentApplication.details).map(([key, value], i) => {
@@ -41,6 +74,16 @@ export default function NewApplication() {
                         )
                     })
                 }
+            </div>
+            <div className="flex w-full h-full mt-5 p-5 items-end justify-end gap-4 self-end">
+                <button
+                    onClick={() => updateStatus(Status.REJECTED)}
+                    className="text-[18px] font-medium border rounded-[30px] px-6 py-2 bg-red-400/90 cursor-pointer hover:bg-red-500/90 transition-all duration-300"
+                >Reject</button>
+                <button
+                    onClick={() => updateStatus(Status.APPROVED)}
+                    className="text-[18px] font-medium border rounded-[30px] px-6 py-2 bg-green-400/90 cursor-pointer hover:bg-green-500/90 transition-all duration-300"
+                >Approve</button>
             </div>
         </div>
     )

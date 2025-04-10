@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { GeistMono, GeistSans } from "geist/font"
 import "./globals.css";
 import Providers from "./providers";
+import { Toaster } from "react-hot-toast";
 
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
         <Providers >
           {children}
         </Providers>
+        <Toaster position="top-right" />
       </body>
     </html>
   );
