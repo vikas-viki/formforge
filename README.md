@@ -1,2 +1,4 @@
-- use next-auth (no need to explicitly manage jwt's and cookies, verify using getServerSession in every component and redirect if not logged).
-- use page groupers [(admin) and (user)] to group user and admin pages differently.
+- moving local pg data to neon
+- get the data into dump.sql `sudo -u postgres pg_dump -d applify -F p -f tmp/dump.sql`
+- copy the file to current user file, run `sudo mv /tmp/dump.sql ./dump.sql`
+- update tables at neon, run `psql "neon_connection_string" < ./dump.sql`
