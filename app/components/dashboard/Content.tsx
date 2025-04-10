@@ -1,13 +1,13 @@
 "use client"
 
 import { useRecoilValue } from "recoil";
-import { activeTabAtom } from "../store/atoms";
-import { sidebarTabs } from "../library/types";
-import Applications from "./Applications";
-import NewAdmin from "./NewAdmin";
-import Analytics from "./Analytics";
-import NewApplication from "./NewApplication";
-import ApplicationDetails from "./ApplicationDetails";
+import { activeTabAtom } from "../../store/atoms";
+import { sidebarTabs } from "../../library/types";
+import Applications from "../tabs/Applications";
+import NewAdmin from "../tabs/NewAdmin";
+import Analytics from "../tabs/Analytics";
+import NewApplication from "../application/NewApplication";
+import ApplicationDetails from "../application/ApplicationDetails";
 
 export default function DashboardContent() {
     const activeTab = useRecoilValue(activeTabAtom);

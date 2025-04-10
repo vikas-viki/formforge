@@ -2,9 +2,9 @@ import { Status, ApplicationType } from "@prisma/client";
 import { formatDistanceToNow } from "date-fns";
 import { GraduationCap, Utensils, BookOpenCheck } from "lucide-react";
 import { useSetRecoilState } from "recoil";
-import { outfit } from "../library/font";
-import { ApplicationsResponse, sidebarTabs, ApplicationName } from "../library/types";
-import { activeTabAtom, currentApplicationAtom } from "../store/atoms";
+import { outfit } from "../../library/font";
+import { ApplicationsResponse, sidebarTabs, ApplicationName } from "../../library/types";
+import { activeTabAtom, currentApplicationAtom } from "../../store/atoms";
 
 const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) => {
 

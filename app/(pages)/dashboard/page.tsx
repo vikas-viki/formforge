@@ -1,8 +1,8 @@
 "use client";
 
-import DashboardContent from "@/app/components/Content";
-import Sidebar from "@/app/components/Sidebar";
-import Topbar from "@/app/components/Topbar";
+import DashboardContent from "@/app/components/dashboard/Content";
+import Sidebar from "@/app/components/dashboard/Sidebar";
+import Topbar from "@/app/components/dashboard/Topbar";
 import { poppins } from "@/app/library/font";
 import { activeTabAtom, applicationsAtom, userDetailsAtom } from "@/app/store/atoms";
 import axios from "axios";

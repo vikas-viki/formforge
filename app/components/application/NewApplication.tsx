@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { activeTabAtom, currentApplicationAtom } from "../store/atoms"
-import { NewApplications, sidebarTabs } from "../library/types";
+import { activeTabAtom, currentApplicationAtom } from "@/app//store/atoms"
+import { NewApplications, sidebarTabs } from "@/app//library/types";
 import axios from "axios";
 import toast from "react-hot-toast";
 

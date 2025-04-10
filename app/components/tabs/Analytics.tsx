@@ -1,17 +1,15 @@
 "use client";
 import { useState } from "react";
 import { Cell, Pie, PieChart, Sector } from "recharts";
-import { inter, poppins, roboto } from "../library/font";
+import { inter, poppins, roboto } from "../../library/font";
 import {
     AreaChart, Area, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import numeral from "numeral";
 import { useRecoilValue } from "recoil";
-import { applicationsAtom } from "../store/atoms";
-import { analyticsDataSelector } from "../store/selectors";
-import { AnalyticsData, Months } from "../library/types";
-import { ApplicationType } from "@prisma/client";
-import { LOCAL_STORAGE } from "../library/constants";
+import { analyticsDataSelector } from "../../store/selectors";
+import { AnalyticsData, Months } from "../../library/types";
+import { LOCAL_STORAGE } from "../../library/constants";
 
 
 export default function Analytics() {

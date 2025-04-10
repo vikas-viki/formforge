@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { inkNut } from "../library/font";
+import { inkNut } from "@/app/library/font";
 
 export default function Navbar() {
     return (

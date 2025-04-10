@@ -1,5 +1,5 @@
 import { Facebook, Linkedin, Youtube, Instagram, Earth, Phone, Mail, MapPin } from "lucide-react";
-import { outfit, quickSand } from "../library/font";
+import { outfit, quickSand } from "@/app/library/font";
 import Link from "next/link";
 
 export default function Footer() {

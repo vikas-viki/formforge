@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { SALT_ROUNDS } from "./constants";
+import { SALT_ROUNDS } from "../../library/constants";
 
 export function hashPassword(password: string): string {
     return bcrypt.hashSync(password, SALT_ROUNDS);

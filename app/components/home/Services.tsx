@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { outfit } from "../library/font";
+import { outfit } from "@/app/library/font";
 
 export default function Services() {
     return (

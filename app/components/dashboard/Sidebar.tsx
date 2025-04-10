@@ -1,11 +1,11 @@
 "use client";
 
 import { BookOpen, CheckCircle, ChevronDown, CircleDot, FileText, Layers, LogOut, ShieldUser, TvMinimal, Utensils, XCircle } from "lucide-react";
-import { alegereya } from "../library/font";
-import { sidebarTabs } from "../library/types";
+import { alegereya } from "../../library/font";
+import { sidebarTabs } from "../../library/types";
 import { ReactNode, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { activeTabAtom, applicationsAtom, applicationsFilterAtom, statusFilterAtom, userDetailsAtom } from "../store/atoms";
+import { activeTabAtom, applicationsAtom, applicationsFilterAtom, statusFilterAtom, userDetailsAtom } from "../../store/atoms";
 import { ApplicationType, Status } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";

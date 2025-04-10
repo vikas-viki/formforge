@@ -182,3 +182,14 @@ export type NewAdminBody = {
     password: string,
     name: string
 }
+
+
+export type NewApplicationBody = {
+    type: ApplicationType,
+    details: ApplicationDetails
+}
+
+export type StatusUpdateBody = {
+    applicationId: string,
+    status: Status
+}

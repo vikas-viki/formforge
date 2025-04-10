@@ -1,13 +1,13 @@
 "use client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { outfit } from "../library/font";
+import { outfit } from "@/app/library/font";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { filteredApplicationsSelector } from "../store/selectors";
+import { filteredApplicationsSelector } from "@/app/store/selectors";
 import { ApplicationType, UserType } from "@prisma/client";
-import { ApplicationsResponse, GetApplicationsReturn, NewApplications, sidebarTabs } from "../library/types";
-import { activeTabAtom, userDetailsAtom } from "../store/atoms";
-import ApplicationCard from "./ApplicationCard";
+import { ApplicationsResponse, GetApplicationsReturn, NewApplications, sidebarTabs } from "@/app/library/types";
+import { activeTabAtom, userDetailsAtom } from "@/app/store/atoms";
+import ApplicationCard from "../application/ApplicationCard";
 
 const Applications = () => {
     const [currentPage, setCurrentPage] = useState(1);

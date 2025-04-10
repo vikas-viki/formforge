@@ -1,7 +1,7 @@
 "use client"
 import { Bell, CircleHelp, Command, Search } from "lucide-react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { searchFilterAtom, userDetailsAtom } from "../store/atoms";
+import { searchFilterAtom, userDetailsAtom } from "@/app/store/atoms";
 import { useEffect, useRef } from "react";
 
 export default function Topbar() {

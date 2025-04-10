@@ -1,11 +1,11 @@
 import { prisma } from "@/db";
-import { ApplicationDetails, ApplicationType, Department, Status } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/library/constatns";
 import { redirect } from "next/navigation";
-import { ApplicationName } from "@/app/library/types";
+import { ApplicationName, NewApplicationBody, StatusUpdateBody } from "@/app/library/types";
 
+// must be authenticated
 export async function GET() {
     const session = await getServerSession(authOptions);
 
@@ -46,10 +46,7 @@ export async function GET() {
     return NextResponse.json({ applications });
 }
 
-type NewApplicationBody = {
-    type: ApplicationType,
-    details: ApplicationDetails
-}
+// must be authenticated
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
     if (!req.body || !session || !session.user.id) return;
@@ -90,14 +87,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(await prisma.user.findMany(), { status: 200 });
 }
 
-type StatusUpdateBody = {
-    applicationId: string,
-    status: Status
-}
-
+// must be admin
 export async function PATCH(req: NextRequest) {
     const body = (await req.json()) as StatusUpdateBody;
-
 
     await prisma.application.update({
         where: {

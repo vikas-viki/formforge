@@ -1,7 +1,6 @@
 import { atom } from "recoil";
 import { ApplicationsResponse, sidebarTabs } from "../library/types";
 import { USER_TYPES } from "../library/constants";
-import { Status } from "@prisma/client";
 
 export const applicationsAtom = atom({
     default: [] as ApplicationsResponse,

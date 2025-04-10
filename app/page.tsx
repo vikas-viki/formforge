@@ -1,10 +1,10 @@
-import Landing from "./components/Landing";
-import Features from "./components/Features";
+import Landing from "./components/home/Landing";
+import Features from "./components/home/Features";
 import { poppins } from "./library/font";
-import Workflow from "./components/Workflow";
-import Services from "./components/Services";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
+import Workflow from "./components/home/Workflow";
+import Services from "./components/home/Services";
+import Footer from "./components/home/Footer";
+import Navbar from "./components/home/Navbar";
 
 export default function Home() {
   return (

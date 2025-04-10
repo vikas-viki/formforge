@@ -1,6 +1,5 @@
-import { hashPassword } from "@/app/library/helpers";
 import { prisma } from "@/db";
-import { Status, UserType } from "@prisma/client";
+import { Status } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {

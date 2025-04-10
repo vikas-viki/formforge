@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { outfit } from "../library/font";
+import { outfit } from "@/app/library/font";
 import Link from "next/link";
 
 export default function Features() {

@@ -1,9 +1,8 @@
-import { useRecoilValue, useSetRecoilState } from "recoil"
-import { activeTabAtom, currentApplicationAtom } from "../store/atoms"
-import { ApplicationsResponse, sidebarTabs } from "../library/types";
+import { useRecoilValue } from "recoil"
+import { currentApplicationAtom } from "../../store/atoms"
+import { ApplicationsResponse } from "../../library/types";
 import { Status, UserType } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { ReactNode } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
