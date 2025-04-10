@@ -86,8 +86,8 @@ export default function Sidebar() {
                     </div>
                     <button className="bg-red-300 h-max w-max rounded-[5px] p-2 cursor-pointer"
                         onClick={() => {
-                            redirect("/");
                             signOut();
+                            redirect("/");
                         }}
                     >
                         <LogOut size={20} />

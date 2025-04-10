@@ -41,7 +41,7 @@ const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) =>
             <span className={`self-center w-[20%] text-center font-medium text-slate-500 ${outfit.className}`}>{ele?.details?.rollNo}</span>
             <span className="w-[40%] text-right text-slate-500 flex gap-2 items-center justify-end">
                 <span className={`text-[8px] text-white ${colors[ele.status]} rounded-[20px] py-[4px] px-[8px]`}>{ele.status}</span>
-                {(ele.updatedAt || ele.createdAt) && formatDistanceToNow(new Date((ele.updatedAt || ele.createdAt)), { addSuffix: false, includeSeconds: false }).replace("about", "") + " ago"}
+                {(ele.createdAt) && formatDistanceToNow(new Date((ele.createdAt)), { addSuffix: false, includeSeconds: false }).replace("about", "") + " ago"}
             </span>
             {!ele.createdAt &&
                 <span className="flex bg-teal-400 text-nowrap text-[12px] px-2 py-1 rounded-[20px]">Apply now</span>

@@ -71,9 +71,9 @@ export const analyticsDataSelector = selector({
             }
         })
 
-        data.APPROVED.percent = (data.APPROVED.val / applications.length) * 100;
-        data.PENDING.percent = (data.PENDING.val / applications.length) * 100;
-        data.REJECTED.percent = (data.REJECTED.val / applications.length) * 100;
+        data.APPROVED.percent = Math.ceil(data.APPROVED.val / applications.length * 100);
+        data.PENDING.percent = Math.ceil(data.PENDING.val / applications.length * 100);
+        data.REJECTED.percent = Math.ceil(data.REJECTED.val / applications.length * 100);
 
         localStorage.setItem(LOCAL_STORAGE.analyticsData, JSON.stringify(data));
         localStorage.setItem(LOCAL_STORAGE.maxApplications, applications.length.toString());

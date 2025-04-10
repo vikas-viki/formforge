@@ -17,6 +17,14 @@ export default function Dashboard() {
     const setUserDetails = useSetRecoilState(userDetailsAtom);
     const activeTab = useRecoilValue(activeTabAtom);
 
+    if (status == "loading") {
+        return (
+            <div className="flex w-full h-[100vh] bg-slate-100 justify-center items-center">
+                <div className="loader"><div></div><div></div></div>
+            </div>
+        )
+    }
+
     if ((status == "authenticated" && session && !session.user.id) || status == "unauthenticated") {
         return redirect("/");
     }
