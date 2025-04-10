@@ -176,3 +176,9 @@ export type Credentials = {
     rememberMe: string,
     type: "login" | "signup",
 }
+
+export type NewAdminBody = {
+    email: string,
+    password: string,
+    name: string
+}

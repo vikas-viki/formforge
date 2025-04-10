@@ -1,10 +1,11 @@
 "use client"
 import { Bell, CircleHelp, Command, Search } from "lucide-react";
-import { useRecoilState } from "recoil";
-import { searchFilterAtom } from "../store/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { searchFilterAtom, userDetailsAtom } from "../store/atoms";
 import { useEffect, useRef } from "react";
 
 export default function Topbar() {
+    const userDetails = useRecoilValue(userDetailsAtom);
 
     return (
         <div className="w-full h-max relative flex justify-between items-center px-8 py-4 border-b border-[#BCB7B7] bg-white/20">
@@ -14,7 +15,7 @@ export default function Topbar() {
                     Welcome,
                 </span>
                 <span className="text-[16px] font-regular">
-                    John carter
+                    {userDetails.name || "John carter"}
                 </span>
             </div>
             <SearchFilter />
