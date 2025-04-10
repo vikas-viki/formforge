@@ -13,7 +13,7 @@ export default function DashboardContent() {
     const activeTab = useRecoilValue(activeTabAtom);
 
     return (
-        <div className="w-full h-full overflow-y-auto bg-slate-50">
+        <div className="w-full h-full overflow-y-auto bg-white">
             {
                 [
                     sidebarTabs.APPLICATIONS,

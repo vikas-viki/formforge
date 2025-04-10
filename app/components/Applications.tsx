@@ -61,7 +61,7 @@ const Applications = () => {
     }
 
     return (
-        <div className={`main relative w-full flex-col flex justify-start items-center  bg-slate-50  select-none ${outfit.className}`}>
+        <div className={`main relative w-full flex-col flex justify-start items-center  bg-white  select-none ${outfit.className}`}>
             <div className="flex flex-col w-[90%] my-10 mt-5 h-full gap-0 p-5">
                 {(getCurrentPageApplications(type) as ApplicationsResponse).map((ele, i) => (
                     <div key={i}>
