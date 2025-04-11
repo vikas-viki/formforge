@@ -12,8 +12,23 @@ jobs:
       - name: Checkout code 
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with: 
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+        
+      - name: Generate prisma client
+        run: pnpx prisma generate
+
       - name: Install Vercel CLI
-        run: npm install -g vercel
+        run: pnpm install -g vercel
       
       - name: Deploy to vercel.
         env:
