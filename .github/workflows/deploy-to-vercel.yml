@@ -15,17 +15,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
 
-      - name: Install pnpm
-        run: npm i -g pnpm
-
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
         
       - name: Generate prisma client
-        run: pnpx prisma generate
+        run: npx prisma generate
 
       - name: Install Vercel CLI
-        run: pnpm install -g vercel
+        run: npm install -g vercel
       
       - name: Deploy to vercel.
         env:
