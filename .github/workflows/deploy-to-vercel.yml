@@ -1,0 +1,28 @@
+name: Deploying app to vercel
+
+on:
+  push:
+    branches:
+      - revamp/applify
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v3
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+      
+      - name: Deploy to vercel.
+        env:
+          VERCEL_TOKEN: ${{secrets.VERCEL_TOKEN}}
+          VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
+          VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID }}
+        run: |
+          vercel --token $VERCEL_TOKEN \
+          --prod \
+          --confirm \
+          --org $VERCEL_ORG_ID \
+          --project $VERCEL_PROJECT_ID
