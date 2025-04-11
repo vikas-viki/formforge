@@ -100,5 +100,7 @@ export async function PATCH(req: NextRequest) {
         }
     });
 
+    // add certificate generation here.
+
     return new NextResponse("status updated", { status: 200 });
 }

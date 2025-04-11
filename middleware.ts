@@ -22,5 +22,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/api/admin", "/api/applications", "/api/flush"],
+    matcher: ["/api/admin", "/api/applications"],
 };

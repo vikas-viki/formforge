@@ -21,4 +21,4 @@ jobs:
         run: |
           vercel --token $VERCEL_TOKEN \
           --prod \
-          --confirm 
+          --yes 
