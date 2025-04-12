@@ -1,11 +1,15 @@
-FROM ubuntu:alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
-COPY ./package.json ./package.json
+RUN npm i -g pnpm
 
-RUN npm i
+COPY package.json pnpm-lock.yaml prisma  ./
+
+RUN pnpm i
 
 COPY . .
 
-CMD [ "npm", "run", "dev" ]
+EXPOSE 3000
+
+CMD [ "pnpm", "dev" ]
