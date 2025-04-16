@@ -28,6 +28,7 @@ export const authOptions: AuthOptions = {
                             }
                         });
                         if (!PrismaUser) return null;
+                        console.log({ PrismaUser })
 
                         var isCorrectPassword = comparePassword(request.password, PrismaUser.password);
 
