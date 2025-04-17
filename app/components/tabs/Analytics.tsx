@@ -71,10 +71,8 @@ export default function Analytics() {
 const DonutChart = ({ analyticsData }: { analyticsData: AnalyticsData }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const data = [
-        { name: "TC", value: analyticsData.donut.TRANSFER_CERTIFICATE },
-        { name: "SC", value: analyticsData.donut.STUDY_CERTIFICATE },
-        { name: "MDM", value: analyticsData.donut.MID_DAY_MEAL },
-        { name: "CC", value: analyticsData.donut.CONVEYANCE },
+        { name: "TC", value: analyticsData.donut.TRANSFER_CERTIFICATE || 0 },
+        { name: "SC", value: analyticsData.donut.STUDY_CERTIFICATE || 0 },
     ];
     const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 

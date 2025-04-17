@@ -38,9 +38,7 @@ export enum ModalInputTypes {
 
 export enum ApplicationName {
     TRANSFER_CERTIFICATE = "Transfer Certificate",
-    STUDY_CERTIFICATE = "Study Certificate",
-    CONVEYANCE = "Conveyance Application",
-    MID_DAY_MEAL = "Mid-Day Meals"
+    STUDY_CERTIFICATE = "Study Certificate"
 }
 
 export enum UserType {
@@ -65,9 +63,13 @@ export type Profile = {
     name: string,
     rollNo: string,
     email: string,
+    phoneNumber: string,
+    passingYear: string,
     course: string,
-    semister: string,
-    passingYear: string
+    reason: string,
+    semester: string,
+    section: string,
+    fatherName: string,
 }
 
 export type AuthBody = z.infer<typeof authBody>;
@@ -75,11 +77,6 @@ export type AuthBody = z.infer<typeof authBody>;
 export type ProfileBody = z.infer<typeof profileBody>;
 
 export type ApplicationDataMap = {
-    [ApplicationType.MID_DAY_MEAL]: {
-        rollNo: string,
-        course: string,
-        semester: string,
-    };
     [ApplicationType.STUDY_CERTIFICATE]: {
         name: string,
         rollNo: string,
@@ -105,14 +102,13 @@ export enum sidebarTabs {
     CATEGORIES,
     TRANSFER_CERTIFICATE,
     STUDY_CERTIFICATE,
-    MID_DAY_MEALS,
-    CONDUCT_CERTIFICATE,
     APPROVED,
     REJECTED,
     PENDING,
     NEW_ADMIN,
     NEW_APPLICATION,
-    APPLICATION_DETAILS
+    APPLICATION_DETAILS,
+    PROFILE
 }
 
 export type ApplicationsResponse = {
@@ -135,7 +131,13 @@ export type NewApplications = {
         course?: string,
         semester?: string,
         passingYear?: string,
-        description?: string
+        reason?: string,
+        joiningYear?: string,
+        phoneNumber?: string,
+        languageChoosen?: string,
+        fatherName?: string,
+        section?: string,
+        dateOfBirth?: string
     }
 }[];
 
@@ -193,3 +195,4 @@ export type StatusUpdateBody = {
     applicationId: string,
     status: Status
 }
+

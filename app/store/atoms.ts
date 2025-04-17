@@ -41,3 +41,8 @@ export const currentApplicationAtom = atom({
     default: {},
     key: "CurrentApplicationId"
 })
+
+export const profileAtom = atom({
+    default: {},
+    key: "UserProfile"
+})

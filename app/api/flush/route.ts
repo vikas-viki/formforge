@@ -27,6 +27,9 @@ export async function GET(req: NextRequest) {
             }
         })
     }
+    if (type == "users") {
+        await prisma.user.deleteMany();
+    }
     const users = await prisma.user.findMany();
     return NextResponse.json(users);
 }

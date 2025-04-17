@@ -56,6 +56,12 @@ export const authOptions: AuthOptions = {
                             type: PrismaUser.type,
                             rememberMe: request.rememberMe == "true"
                         }
+
+                        await prisma.profile.create({
+                            data: {
+                                userId: user.id
+                            }
+                        })
                     }
 
                     return user;

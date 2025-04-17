@@ -8,6 +8,7 @@ import NewAdmin from "../tabs/NewAdmin";
 import Analytics from "../tabs/Analytics";
 import NewApplication from "../application/NewApplication";
 import ApplicationDetails from "../application/ApplicationDetails";
+import Profile from "../Profile";
 
 export default function DashboardContent() {
     const activeTab = useRecoilValue(activeTabAtom);
@@ -17,8 +18,6 @@ export default function DashboardContent() {
             {
                 [
                     sidebarTabs.APPLICATIONS,
-                    sidebarTabs.CONDUCT_CERTIFICATE,
-                    sidebarTabs.MID_DAY_MEALS,
                     sidebarTabs.STUDY_CERTIFICATE,
                     sidebarTabs.TRANSFER_CERTIFICATE,
                     sidebarTabs.PENDING,
@@ -30,6 +29,7 @@ export default function DashboardContent() {
             {activeTab == sidebarTabs.ANALYTICS && <Analytics />}
             {activeTab == sidebarTabs.NEW_APPLICATION && <NewApplication />}
             {activeTab == sidebarTabs.APPLICATION_DETAILS && <ApplicationDetails />}
+            {activeTab == sidebarTabs.PROFILE && <Profile />}
         </div>
     )
 }

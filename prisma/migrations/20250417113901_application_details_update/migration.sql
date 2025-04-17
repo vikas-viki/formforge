@@ -1,0 +1,82 @@
+-- CreateEnum
+CREATE TYPE "UserType" AS ENUM ('ADMIN', 'USER');
+
+-- CreateEnum
+CREATE TYPE "Status" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
+
+-- CreateEnum
+CREATE TYPE "ApplicationType" AS ENUM ('STUDY_CERTIFICATE', 'TRANSFER_CERTIFICATE', 'MID_DAY_MEAL', 'CONVEYANCE');
+
+-- CreateTable
+CREATE TABLE "User" (
+    "userId" UUID NOT NULL,
+    "email" VARCHAR(100) NOT NULL,
+    "password" VARCHAR(150) NOT NULL,
+    "type" "UserType" NOT NULL DEFAULT 'USER',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "name" TEXT NOT NULL DEFAULT 'John',
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("userId")
+);
+
+-- CreateTable
+CREATE TABLE "Profile" (
+    "id" TEXT NOT NULL,
+    "userId" UUID NOT NULL,
+    "name" TEXT NOT NULL DEFAULT '',
+    "rollNo" TEXT NOT NULL DEFAULT '',
+    "course" TEXT NOT NULL DEFAULT '',
+    "semister" TEXT NOT NULL DEFAULT '',
+    "passingYear" INTEGER NOT NULL DEFAULT 0,
+    "email" TEXT NOT NULL,
+
+    CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Application" (
+    "applicationId" TEXT NOT NULL,
+    "userId" UUID NOT NULL,
+    "type" "ApplicationType" NOT NULL,
+    "status" "Status" NOT NULL DEFAULT 'PENDING',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "reason" TEXT,
+
+    CONSTRAINT "Application_pkey" PRIMARY KEY ("applicationId")
+);
+
+-- CreateTable
+CREATE TABLE "ApplicationDetails" (
+    "applicationId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "course" TEXT,
+    "rollNo" TEXT,
+    "semester" TEXT,
+    "staffId" TEXT,
+    "leaveDate" TIMESTAMP(3),
+    "returnDate" TIMESTAMP(3),
+    "reason" TEXT,
+    "passingYear" INTEGER,
+    "description" TEXT,
+    "fathersName" TEXT,
+    "DateOfBirth" TIMESTAMP(3),
+    "section" TEXT,
+
+    CONSTRAINT "ApplicationDetails_pkey" PRIMARY KEY ("applicationId")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Profile_userId_key" ON "Profile"("userId");
+
+-- AddForeignKey
+ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Application" ADD CONSTRAINT "Application_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ApplicationDetails" ADD CONSTRAINT "ApplicationDetails_applicationId_fkey" FOREIGN KEY ("applicationId") REFERENCES "Application"("applicationId") ON DELETE RESTRICT ON UPDATE CASCADE;

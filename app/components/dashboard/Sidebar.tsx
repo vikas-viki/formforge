@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, CheckCircle, ChevronDown, CircleDot, FileText, Layers, LogOut, ShieldUser, TvMinimal, Utensils, XCircle } from "lucide-react";
+import { BookOpen, CheckCircle, ChevronDown, CircleDot, FileText, Layers, LogOut, ShieldUser, TvMinimal, XCircle } from "lucide-react";
 import { alegereya } from "../../library/font";
 import { sidebarTabs } from "../../library/types";
 import { ReactNode, useState } from "react";
@@ -16,6 +16,7 @@ const mainCategoryClasses = "flex  gap-[20px] w-full font-medium items-center px
 export default function Sidebar() {
     const { type: userType, name, email } = useRecoilValue(userDetailsAtom);
     const applications = useRecoilValue(applicationsAtom);
+    const [activeTab, setActiveTab] = useRecoilState(activeTabAtom);
 
     return (
         <div className="flex flex-col border-r border-[#BCB7B7] bg-white/50 min-w-[324px] max-h-[100vh] overflow-none">
@@ -79,13 +80,16 @@ export default function Sidebar() {
                 </div>
             </div>
             <div className=" w-full h-full flex flex-col items-center justify-end">
-                <div className="flex gap-4 p-2 rounded-[5px] my-4 bg-white shadow-xl w-max items-center">
+                <div className={`flex gap-4 p-2 rounded-[5px] my-4 bg-white shadow-xl w-max items-center cursor-pointer ${activeTab == sidebarTabs.PROFILE && "outline-blue-600 outline-[1.5px] shadow-lg"}`}
+                    onClick={() => setActiveTab(sidebarTabs.PROFILE)}
+                >
                     <div className="flex flex-col pl-1">
                         <span>{name}</span>
                         <span className="opacity-80 text-[13px]">{email}</span>
                     </div>
-                    <button className="bg-red-300 h-max w-max rounded-[5px] p-2 cursor-pointer"
-                        onClick={() => {
+                    <button className={`bg-red-300 h-max w-max rounded-[5px] p-2 cursor-pointer `}
+                        onClick={(e) => {
+                            e.stopPropagation();
                             signOut();
                             redirect("/");
                         }}
@@ -124,18 +128,6 @@ const Categories = () => {
                     text="Study Certificate"
                     icon={<BookOpen size={16} />}
                     type={ApplicationType.STUDY_CERTIFICATE}
-                />
-                <SubCategory
-                    tab={sidebarTabs.MID_DAY_MEALS}
-                    text="Mid day meals"
-                    icon={<Utensils size={16} />}
-                    type={ApplicationType.MID_DAY_MEAL}
-                />
-                <SubCategory
-                    tab={sidebarTabs.CONDUCT_CERTIFICATE}
-                    text="Conduct Certificate"
-                    icon={<FileText size={16} />}
-                    type={ApplicationType.CONVEYANCE}
                 />
             </div>
         </div>

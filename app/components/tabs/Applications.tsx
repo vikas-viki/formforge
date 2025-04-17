@@ -24,9 +24,16 @@ const Applications = () => {
                     kind: "NEW",
                     feilds: {
                         name: "text",
-                        rollNo: "text",
+                        fatherName: "text",
+                        joiningYear: "date",
+                        phoneNumber: "number",
                         course: "text",
-                        passingYear: "text"
+                        rollNo: "text",
+                        section: "text",
+                        dateOfBirth: "date",
+                        languageChoosen: "text",
+                        reason: "text",
+
                     }
                 },
                 {
@@ -34,20 +41,14 @@ const Applications = () => {
                     kind: "NEW",
                     feilds: {
                         name: "text",
+                        fatherName: "text",
+                        dateOfBirth: "date",
+                        section: "text",
                         rollNo: "text",
                         course: "text",
                         semester: "number",
                         passingYear: "text",
-                        description: "text"
-                    }
-                },
-                {
-                    type: ApplicationType.MID_DAY_MEAL,
-                    kind: "NEW",
-                    feilds: {
-                        name: "text",
-                        rollNo: "text",
-                        semester: "number"
+                        reason: "text"
                     }
                 }
             ];

@@ -4,7 +4,7 @@ import DashboardContent from "@/app/components/dashboard/Content";
 import Sidebar from "@/app/components/dashboard/Sidebar";
 import Topbar from "@/app/components/dashboard/Topbar";
 import { poppins } from "@/app/library/font";
-import { activeTabAtom, applicationsAtom, userDetailsAtom } from "@/app/store/atoms";
+import { activeTabAtom, applicationsAtom, profileAtom, userDetailsAtom } from "@/app/store/atoms";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -16,6 +16,19 @@ export default function Dashboard() {
     const setApplications = useSetRecoilState(applicationsAtom);
     const setUserDetails = useSetRecoilState(userDetailsAtom);
     const activeTab = useRecoilValue(activeTabAtom);
+    const setProfileDetails = useSetRecoilState(profileAtom);
+
+    if ((status == "authenticated" && session && !session.user.id) || status == "unauthenticated") {
+        return redirect("/");
+    }
+
+    useEffect(() => {
+        if (session) {
+            setUserDetails(session!.user);
+            getApplications();
+            getProfile();
+        }
+    }, [session, activeTab]);
 
     if (status == "loading") {
         return (
@@ -25,22 +38,17 @@ export default function Dashboard() {
         )
     }
 
-    if ((status == "authenticated" && session && !session.user.id) || status == "unauthenticated") {
-        return redirect("/");
-    }
-
     const getApplications = async () => {
         const response = await axios.get("/api/applications", { withCredentials: true });
         console.log("got applications: ", response.data.application);
         setApplications(response.data.applications);
     }
 
-    useEffect(() => {
-        if (session) {
-            setUserDetails(session!.user);
-            getApplications();
-        }
-    }, [session, activeTab]);
+    const getProfile = async () => {
+        const response = await axios.get("/api/profile", { withCredentials: true });
+        console.log("got user profile response!", response.data.profile);
+        setProfileDetails(response.data.profile);
+    }
 
     return (
         <div className={`flex w-full h-screen overflow-hidden ${poppins.className}`}>

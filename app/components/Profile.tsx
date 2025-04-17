@@ -1,11 +1,11 @@
-import { useRecoilValue, useSetRecoilState } from "recoil"
-import { activeTabAtom, currentApplicationAtom } from "@/app//store/atoms"
-import { NewApplications, sidebarTabs } from "@/app//library/types";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { sidebarTabs } from "../library/types";
+import { activeTabAtom, profileAtom } from "../store/atoms";
 
-export default function NewApplication() {
-    const currentApplication = useRecoilValue(currentApplicationAtom) as NewApplications[0];
+export default function Profile() {
+    const [userProfile, setUserProfile] = useRecoilState(profileAtom);
     const setActiveTab = useSetRecoilState(activeTabAtom);
 
     const inputClasses = "outline-none rounded-[5px] p-3 text-[16px] sm:text-[16px] w-full border";
@@ -15,11 +15,11 @@ export default function NewApplication() {
         name: "John doe",
         rollNo: "U05B..",
         email: "john@gmail.com",
-        phoneNumber: "0123456789",
-        passingYear: "0000",
+        phoneNumber: "1234567890",
+        passingYear: 0o000,
         course: "B..",
         reason: "I'm filling this...",
-        semester: "5",
+        semester: 5,
         section: "A",
         fatherName: "Robert doe",
         languageChoosen: "Hindi",
@@ -33,15 +33,19 @@ export default function NewApplication() {
             Object.keys(placeholders).forEach(key => {
                 var val = formData.get(key);
                 if (val) {
-                    details[key] = val;
+                    const typeOfKey = typeof placeholders[key as keyof typeof placeholders];
+                    if (typeOfKey == "number") {
+                        details[key] = Number(val);
+                    } else
+                        details[key] = val;
                 }
             });
             var body = {
-                type: currentApplication.type,
                 details
             }
-            await axios.post("/api/applications", body);
-            toast.success("Application submitted!", { duration: 2000 });
+            console.log(body);
+            await axios.post("/api/profile", body);
+            toast.success("Profile updated!", { duration: 2000 });
             setActiveTab(sidebarTabs.PENDING);
         } catch (e: any) {
             toast.error(`Error occurred: ${e.toString()}`, { duration: 2000 })
@@ -53,14 +57,29 @@ export default function NewApplication() {
             <div className="p-10 flex flex-col bg-white h-full w-full">
                 <div className="flex gap-8 flex-wrap w-full h-max">
                     <span className="w-full bg-orange-200 px-4 py-2 rounded-[10px] font-normal tex-[18px]">
-                        Please fill in the details carefully, as providing incorrect or inappropriate information may lead to the rejection of your application.
+                        Please ensure that all profile details are filled in accurately, as they will be used directly in the application process.
                     </span>
                     {
-                        Object.entries(currentApplication.feilds).map(([key, type], i) => {
+                        Object.entries(userProfile ?? {}).map(([key, type], i) => {
                             return (
                                 <div key={i} className="p-2 flex flex-col gap-1 w-max">
                                     <span className={labelClasses}>{key}</span>
-                                    <input type={type} className={inputClasses} required name={key} placeholder={placeholders[key as keyof typeof placeholders]} />
+                                    <input
+                                        onChange={(e) => {
+                                            setUserProfile(prev => {
+                                                return {
+                                                    ...prev,
+                                                    [key]: e.target.value
+                                                }
+                                            })
+                                        }}
+                                        value={userProfile[key as keyof typeof userProfile]}
+                                        type={typeof placeholders[key as keyof typeof placeholders]}
+                                        className={inputClasses}
+                                        required
+                                        name={key}
+                                        placeholder={placeholders[key as keyof typeof placeholders].toString()}
+                                    />
                                 </div>
                             )
                         })
@@ -74,7 +93,7 @@ export default function NewApplication() {
                     <button
                         type="submit"
                         className="text-[18px] font-medium border rounded-[30px] px-6 py-2 bg-green-400/90 cursor-pointer hover:bg-green-500/90 transition-all duration-300"
-                    >Submit</button>
+                    >Update Profile</button>
                 </div>
             </div>
         </form>

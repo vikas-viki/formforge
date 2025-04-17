@@ -1,6 +1,6 @@
 import { Status, ApplicationType } from "@prisma/client";
 import { formatDistanceToNow } from "date-fns";
-import { GraduationCap, Utensils, BookOpenCheck } from "lucide-react";
+import { GraduationCap, BookOpenCheck } from "lucide-react";
 import { useSetRecoilState } from "recoil";
 import { outfit } from "../../library/font";
 import { ApplicationsResponse, sidebarTabs, ApplicationName } from "../../library/types";
@@ -34,7 +34,6 @@ const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) =>
         >
             <span className="text-[19px] flex gap-4 items-center w-[40%]">
                 {ele.type == ApplicationType.TRANSFER_CERTIFICATE && <GraduationCap size={20} />}
-                {ele.type == ApplicationType.MID_DAY_MEAL && <Utensils size={20} />}
                 {ele.type == ApplicationType.STUDY_CERTIFICATE && <BookOpenCheck size={20} />}
                 {ApplicationName[ele.type]}</span>
 
