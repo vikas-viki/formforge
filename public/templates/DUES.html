@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer certificate</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+        * {
+            font-family: "Roboto", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main {
+            height: 100%;
+            background-color: green;
+            display: flex;
+            flex-direction: column;
+            padding-top: 30%;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .date_main {
+            margin-right: -70px;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header input {
+            border: none;
+            outline: none;
+            background-color: transparent;
+        }
+
+        .header span:first-child {
+            text-align: right;
+        }
+
+        .header span:last-child {
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .body {
+            font-size: 25px;
+        }
+
+        #footer {
+            width: 100%;
+            font-size: 20px;
+            text-align: right;
+            padding-right: 20px;
+            padding-top: 50px;
+        }
+
+        #date,
+        #name,
+        #mother_name,
+        #father_name,
+        #course,
+        #time_period,
+        #principal_signature {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <span class="date_main">Date
+                <input type="text" required id="date" value="13/04/2025">
+            </span>
+            <span>
+                NO DUES CERTIFICATE
+            </span>
+        </div>
+        <div class="body">
+            <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is to certify that
+                <span id="name"></span>
+                <span id="relationship"></span>
+                <span id="mother_name"></span>
+                <span id="father_name"></span>, was a student of this college studied in the final year <span
+                    id="course"></span>
+                Degree class during the year <span id="time_period"></span> and there are no dues from
+                <span id="gender_pronoun"></span> to the college.
+            </p>
+        </div>
+        <div id="footer">
+            <span id="principal_signature"></span>
+            <span>PRINCIPAL</span>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById("name").innerText = "Mr. VIKAS";
+    document.getElementById("relationship").innerText = "S/o"
+    document.getElementById("father_name").innerText = "Mr. Raghuram Kotary";
+    document.getElementById("course").innerText = "BCA";
+    document.getElementById("time_period").innerText = "2022-2025";
+    document.getElementById("gender_pronoun").innerText = "him"
+</script>
+
+</html>

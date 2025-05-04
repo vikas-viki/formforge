@@ -1,6 +1,6 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-import { UserType } from "@prisma/client";
+import { UserType } from ".prisma/client";
 
 export async function middleware(req: NextRequest) {
     try {

@@ -10,12 +10,16 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.787.0",
+    "@aws-sdk/s3-request-presigner": "^3.787.0",
     "@prisma/client": "^6.6.0",
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "argon2": "^0.41.1",
+    "aws-sdk": "^2.1692.0",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
+    "crypto": "^1.0.1",
     "date-fns": "^4.1.0",
     "geist": "^1.3.1",
     "jsonwebtoken": "^9.0.2",
@@ -23,6 +27,8 @@
     "next": "14.2.26",
     "next-auth": "^4.24.11",
     "numeral": "^2.0.6",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^24.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.5.2",
@@ -48,9 +54,11 @@
       "@prisma/client",
       "@prisma/engines",
       "argon2",
+      "aws-sdk",
       "bcrypt",
       "prisma",
       "sharp"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
 }

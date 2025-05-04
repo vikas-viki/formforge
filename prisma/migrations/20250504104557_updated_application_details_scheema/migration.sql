@@ -5,7 +5,7 @@ CREATE TYPE "UserType" AS ENUM ('ADMIN', 'USER');
 CREATE TYPE "Status" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
 
 -- CreateEnum
-CREATE TYPE "ApplicationType" AS ENUM ('STUDY_CERTIFICATE', 'TRANSFER_CERTIFICATE', 'MID_DAY_MEAL', 'CONVEYANCE');
+CREATE TYPE "ApplicationType" AS ENUM ('STUDY_CERTIFICATE', 'TRANSFER_CERTIFICATE');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -23,12 +23,15 @@ CREATE TABLE "User" (
 CREATE TABLE "Profile" (
     "id" TEXT NOT NULL,
     "userId" UUID NOT NULL,
-    "name" TEXT NOT NULL DEFAULT '',
-    "rollNo" TEXT NOT NULL DEFAULT '',
-    "course" TEXT NOT NULL DEFAULT '',
-    "semister" TEXT NOT NULL DEFAULT '',
-    "passingYear" INTEGER NOT NULL DEFAULT 0,
-    "email" TEXT NOT NULL,
+    "name" TEXT,
+    "rollNo" TEXT,
+    "email" TEXT,
+    "phoneNumber" TEXT,
+    "passingYear" INTEGER,
+    "course" TEXT,
+    "semester" INTEGER,
+    "section" TEXT,
+    "fatherName" TEXT,
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
 );
@@ -40,7 +43,7 @@ CREATE TABLE "Application" (
     "type" "ApplicationType" NOT NULL,
     "status" "Status" NOT NULL DEFAULT 'PENDING',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "reason" TEXT,
 
     CONSTRAINT "Application_pkey" PRIMARY KEY ("applicationId")
@@ -50,18 +53,25 @@ CREATE TABLE "Application" (
 CREATE TABLE "ApplicationDetails" (
     "applicationId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "course" TEXT,
     "rollNo" TEXT,
-    "semester" TEXT,
-    "staffId" TEXT,
-    "leaveDate" TIMESTAMP(3),
-    "returnDate" TIMESTAMP(3),
-    "reason" TEXT,
+    "email" TEXT,
+    "phoneNumber" TEXT,
+    "joiningYear" INTEGER,
     "passingYear" INTEGER,
-    "description" TEXT,
-    "fathersName" TEXT,
-    "DateOfBirth" TIMESTAMP(3),
+    "course" TEXT,
+    "reason" TEXT,
+    "semester" INTEGER,
     "section" TEXT,
+    "fatherName" TEXT,
+    "languageChoosen" TEXT,
+    "dateOfBirth" TIMESTAMP(3),
+    "motherName" TEXT,
+    "nationality" TEXT,
+    "religion" TEXT,
+    "dateOfAdmission" TEXT,
+    "dateOfLeaving" TEXT,
+    "scst" TEXT,
+    "gender" TEXT,
 
     CONSTRAINT "ApplicationDetails_pkey" PRIMARY KEY ("applicationId")
 );

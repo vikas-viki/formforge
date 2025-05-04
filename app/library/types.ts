@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { authBody, profileBody } from "./zod";
-import { ApplicationDetails, ApplicationType, ApplicationType as PrismaApplicationType } from "@prisma/client"
+import { ApplicationDetails, ApplicationType, ApplicationType as PrismaApplicationType } from ".prisma/client"
 
 declare module "next-auth" {
     interface Session {
@@ -137,7 +137,14 @@ export type NewApplications = {
         languageChoosen?: string,
         fatherName?: string,
         section?: string,
-        dateOfBirth?: string
+        dateOfBirth?: string,
+        gender?: string,
+        nationality?: string,
+        religion?: string,
+        scst?: string,
+        motherName?: string,
+        dateOfAdmission?: string,
+        dateOfLeaving?: string
     }
 }[];
 

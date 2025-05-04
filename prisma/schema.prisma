@@ -70,6 +70,7 @@ model ApplicationDetails {
   rollNo          String?
   email           String?
   phoneNumber     String?
+  joiningYear     Int?
   passingYear     Int?
   course          String?
   reason          String?
@@ -77,4 +78,12 @@ model ApplicationDetails {
   section         String?
   fatherName      String?
   languageChoosen String?
+  dateOfBirth     DateTime?
+  motherName      String?
+  nationality     String?
+  religion        String?
+  dateOfAdmission String?
+  dateOfLeaving   String?
+  scst            String?
+  gender          String?
 }

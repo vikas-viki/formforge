@@ -1,10 +1,12 @@
-import { Status, ApplicationType } from "@prisma/client";
+import { Status, ApplicationType } from ".prisma/client";
 import { formatDistanceToNow } from "date-fns";
 import { GraduationCap, BookOpenCheck } from "lucide-react";
 import { useSetRecoilState } from "recoil";
 import { outfit } from "../../library/font";
 import { ApplicationsResponse, sidebarTabs, ApplicationName } from "../../library/types";
 import { activeTabAtom, currentApplicationAtom } from "../../store/atoms";
+import axios from "axios";
+import { SyntheticEvent } from "react";
 
 const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) => {
 
@@ -27,6 +29,17 @@ const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) =>
         }
     }
 
+    const downloadCertificate = async (e: SyntheticEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        // e.stopPropagationn();
+        const res = await axios.get(`/api/download?applicationId=${ele.applicationId}`);
+        const a = document.createElement("a");
+        a.type = "download";
+        a.href = res.data.url;
+        a.click();
+        console.log({ res });
+    }
+
     return (
         <div
             className="outline-none flex w-full h-max py-6 px-8 gap-5 rounded-[7px] justify-center items-center cursor-pointer hover:scale-[1.015] hover:-mt-[0.5px] transition-all duration-200  hover:shadow-sm hover:bg-blue-100/80"
@@ -37,6 +50,11 @@ const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) =>
                 {ele.type == ApplicationType.STUDY_CERTIFICATE && <BookOpenCheck size={20} />}
                 {ApplicationName[ele.type]}</span>
 
+            {
+                ele.status == Status.APPROVED && (
+                    <button className="border cursor-pointer" onClick={downloadCertificate}>Download</button>
+                )
+            }
             <span className={`self-center w-[20%] text-center font-medium text-slate-500 ${outfit.className}`}>{ele?.details?.rollNo}</span>
             <span className="w-[40%] text-right text-slate-500 flex gap-2 items-center justify-end">
                 <span className={`text-[8px] text-white ${colors[ele.status]} rounded-[20px] py-[4px] px-[8px]`}>{ele.status}</span>

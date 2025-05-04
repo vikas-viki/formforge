@@ -1,7 +1,7 @@
 import { selector } from "recoil";
 import { statusFilterAtom, applicationsAtom, applicationsFilterAtom, searchFilterAtom } from "./atoms";
 import { AnalyticsData, Months } from "../library/types";
-import { ApplicationType } from "@prisma/client";
+import { ApplicationType } from ".prisma/client";
 import { LOCAL_STORAGE } from "../library/constants";
 
 export const filteredApplicationsSelector = selector({

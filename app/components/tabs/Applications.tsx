@@ -4,7 +4,7 @@ import { outfit } from "@/app/library/font";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { filteredApplicationsSelector } from "@/app/store/selectors";
-import { ApplicationType, UserType } from "@prisma/client";
+import { ApplicationType, UserType } from ".prisma/client";
 import { ApplicationsResponse, GetApplicationsReturn, NewApplications, sidebarTabs } from "@/app/library/types";
 import { activeTabAtom, userDetailsAtom } from "@/app/store/atoms";
 import ApplicationCard from "../application/ApplicationCard";
@@ -24,16 +24,22 @@ const Applications = () => {
                     kind: "NEW",
                     feilds: {
                         name: "text",
+                        gender: "text",
+                        nationality: "text",
+                        religion: "text",
+                        scst: "text",
                         fatherName: "text",
-                        joiningYear: "date",
+                        motherName: "text",
+                        dateOfBirth: "date",
+                        dateOfAdmission: "date",
+                        dateOfLeaving: "date",
+                        course: "text",                     
+                        joiningYear: "number",
                         phoneNumber: "number",
-                        course: "text",
                         rollNo: "text",
                         section: "text",
-                        dateOfBirth: "date",
                         languageChoosen: "text",
                         reason: "text",
-
                     }
                 },
                 {

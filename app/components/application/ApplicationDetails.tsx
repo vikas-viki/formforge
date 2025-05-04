@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil"
 import { currentApplicationAtom } from "../../store/atoms"
 import { ApplicationsResponse } from "../../library/types";
-import { Status, UserType } from "@prisma/client";
+import { Status, UserType } from ".prisma/client";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import toast from "react-hot-toast";

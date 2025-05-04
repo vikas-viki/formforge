@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transfer Certificate</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 40px;
+            margin-top: 0px;
+        }
+
+        .header,
+        .footer {
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header p {
+            margin: 2px 0;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 8px 5px;
+            vertical-align: top;
+        }
+
+        .label {
+            width: 5%;
+        }
+
+        .field {
+            width: 45%;
+        }
+
+        .seal-signature {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .admission,
+        .contact {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sub_head {
+            font-size: 12px;
+        }
+
+        .img {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="img">
+            <img src="https://www.basck.in/images/logo.jpg" alt="" width="60" height="60">
+        </div>
+        <p class="contact">
+            <span>Telephone: 230369</span>
+            <span>E-mail: office@basck.in</span>
+        </p>
+        <h1>BHANDARKARS’ ARTS AND SCIENCE COLLEGE</h1>
+        <p class="sub_head">(RE-ACCREDITED ‘A’ GRADE WITH CGPA OF 3.10 ON 4 POINT SCALE)</p>
+        <p class="sub_head">KUNDAPURA-576201, UDUPI DISTRICT</p>
+        <p class="sub_head" style="padding-top: 10px;">Sponsored By<br>
+            THE ACADEMY OF GENERAL EDUCATION<br>
+            MANIPAL – 576 104, UDUPI DISTRICT</p>
+        <h2 style="margin-bottom: 10px; margin-top: 15px;">TRANSFER CERTIFICATE</h2>
+        <p class="admission">
+            <span>Admission No: <b>240</b> </span>
+            <span>Sl. No.: <b>BCA004</b></span>
+        </p>
+    </div>
+
+    <div class="content">
+        <table>
+            <tr>
+                <td class="label">1)</td>
+                <td class="field">Name of the Student in full</td>
+                <td>:</td>
+                <td id="name"></td>
+            </tr >
+            <tr>
+                <td>2)</td>
+                <td>Gender</td>
+                <td>:</td>
+                <td id="gender">FEMALE</td>
+            </tr>
+            <tr>
+                <td>3)</td>
+                <td>Nationality</td>
+                <td>:</td>
+                <td>INDIAN</td>
+            </tr>
+            <tr>
+                <td>4)</td>
+                <td>Religion/Caste</td>
+                <td>:</td>
+                <td id="religion">HINDU/BUNT</td>
+            </tr>
+            <tr>
+                <td>5)</td>
+                <td>Whether the student belongs to SC/ST Category?</td>
+                <td>:</td>
+                <td id="scst">NO</td>
+            </tr>
+            <tr>
+                <td>6)</td>
+                <td>Name of the Father</td>
+                <td>:</td>
+                <td id="father_name"></td>
+            </tr>
+            <tr>
+                <td>7)</td>
+                <td>Name of the Mother</td>
+                <td>:</td>
+                <td id="mother_name"></td>
+            </tr>
+            <tr>
+                <td>8)</td>
+                <td>Date of birth as entered in the Admission Register</td>
+                <td>:</td>
+                <td id="dob">04/08/2004</td>
+            </tr>
+            <tr>
+                <td>9)</td>
+                <td>Date of Admission to the Institution</td>
+                <td>:</td>
+                <td id="date_of_admission">25/07/2022</td>
+            </tr>
+            <tr>
+                <td>10)</td>
+                <td>Date of Leaving the Institution</td>
+                <td>:</td>
+                <td id="date_of_leaving">02/08/2025</td>
+            </tr>
+            <tr>
+                <td>11)</td>
+                <td>Class in which the student was studing at the time of leaving</td>
+                <td>:</td>
+                <td id="course">III Year BCA</td>
+            </tr>
+            <tr>
+                <td>12)</td>
+                <td>Subjects Studied</td>
+                <td>:</td>
+                <td>BCA COMPULSORY SUBJECTS</td>
+            </tr>
+            <tr>
+                <td>13)</td>
+                <td>Name of the last examination taken with Reg. No. & Result</td>
+                <td>:</td>
+                <td>VI SEMESTER BCA, PASS</td>
+            </tr>
+            <tr>
+                <td>14)</td>
+                <td>Whether Qualified for promotion to higher class</td>
+                <td>:</td>
+                <td id="passed_all">YES</td>
+            </tr>
+            <tr>
+                <td>15)</td>
+                <td>Whether the student has paid all the Fees and other dues to the Institution</td>
+                <td>:</td>
+                <td id="fees_paid">YES</td>
+            </tr>
+            <tr>
+                <td>16)</td>
+                <td>Date on which the application for the Transfer Certificate was received</td>
+                <td>:</td>
+                <td id="tc_application_date">26/07/2024</td>
+            </tr>
+            <tr>
+                <td>17)</td>
+                <td>Date of issue of Transfer Certificate</td>
+                <td>:</td>
+                <td id="tc_issue_date">09/09/2024</td>
+            </tr>
+            <tr>
+                <td>18)</td>
+                <td>Conduct</td>
+                <td>:</td>
+                <td>GOOD</td>
+            </tr>
+            <tr>
+                <td>19)</td>
+                <td>Performance</td>
+                <td>:</td>
+                <td>GOOD</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="seal-signature">
+        <div><b>Institution Seal</b></div>
+        <div><b>PRINCIPAL</b></div>
+    </div>
+</body>
+
+</html>

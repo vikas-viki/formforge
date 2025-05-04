@@ -5,8 +5,8 @@ import { alegereya } from "../../library/font";
 import { sidebarTabs } from "../../library/types";
 import { ReactNode, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { activeTabAtom, applicationsAtom, applicationsFilterAtom, statusFilterAtom, userDetailsAtom } from "../../store/atoms";
-import { ApplicationType, Status } from "@prisma/client";
+import { activeTabAtom, applicationsAtom, applicationsFilterAtom, profileAtom, statusFilterAtom, userDetailsAtom } from "../../store/atoms";
+import { ApplicationType, Profile, Status } from ".prisma/client";
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 
@@ -15,6 +15,7 @@ const mainCategoryClasses = "flex  gap-[20px] w-full font-medium items-center px
 
 export default function Sidebar() {
     const { type: userType, name, email } = useRecoilValue(userDetailsAtom);
+    const profile = useRecoilValue(profileAtom) as Profile;
     const applications = useRecoilValue(applicationsAtom);
     const [activeTab, setActiveTab] = useRecoilState(activeTabAtom);
 
@@ -84,7 +85,7 @@ export default function Sidebar() {
                     onClick={() => setActiveTab(sidebarTabs.PROFILE)}
                 >
                     <div className="flex flex-col pl-1">
-                        <span>{name}</span>
+                        <span>{profile?.name || name}</span>
                         <span className="opacity-80 text-[13px]">{email}</span>
                     </div>
                     <button className={`bg-red-300 h-max w-max rounded-[5px] p-2 cursor-pointer `}
