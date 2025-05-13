@@ -1,7 +1,7 @@
 import { Alegreya_Sans_SC, Inknut_Antiqua, Inter, Outfit, Poppins, Quicksand, Roboto } from "next/font/google";
 
 export const outfit = Outfit({
-    weight: ["400", "500", "600", "700", "800", "900"],
+    weight: ["300", "400", "500", "600", "700", "800", "900"],
     variable: "--font-outfit",
     subsets: ["latin"]
 })

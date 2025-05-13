@@ -3,6 +3,7 @@
 import DashboardContent from "@/app/components/dashboard/Content";
 import Sidebar from "@/app/components/dashboard/Sidebar";
 import Topbar from "@/app/components/dashboard/Topbar";
+import Loader from "@/app/components/Loader";
 import { poppins } from "@/app/library/font";
 import { activeTabAtom, applicationsAtom, profileAtom, userDetailsAtom } from "@/app/store/atoms";
 import axios from "axios";
@@ -32,9 +33,7 @@ export default function Dashboard() {
 
     if (status == "loading") {
         return (
-            <div className="flex w-full h-[100vh] bg-slate-100 justify-center items-center">
-                <div className="loader"><div></div><div></div></div>
-            </div>
+            <Loader />
         )
     }
 

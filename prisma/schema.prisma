@@ -23,6 +23,9 @@ enum Status {
 enum ApplicationType {
   STUDY_CERTIFICATE
   TRANSFER_CERTIFICATE
+  CONDUCT_CERTIFICATE
+  COURSE_CERTIFICATE
+  NO_DUES_CERTIFICATE
 }
 
 model User {
@@ -37,53 +40,35 @@ model User {
 }
 
 model Profile {
-  id          String  @id @default(uuid())
-  userId      String  @unique @db.Uuid
-  user        User    @relation(fields: [userId], references: [userId])
-  name        String?
-  rollNo      String?
-  email       String?
-  phoneNumber String?
-  passingYear Int?
-  course      String?
-  semester    Int?
-  section     String?
-  fatherName  String?
-}
-
-model Application {
-  applicationId String              @id @default(uuid())
-  user          User                @relation(fields: [userId], references: [userId])
-  userId        String              @db.Uuid
-  type          ApplicationType
-  status        Status              @default(PENDING)
-  createdAt     DateTime            @default(now())
-  updatedAt     DateTime            @updatedAt
-  details       ApplicationDetails?
-  reason        String?
-}
-
-model ApplicationDetails {
-  applicationId   String      @id
-  application     Application @relation(fields: [applicationId], references: [applicationId])
-  name            String
+  id              String    @id @default(uuid())
+  userId          String    @unique @db.Uuid
+  user            User      @relation(fields: [userId], references: [userId])
+  name            String?
   rollNo          String?
   email           String?
   phoneNumber     String?
-  joiningYear     Int?
-  passingYear     Int?
   course          String?
-  reason          String?
   semester        Int?
   section         String?
   fatherName      String?
   languageChoosen String?
-  dateOfBirth     DateTime?
+  dateOfBirth     DateTime? @db.Date
   motherName      String?
   nationality     String?
   religion        String?
-  dateOfAdmission String?
-  dateOfLeaving   String?
+  dateOfAdmission DateTime? @db.Date
+  dateOfLeaving   DateTime? @db.Date
   scst            String?
   gender          String?
+}
+
+model Application {
+  applicationId String          @id @default(uuid())
+  user          User            @relation(fields: [userId], references: [userId])
+  userId        String          @db.Uuid
+  type          ApplicationType
+  status        Status          @default(PENDING)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  reason        String?
 }

@@ -18,7 +18,6 @@ export const authOptions: AuthOptions = {
             async authorize(creadentials) {
                 try {
                     const request = creadentials as Credentials;
-                    console.log("authorised", { request });
 
                     var user;
                     if (request.type == "login") {
@@ -28,7 +27,6 @@ export const authOptions: AuthOptions = {
                             }
                         });
                         if (!PrismaUser) return null;
-                        console.log({ PrismaUser })
 
                         var isCorrectPassword = comparePassword(request.password, PrismaUser.password);
 

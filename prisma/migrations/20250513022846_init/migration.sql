@@ -5,7 +5,7 @@ CREATE TYPE "UserType" AS ENUM ('ADMIN', 'USER');
 CREATE TYPE "Status" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
 
 -- CreateEnum
-CREATE TYPE "ApplicationType" AS ENUM ('STUDY_CERTIFICATE', 'TRANSFER_CERTIFICATE');
+CREATE TYPE "ApplicationType" AS ENUM ('STUDY_CERTIFICATE', 'TRANSFER_CERTIFICATE', 'CONDUCT_CERTIFICATE', 'COURSE_CERTIFICATE', 'NO_DUES_CERTIFICATE');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -27,11 +27,19 @@ CREATE TABLE "Profile" (
     "rollNo" TEXT,
     "email" TEXT,
     "phoneNumber" TEXT,
-    "passingYear" INTEGER,
     "course" TEXT,
     "semester" INTEGER,
     "section" TEXT,
     "fatherName" TEXT,
+    "languageChoosen" TEXT,
+    "dateOfBirth" DATE,
+    "motherName" TEXT,
+    "nationality" TEXT,
+    "religion" TEXT,
+    "dateOfAdmission" DATE,
+    "dateOfLeaving" DATE,
+    "scst" TEXT,
+    "gender" TEXT,
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
 );
@@ -49,33 +57,6 @@ CREATE TABLE "Application" (
     CONSTRAINT "Application_pkey" PRIMARY KEY ("applicationId")
 );
 
--- CreateTable
-CREATE TABLE "ApplicationDetails" (
-    "applicationId" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "rollNo" TEXT,
-    "email" TEXT,
-    "phoneNumber" TEXT,
-    "joiningYear" INTEGER,
-    "passingYear" INTEGER,
-    "course" TEXT,
-    "reason" TEXT,
-    "semester" INTEGER,
-    "section" TEXT,
-    "fatherName" TEXT,
-    "languageChoosen" TEXT,
-    "dateOfBirth" TIMESTAMP(3),
-    "motherName" TEXT,
-    "nationality" TEXT,
-    "religion" TEXT,
-    "dateOfAdmission" TEXT,
-    "dateOfLeaving" TEXT,
-    "scst" TEXT,
-    "gender" TEXT,
-
-    CONSTRAINT "ApplicationDetails_pkey" PRIMARY KEY ("applicationId")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -87,6 +68,3 @@ ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "Application" ADD CONSTRAINT "Application_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ApplicationDetails" ADD CONSTRAINT "ApplicationDetails_applicationId_fkey" FOREIGN KEY ("applicationId") REFERENCES "Application"("applicationId") ON DELETE RESTRICT ON UPDATE CASCADE;

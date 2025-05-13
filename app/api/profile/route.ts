@@ -46,12 +46,17 @@ export const POST = async (req: NextRequest) => {
 
         const body: Profile = (await req.json()).details;
 
+        console.log("profile body: ", body);
+
         await prisma.profile.update({
             where: {
                 userId: session.user.id
             },
             data: {
                 ...body,
+                dateOfAdmission: { set: new Date(body.dateOfAdmission as Date)?.toISOString() },
+                dateOfBirth: { set: new Date(body.dateOfBirth as Date)?.toISOString() },
+                dateOfLeaving: { set: new Date(body.dateOfLeaving as Date)?.toISOString() }
             }
         });
 

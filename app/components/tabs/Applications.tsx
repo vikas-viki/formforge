@@ -33,8 +33,7 @@ const Applications = () => {
                         dateOfBirth: "date",
                         dateOfAdmission: "date",
                         dateOfLeaving: "date",
-                        course: "text",                     
-                        joiningYear: "number",
+                        course: "text",              
                         phoneNumber: "number",
                         rollNo: "text",
                         section: "text",
@@ -50,16 +49,47 @@ const Applications = () => {
                         fatherName: "text",
                         dateOfBirth: "date",
                         section: "text",
-                        rollNo: "text",
                         course: "text",
+                        rollNo: "text",
                         semester: "number",
-                        passingYear: "text",
+                        dateOfAdmission: "text",
                         reason: "text"
+                    }
+                },
+                {
+                    type: ApplicationType.CONDUCT_CERTIFICATE,
+                    kind: "NEW",
+                    feilds: {
+                        name: "text",
+                        gender: "text",
+                        fatherName: "text",
+                        motherName: "text",
+                        course: "text",
+                        dateOfAdmission: "number",
+                        dateOfLeaving: "date",
+                        rollNo: "text",
+                        semester: "number",
+                    }
+                },
+                {
+                    type: ApplicationType.COURSE_CERTIFICATE,
+                    kind: "NEW",
+                    feilds: {
+                        name: "text",
+                        gender: "text",
+                        fatherName: "text",
+                        motherName: "text",
+                        course: "text",
+                        dateOfAdmission: "number",
+                        dateOfLeaving: "date",
+                        rollNo: "text",
+                        semester: "number",
                     }
                 }
             ];
             return applications as GetApplicationsReturn<T>
         } else {
+            console.log({filteredApplications})
             return filteredApplications.slice((currentPage - 1) * 10, currentPage * 10) as GetApplicationsReturn<T>;
         }
     }

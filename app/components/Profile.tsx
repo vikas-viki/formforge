@@ -3,10 +3,16 @@ import toast from "react-hot-toast";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { sidebarTabs } from "../library/types";
 import { activeTabAtom, profileAtom } from "../store/atoms";
+import Loader from "./Loader";
+import { breakOnCapital } from "../library/helpers";
 
 export default function Profile() {
     const [userProfile, setUserProfile] = useRecoilState(profileAtom);
     const setActiveTab = useSetRecoilState(activeTabAtom);
+
+    if(Object.entries(userProfile).length == 0){
+        return <Loader />
+    }
 
     const inputClasses = "outline-none rounded-[5px] p-3 text-[16px] sm:text-[16px] w-full border";
     const labelClasses = "text-[16px] sm:text-[18px] font-normal capitalize";
@@ -23,6 +29,14 @@ export default function Profile() {
         section: "A",
         fatherName: "Robert doe",
         languageChoosen: "Hindi",
+        dateOfBirth: "1/1/2000",
+        motherName: "Alisa",
+        nationality: "Indian",
+        religion: "Religion",
+        dateOfAdmission: "1/1/2022",
+        dateOfLeaving: "1/1/2025",
+        scst: "No",
+        gender: "Male"
     }
 
     const handler = async (e: any) => {
@@ -34,7 +48,9 @@ export default function Profile() {
                 var val = formData.get(key);
                 if (val) {
                     const typeOfKey = typeof placeholders[key as keyof typeof placeholders];
-                    if (typeOfKey == "number") {
+                    if (key == "dateOfBirth" || key == "dateOfAdmission" || key == "dateOfLeaving") {
+                        details[key] = new Date(val.toString());
+                    } else if (typeOfKey == "number") {
                         details[key] = Number(val);
                     } else
                         details[key] = val;
@@ -63,7 +79,7 @@ export default function Profile() {
                         Object.entries(userProfile ?? {}).map(([key, type], i) => {
                             return (
                                 <div key={i} className="p-2 flex flex-col gap-1 w-max">
-                                    <span className={labelClasses}>{key}</span>
+                                    <span className={labelClasses}>{breakOnCapital(key)}</span>
                                     <input
                                         onChange={(e) => {
                                             setUserProfile(prev => {
@@ -73,7 +89,11 @@ export default function Profile() {
                                                 }
                                             })
                                         }}
-                                        value={userProfile[key as keyof typeof userProfile]}
+                                        value={
+                                            ["dateOfAdmission", "dateOfLeaving", "dateOfBirth"].includes(key) ?
+                                                new Date(userProfile[key as keyof typeof userProfile]).toLocaleDateString() :
+                                                userProfile[key as keyof typeof userProfile] || ""
+                                        }
                                         type={typeof placeholders[key as keyof typeof placeholders]}
                                         className={inputClasses}
                                         required

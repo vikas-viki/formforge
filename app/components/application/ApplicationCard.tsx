@@ -1,14 +1,16 @@
-import { Status, ApplicationType } from ".prisma/client";
+import { Status, ApplicationType, UserType } from ".prisma/client";
 import { formatDistanceToNow } from "date-fns";
-import { GraduationCap, BookOpenCheck } from "lucide-react";
+import { GraduationCap, BookOpenCheck, BookUser } from "lucide-react";
 import { useSetRecoilState } from "recoil";
 import { outfit } from "../../library/font";
 import { ApplicationsResponse, sidebarTabs, ApplicationName } from "../../library/types";
 import { activeTabAtom, currentApplicationAtom } from "../../store/atoms";
 import axios from "axios";
 import { SyntheticEvent } from "react";
+import { useSession } from "next-auth/react";
 
 const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) => {
+    const { data: session } = useSession();
 
     const colors = {
         [Status.APPROVED]: "bg-green-600",
@@ -31,9 +33,9 @@ const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) =>
 
     const downloadCertificate = async (e: SyntheticEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        // e.stopPropagationn();
         const res = await axios.get(`/api/download?applicationId=${ele.applicationId}`);
         const a = document.createElement("a");
+        a.download;
         a.type = "download";
         a.href = res.data.url;
         a.click();
@@ -48,13 +50,10 @@ const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) =>
             <span className="text-[19px] flex gap-4 items-center w-[40%]">
                 {ele.type == ApplicationType.TRANSFER_CERTIFICATE && <GraduationCap size={20} />}
                 {ele.type == ApplicationType.STUDY_CERTIFICATE && <BookOpenCheck size={20} />}
+                {ele.type == ApplicationType.CONDUCT_CERTIFICATE && <BookUser size={20} />}
+                {ele.type == ApplicationType.COURSE_CERTIFICATE && <BookOpenCheck />}
                 {ApplicationName[ele.type]}</span>
 
-            {
-                ele.status == Status.APPROVED && (
-                    <button className="border cursor-pointer" onClick={downloadCertificate}>Download</button>
-                )
-            }
             <span className={`self-center w-[20%] text-center font-medium text-slate-500 ${outfit.className}`}>{ele?.details?.rollNo}</span>
             <span className="w-[40%] text-right text-slate-500 flex gap-2 items-center justify-end">
                 <span className={`text-[8px] text-white ${colors[ele.status]} rounded-[20px] py-[4px] px-[8px]`}>{ele.status}</span>
@@ -62,6 +61,11 @@ const ApplicationCard: React.FC<{ ele: ApplicationsResponse[0] }> = ({ ele }) =>
             </span>
             {!ele.createdAt &&
                 <span className="flex bg-teal-400 text-nowrap text-[12px] px-2 py-1 rounded-[20px]">Apply now</span>
+            }
+            {
+                (ele.status == Status.APPROVED && session?.user.type == UserType.USER) && (
+                    <button className="border cursor-pointer px-4 py-2 bg-white hover:bg-green-100 transition-all duration-200 rounded-[5px]" onClick={downloadCertificate}>Download</button>
+                )
             }
         </div>
     )

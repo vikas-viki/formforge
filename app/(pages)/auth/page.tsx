@@ -5,6 +5,7 @@ import { BadgeCheck } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 export default function Auth({ searchParams }: { searchParams: { action: "login" | "signup" } }) {
@@ -19,11 +20,12 @@ export default function Auth({ searchParams }: { searchParams: { action: "login"
 
     const isSignup = searchParams.action == "signup";
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const rememberMe = (document.getElementById("rememberMe") as unknown as { checked: boolean }).checked;
-        signIn("credentials", {
+
+        const result = await signIn("credentials", {
             redirect: false,
             username: formData.get("username"),
             email: formData.get("email"),
@@ -32,6 +34,13 @@ export default function Auth({ searchParams }: { searchParams: { action: "login"
             rememberMe,
             type: searchParams.action
         });
+
+        console.log("signin result: ", result);
+        if(result?.ok ==false || result?.status != 200){
+            toast.error("Error in signin!");
+        }else {
+            toast.success("Authentication successful!");
+        }
     }
 
     const inputClasses = "outline-none rounded-[5px] p-3 text-[14px] sm:text-[15px] w-full border";

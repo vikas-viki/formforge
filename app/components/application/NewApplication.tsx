@@ -3,14 +3,14 @@ import { activeTabAtom, currentApplicationAtom, profileAtom } from "@/app//store
 import { NewApplications, sidebarTabs } from "@/app//library/types";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { breakOnCapital } from "@/app/library/helpers";
 
 export default function NewApplication() {
     const currentApplication = useRecoilValue(currentApplicationAtom) as NewApplications[0];
     const setActiveTab = useSetRecoilState(activeTabAtom);
     const profileDetails = useRecoilValue(profileAtom);
 
-    const inputClasses = "outline-none rounded-[5px] p-3 text-[16px] sm:text-[16px] w-full border";
-    const labelClasses = "text-[16px] sm:text-[18px] font-regular capitalize";
+    const labelClasses = "text-sm font-medium sm:text-[18px] capitalize";
 
     const placeholders = {
         name: "John doe",
@@ -19,7 +19,6 @@ export default function NewApplication() {
         email: "john@gmail.com",
         phoneNumber: "0123456789",
         passingYear: 0o000,
-        joiningYear: 2022,
         course: "B..",
         reason: "I'm filling this...",
         semester: 5,
@@ -32,7 +31,7 @@ export default function NewApplication() {
         dateOfLeaving: "",
         nationality: "Indian",
         religion: "Hindu",
-        motherName:"Emily"
+        motherName: "Emily"
     }
 
     const handler = async (e: any) => {
@@ -40,23 +39,10 @@ export default function NewApplication() {
             e.preventDefault();
             var details: any = {};
             const formData = new FormData(e.target);
-            Object.keys(placeholders).forEach(key => {
-                var val = formData.get(key);
-
-                if (val) {
-                    details[key] = val;
-                    if (typeof placeholders[key as keyof typeof placeholders] == "number") {
-                        details[key] = Number(val);
-                    }
-                    console.log(key, key == "dateOfBirth");
-                    if (key == "dateOfBirth") {
-                        details[key] = new Date(val.toString()).toISOString()
-                    }
-                }
-            });
+            const reason = formData.get("reason");
             var body = {
                 type: currentApplication.type,
-                details
+                reason
             }
             console.log(details)
             await axios.post("/api/applications", body);
@@ -67,22 +53,31 @@ export default function NewApplication() {
         }
     }
 
+    const getDefaultValue = (key: string, value: string) => {
+        if (["dateOfAdmission", "dateOfLeaving", "dateOfBirth"].includes(key)) {
+            return new Date(value).toISOString().split("T")[0];
+        }
+        return value;
+    }
+
     return (
         <form onSubmit={handler}>
             <div className="p-10 flex flex-col bg-white h-full w-full">
                 <div className="flex gap-8 flex-wrap w-full h-max">
                     <span className="w-full bg-orange-200 px-4 py-2 rounded-[10px] font-normal tex-[18px]">
-                        Please fill in the details carefully, as providing incorrect or inappropriate information may lead to the rejection of your application.
+                        Please fill in the details carefully,
+                        most of the details are directly fetched from the profile, make sure to update it correctly.
                     </span>
                     {
                         Object.entries(currentApplication.feilds).map(([key, type], i) => {
                             return (
-                                <div key={i} className="p-2 flex flex-col gap-1 w-max">
-                                    <span className={labelClasses}>{key}</span>
+                                <div key={i} className={`p-2 flex flex-col gap-1 w-max min-w-[22%] `}>
+                                    <span className={labelClasses}>{breakOnCapital(key)}</span>
                                     <input
-                                        defaultValue={profileDetails[key as keyof typeof profileDetails]}
+                                        disabled={profileDetails[key as keyof typeof profileDetails] != null}
+                                        defaultValue={getDefaultValue(key, profileDetails[key as keyof typeof profileDetails])}
                                         type={type}
-                                        className={inputClasses}
+                                        className={`outline-none rounded-[5px] text-[16px] sm:text-[16px] w-full border ${profileDetails[key as keyof typeof profileDetails] ? "border-none text-slate-600 font-medium p-0" : "p-3"}`}
                                         required
                                         name={key}
                                         placeholder={placeholders[key as keyof typeof placeholders]?.toString()}

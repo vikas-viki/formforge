@@ -5,13 +5,14 @@ import { Status, UserType } from ".prisma/client";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { breakOnCapital } from "@/app/library/helpers";
 
 export default function NewApplication() {
     const currentApplication = useRecoilValue(currentApplicationAtom) as ApplicationsResponse[0];
     const { data: session } = useSession();
 
-    const valueClasses = "outline-none rounded-[5px] text-[19px] w-full min-w-[300px] max-w-full";
-    const labelClasses = "text-[20px] font-medium capitalize";
+    const valueClasses = "outline-none rounded-[5px] text-[17px] w-full min-w-[300px] max-w-full";
+    const labelClasses = "text-[18px] font-semibold text-slate-700 capitalize";
 
     const colors = {
         [Status.APPROVED]: "bg-green-300",
@@ -59,13 +60,13 @@ export default function NewApplication() {
                     {getInfo()}
                 </span>
                 {
-                    Object.entries(currentApplication.details).map(([key, value], i) => {
-                        if (!value || key == "applicationId") return;
+                    Object.entries(currentApplication.details || {}).map(([key, value], i) => {
+                        if (!value || ["id", "userId"].includes(key)) return;
                         return (
                             <div key={i} className="p-2 flex flex-col gap-1 w-max ">
-                                <span className={labelClasses}>{key}</span>
+                                <span className={labelClasses}>{breakOnCapital(key)}</span>
                                 <span className={valueClasses} >
-                                    {value?.toString()}
+                                    {!["dateOfAdmission", "dateOfLeaving", "dateOfBirth"].includes(key) ? value?.toString() : new Date(value).toLocaleDateString()}
                                 </span>
                             </div>
                         )

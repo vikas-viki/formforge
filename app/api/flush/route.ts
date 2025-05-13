@@ -7,30 +7,16 @@ export async function GET(req: NextRequest) {
     const searchParams = new URL(req.url);
     const type = searchParams.searchParams.get("type");
 
-    if (type == "pending") {
+    if (type == "getpending") {
         const pendingApplications = await prisma.application.findMany({
             where: {
                 status: Status.PENDING
             }
         });
-
-        await prisma.applicationDetails.deleteMany({
-            where: {
-                applicationId: {
-                    in: pendingApplications.map(p => p.applicationId)
-                }
-            }
-        });
-
-        await prisma.application.deleteMany({
-            where: {
-                status: Status.PENDING
-            }
-        })
+        return NextResponse.json(pendingApplications);
     }
 
     if (type == "applications") {
-        await prisma.applicationDetails.deleteMany();
         await prisma.application.deleteMany();
     }
 

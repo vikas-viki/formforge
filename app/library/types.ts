@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { authBody, profileBody } from "./zod";
-import { ApplicationDetails, ApplicationType, ApplicationType as PrismaApplicationType } from ".prisma/client"
+import { ApplicationType, ApplicationType as PrismaApplicationType, Profile } from ".prisma/client"
 
 declare module "next-auth" {
     interface Session {
@@ -38,7 +38,10 @@ export enum ModalInputTypes {
 
 export enum ApplicationName {
     TRANSFER_CERTIFICATE = "Transfer Certificate",
-    STUDY_CERTIFICATE = "Study Certificate"
+    STUDY_CERTIFICATE = "Study Certificate",
+    CONDUCT_CERTIFICATE= "Conduct Certificate",
+    COURSE_CERTIFICATE = "Course Certificate",
+    NO_DUES_CERTIFICATE = "No Dues Certificate"
 }
 
 export enum UserType {
@@ -57,19 +60,6 @@ export type SubmittedApplication = {
     date: string,
     type: ApplicationType,
     status: Status
-}
-
-export type Profile = {
-    name: string,
-    rollNo: string,
-    email: string,
-    phoneNumber: string,
-    passingYear: string,
-    course: string,
-    reason: string,
-    semester: string,
-    section: string,
-    fatherName: string,
 }
 
 export type AuthBody = z.infer<typeof authBody>;
@@ -113,13 +103,17 @@ export enum sidebarTabs {
 
 export type ApplicationsResponse = {
     applicationId: string,
-    updatedAt: string,
-    createdAt: string,
+    updatedAt: Date,
+    createdAt: Date,
     reason: string | null,
     status: Status,
     type: PrismaApplicationType,
-    details: ApplicationDetails
+    details?: Profile & {reason: string},
+    user?: {
+        profile: Profile 
+    }
 }[];
+
 
 export type NewApplications = {
     type: PrismaApplicationType,
@@ -195,7 +189,7 @@ export type NewAdminBody = {
 
 export type NewApplicationBody = {
     type: ApplicationType,
-    details: ApplicationDetails
+    reason: string
 }
 
 export type StatusUpdateBody = {

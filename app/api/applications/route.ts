@@ -4,11 +4,11 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/app/api/library/constatns";
 import { redirect } from "next/navigation";
-import { ApplicationName, NewApplicationBody, StatusUpdateBody } from "@/app/library/types";
+import { ApplicationsResponse, NewApplicationBody, Status, StatusUpdateBody } from "@/app/library/types";
 import path from "path"
 import fs from "fs";
 import { UPLOAD_OBJECT } from "../library/objectStore";
-import { ApplicationDetails, ApplicationType } from ".prisma/client";
+import { ApplicationType, Profile } from ".prisma/client";
 
 // must be authenticated
 export async function GET() {
@@ -19,34 +19,48 @@ export async function GET() {
             redirect("/login");
         }
 
-        var applications = [];
+        const selection = {
+            type: true,
+            createdAt: true,
+            status: true,
+            applicationId: true,
+            updatedAt: true,
+            reason: true,
+            user: {
+                select: {
+                    createdAt: false,
+                    name: false,
+                    password: false,
+                    type: false,
+                    userId: false,
+                    profile: true
+                },
+
+            }
+        };
+
+        var applications: ApplicationsResponse = [];
         if (session.user.type == "USER") {
             applications = await prisma.application.findMany({
                 where: {
                     userId: session.user.id
                 },
-                include: {
-                    details: true
-                }
-            });
+                select: selection
+            }) as ApplicationsResponse;
         } else {
             applications = await prisma.application.findMany({
-                include: {
-                    details: true
-                }
-            });
+                select: selection
+            }) as ApplicationsResponse;
         }
-        const structuredApplications = [];
-        applications.forEach(a => {
-            structuredApplications.push({
-                name: ApplicationName[a.type],
-                date: (new Date(a.createdAt)),
-                type: a.type,
-                status: a.status,
-                details: {
-                    ...a.details
-                }
-            })
+
+        applications = applications.map(a => {
+            a.details = {
+                ...a.user?.profile!,
+                reason: a.reason || ""
+            };
+            a.details!.userId = "";
+            delete a.user;
+            return a;
         })
 
         return NextResponse.json({ applications });
@@ -64,33 +78,12 @@ export async function POST(req: NextRequest) {
 
         const userId = session.user.id;
         const type = body.type;
-        const details = body.details;
 
-        if (details.passingYear)
-            details.passingYear = Number(details.passingYear);
-
-        const application = await prisma.application.create({
+        await prisma.application.create({
             data: {
                 userId,
-                type
-            }
-        })
-
-        const applicationDetails = await prisma.applicationDetails.create({
-            data: {
-                ...details,
-                applicationId: application.applicationId
-            }
-        })
-
-        await prisma.application.update({
-            where: {
-                applicationId: application.applicationId
-            },
-            data: {
-                details: {
-                    connect: applicationDetails
-                }
+                type,
+                reason: body.reason
             }
         })
 
@@ -114,12 +107,18 @@ export async function PATCH(req: NextRequest) {
                 status: body.status
             },
             include: {
-                details: true
+                user: true
             }
         });
 
-        if (details)
-            await generateCertificate(details.details as ApplicationDetails, details.createdAt, details.type);
+        const profile = await prisma.profile.findFirst({
+            where: {
+                userId: details.userId
+            }
+        })
+
+        if (details && body.status == Status.approved)
+            await generateCertificate(profile as Profile, details.createdAt, details.type, details.applicationId);
 
         return new NextResponse("status updated", { status: 200 });
     } catch (e: any) {
@@ -128,11 +127,24 @@ export async function PATCH(req: NextRequest) {
     }
 }
 
-async function generateCertificate(details: ApplicationDetails, createdAt: Date, type: ApplicationType) {
+async function generateCertificate(details: Profile, createdAt: Date, type: ApplicationType, applicationId: string) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    const html = fs.readFileSync(path.join(process.cwd(), "public/templates/TC.html"), "utf-8");
+    let template;
+    if (type == ApplicationType.TRANSFER_CERTIFICATE) {
+        template = "TC.html";
+    } else if (type == ApplicationType.CONDUCT_CERTIFICATE) {
+        template = "CONDUCT.html";
+    } else if (type == ApplicationType.NO_DUES_CERTIFICATE) {
+        template = "DUES.html";
+    } else if (type == ApplicationType.COURSE_CERTIFICATE) {
+        template = "COURSE.html";
+    } else if (type == ApplicationType.STUDY_CERTIFICATE) {
+        template = "STUDY.html";
+    }
+    
+    const html = fs.readFileSync(path.join(process.cwd(), `public/templates/${template}`), "utf-8");
 
     await page.setContent(
         html,
@@ -142,36 +154,44 @@ async function generateCertificate(details: ApplicationDetails, createdAt: Date,
     );
 
     await page.evaluate((details, createdAt) => {
-        const elements = {
+        const elements: any = {
             name: details.name,
             gender: details.gender,
             religion: details.religion,
             scst: details.scst,
             father_name: details.fatherName,
             mother_name: details.motherName,
-            dob: details.dateOfBirth,
-            date_of_admission: details.dateOfAdmission,
-            date_of_leaving: details.dateOfLeaving,
+            dob: new Date(details.dateOfBirth!).toLocaleDateString(),
+            date_of_admission: new Date(details.dateOfAdmission!).toLocaleDateString(),
+            date_of_leaving: new Date(details.dateOfLeaving!).toLocaleDateString(),
             course: details.course,
             tc_application_date: new Date(createdAt).toLocaleDateString(),
-            tc_issue_date: new Date().toLocaleDateString()
+            tc_issue_date: new Date().toLocaleDateString(),
+            relationship: "",
+            time_period: `${details.dateOfAdmission}-${details.dateOfLeaving ? new Date(details.dateOfLeaving).getFullYear() : "N/A"}`
         }
 
-        Object.entries(elements).forEach(([id, val])=> {
+        if (details.gender == "Male") {
+            elements.relationship = " S/o ";
+        } else {
+            elements.relationship == " D/o "
+        }
+
+        Object.entries(elements).forEach(([id, val]) => {
             let ele = document.getElementById(id);
-            if(ele && val){
+            if (ele && val) {
                 ele.innerText = val.toString();
             }
         })
     }, details, createdAt);
 
     const pdfBytes = await page.pdf({
-        path: path.join(process.cwd(), "public/templates/TC_output.pdf"),
+        // path: path.join(process.cwd(), "public/templates/TC_output.pdf"),
         format: "A4",
         printBackground: true
     });
 
     await browser.close();
 
-    await UPLOAD_OBJECT(details.applicationId, pdfBytes);
+    await UPLOAD_OBJECT(applicationId, pdfBytes);
 }
