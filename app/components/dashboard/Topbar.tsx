@@ -18,7 +18,7 @@ export default function Topbar() {
                     {userDetails.name || "John carter"}
                 </span>
             </div>
-            <SearchFilter />
+            {userDetails.type == "ADMIN" && <SearchFilter />}
             <div className="flex gap-4">
                 <span className="p-2 rounded-[50%] bg-white shadow-sm"><CircleHelp size={18} /></span>
                 <span className="p-2 rounded-[50%] bg-white shadow-sm"><Bell size={18} /></span>
