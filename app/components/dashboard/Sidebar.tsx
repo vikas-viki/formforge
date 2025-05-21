@@ -82,7 +82,7 @@ export default function Sidebar() {
             </div>
             <div className=" w-full h-full flex flex-col items-center justify-end">
                 <div className={`flex gap-4 p-2 rounded-[5px] my-4 bg-white shadow-xl w-max items-center cursor-pointer ${activeTab == sidebarTabs.PROFILE && "outline-blue-600 outline-[1.5px] shadow-lg"}`}
-                    onClick={() => setActiveTab(sidebarTabs.PROFILE)}
+                    onClick={() => userType =="USER" && setActiveTab(sidebarTabs.PROFILE)}
                 >
                     <div className="flex flex-col pl-1">
                         <span>{profile?.name || name}</span>

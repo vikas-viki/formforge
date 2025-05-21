@@ -1,5 +1,5 @@
 "use client"
-import { Bell, CircleHelp, Command, Search } from "lucide-react";
+import { Command, Search } from "lucide-react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { searchFilterAtom, userDetailsAtom } from "@/app/store/atoms";
 import { useEffect, useRef } from "react";
@@ -20,8 +20,8 @@ export default function Topbar() {
             </div>
             {userDetails.type == "ADMIN" && <SearchFilter />}
             <div className="flex gap-4">
-                <span className="p-2 rounded-[50%] bg-white shadow-sm"><CircleHelp size={18} /></span>
-                <span className="p-2 rounded-[50%] bg-white shadow-sm"><Bell size={18} /></span>
+                {/* <span className="p-2 rounded-[50%] bg-white shadow-sm"><CircleHelp size={18} /></span>
+                <span className="p-2 rounded-[50%] bg-white shadow-sm"><Bell size={18} /></span> */}
             </div>
         </div>
     )

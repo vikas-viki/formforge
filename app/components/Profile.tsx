@@ -91,10 +91,10 @@ export default function Profile() {
                                         }}
                                         value={
                                             ["dateOfAdmission", "dateOfLeaving", "dateOfBirth"].includes(key) ?
-                                                new Date(userProfile[key as keyof typeof userProfile]).toLocaleDateString() :
+                                                new Date(userProfile[key as keyof typeof userProfile]).toISOString().split("T")[0] :
                                                 userProfile[key as keyof typeof userProfile] || ""
                                         }
-                                        type={typeof placeholders[key as keyof typeof placeholders]}
+                                        type={ ["dateOfAdmission", "dateOfLeaving", "dateOfBirth"].includes(key) ?"date": typeof placeholders[key as keyof typeof placeholders]}
                                         className={inputClasses}
                                         required
                                         name={key}
