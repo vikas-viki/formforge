@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev ",
-    "build": "next build",
+    "copy:prisma": "mkdir -p .next/prisma && cp -r prisma/client .next/prisma/client",
+    "build": "next build && npm run copy:prisma",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate && npx puppeteer browsers install chrome"

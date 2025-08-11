@@ -4,7 +4,7 @@ import { outfit } from "@/app/library/font";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { filteredApplicationsSelector } from "@/app/store/selectors";
-import { ApplicationType, UserType } from ".prisma/client";
+import { ApplicationType, UserType } from "@/prisma/client";
 import { ApplicationsResponse, GetApplicationsReturn, NewApplications, sidebarTabs } from "@/app/library/types";
 import { activeTabAtom, userDetailsAtom } from "@/app/store/atoms";
 import ApplicationCard from "../application/ApplicationCard";
@@ -33,7 +33,7 @@ const Applications = () => {
                         dateOfBirth: "date",
                         dateOfAdmission: "date",
                         dateOfLeaving: "date",
-                        course: "text",              
+                        course: "text",
                         phoneNumber: "number",
                         rollNo: "text",
                         section: "text",
@@ -89,7 +89,7 @@ const Applications = () => {
             ];
             return applications as GetApplicationsReturn<T>
         } else {
-            console.log({filteredApplications})
+            console.log({ filteredApplications })
             return filteredApplications.slice((currentPage - 1) * 10, currentPage * 10) as GetApplicationsReturn<T>;
         }
     }

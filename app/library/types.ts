@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { authBody, profileBody } from "./zod";
-import { ApplicationType, ApplicationType as PrismaApplicationType, Profile } from ".prisma/client"
+import { ApplicationType, ApplicationType as PrismaApplicationType, Profile } from "@/prisma/client"
 
 declare module "next-auth" {
     interface Session {
@@ -39,7 +39,7 @@ export enum ModalInputTypes {
 export enum ApplicationName {
     TRANSFER_CERTIFICATE = "Transfer Certificate",
     STUDY_CERTIFICATE = "Study Certificate",
-    CONDUCT_CERTIFICATE= "Conduct Certificate",
+    CONDUCT_CERTIFICATE = "Conduct Certificate",
     COURSE_CERTIFICATE = "Course Certificate",
     NO_DUES_CERTIFICATE = "No Dues Certificate"
 }
@@ -108,9 +108,9 @@ export type ApplicationsResponse = {
     reason: string | null,
     status: Status,
     type: PrismaApplicationType,
-    details?: Profile & {reason: string},
+    details?: Profile & { reason: string },
     user?: {
-        profile: Profile 
+        profile: Profile
     }
 }[];
 

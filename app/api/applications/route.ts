@@ -8,7 +8,7 @@ import { ApplicationsResponse, NewApplicationBody, Status, StatusUpdateBody } fr
 import path from "path"
 import fs from "fs";
 import { UPLOAD_OBJECT } from "../library/objectStore";
-import { ApplicationType, Profile } from ".prisma/client";
+import { ApplicationType, Profile } from "@/prisma/client";
 
 // must be authenticated
 export async function GET() {
@@ -143,7 +143,7 @@ async function generateCertificate(details: Profile, createdAt: Date, type: Appl
     } else if (type == ApplicationType.STUDY_CERTIFICATE) {
         template = "STUDY.html";
     }
-    
+
     const html = fs.readFileSync(path.join(process.cwd(), `public/templates/${template}`), "utf-8");
 
     await page.setContent(

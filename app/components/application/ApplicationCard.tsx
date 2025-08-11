@@ -1,4 +1,4 @@
-import { Status, ApplicationType, UserType } from ".prisma/client";
+import { Status, ApplicationType, UserType } from "@/prisma/client";
 import { formatDistanceToNow } from "date-fns";
 import { GraduationCap, BookOpenCheck, BookUser } from "lucide-react";
 import { useSetRecoilState } from "recoil";
