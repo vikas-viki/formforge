@@ -5,20 +5,18 @@ import axios from "axios";
 const globalForS3 = global as unknown as { s3Client: S3Client };
 
 export const s3Client = globalForS3.s3Client ?? new S3Client({
-    endpoint: process.env.OBJECT_STORE_URL,
     credentials: {
         secretAccessKey: process.env.SECRET_ACCESS_KEY!,
         accessKeyId: process.env.ACCESS_KEY!,
     },
-    region: "auto"
+    region: "ap-south-1"
 });
 
 if (!globalForS3.s3Client) globalForS3.s3Client = s3Client;
 
-// functions 
-
 export const UPLOAD_OBJECT = async (name: string, data: Uint8Array<ArrayBufferLike>) => {
     try {
+        console.log("uploading object")
         const command = new PutObjectCommand({
             Key: `${name}.pdf`,
             Bucket: "applify",
@@ -29,13 +27,12 @@ export const UPLOAD_OBJECT = async (name: string, data: Uint8Array<ArrayBufferLi
             expiresIn: 300
         });
 
-        const res = await axios.put(URL, data, {
+        await axios.put(URL, data, {
             headers: {
                 'Content-Type': "application/pdf"
             }
         })
 
-        console.log(res);
     } catch (e: unknown) {
         console.log(e);
     }
